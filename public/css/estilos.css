@@ -1,0 +1,19 @@
+body { padding-top: 55px; }
+
+#franjaInicio{
+  background: #e6a756;
+  width: 100%;
+  height: 100%;
+}
+#menu{
+
+}
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.banner img{
+  height:auto;
+  overflow:auto;
+}
