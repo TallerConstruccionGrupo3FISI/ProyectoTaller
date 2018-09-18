@@ -4,7 +4,8 @@ let db;
 
 module.exports = function conexion(){
   if(!db){
-    db = mongoose.connect("mongodb://localhost:27017/veterinaria");
+    mongoose.connect("mongodb://localhost:27017/veterinaria", { useNewUrlParser: true });
+    db = mongoose.connection;
   }
   return db;
 }
