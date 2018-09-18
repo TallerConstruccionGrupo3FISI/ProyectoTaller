@@ -58,10 +58,18 @@
         CLIENTE
       </div>
     </div>
-    <%for (var i=0; i< clientes.length; i++) { %>
-
-
+    <ul>
+    <%for (var result in clientes){%>
+      <li><%=result%><br>
+        <strong><%=clientes[result].nombres%></strong> <br>
+        <strong><%=clientes[result].apellidos%></strong><br>
+        <strong><%=clientes[result].username%></strong><br>
+        <strong><%=clientes[result].email%></strong><br>
+        <strong><%=clientes[result].password%></strong><br>
+        <strong><%=clientes[result].dni%></strong><br>
+      </li>
     <%}%>
+    </ul>
     </div>
   </div>
 

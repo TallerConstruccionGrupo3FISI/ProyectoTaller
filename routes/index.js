@@ -10,11 +10,16 @@ db.once('open', function() {
 router.get("/", (req,res)=>{
     perro.find({}, (err, perros)=>{
       if(err) throw err;
-      console.log(perros);
       res.render('index',{
       title: "titulos",
       perro: perros
       });
     });
 });
+
+
+router.get("/formularioCliente", (req,res)=>{
+    res.render("formularioCliente");
+});
+
 module.exports = router;

@@ -2,7 +2,7 @@ module.exports = function(){
   var db= require('../libs/db-connection.js')();
   var Schema = require('mongoose').Schema;
 
-  var clientesSchema= new mongoose.Schema({
+  var clientesSchema= Schema({
     nombres:{
       type: String,
       required: true
@@ -10,8 +10,8 @@ module.exports = function(){
     apellidos:{
       type: String,
       required: true
-    }
-    user:{
+    },
+    username:{
       type: String,
       unique:true,
       required: true,
