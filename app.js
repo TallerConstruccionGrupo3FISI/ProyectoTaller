@@ -28,11 +28,13 @@ app.use(express.static(__dirname + '/public'));
 
 //variables rutas
 const indexRoutes = require('./routes/index');
-const apiclientes = require('./routes/clientes');
+const apiClientes = require('./routes/clientes');
+const apiMascotas = require('./routes/mascotas');
 
 //routes
 app.use('/',indexRoutes);
-app.use('/clientes',apiclientes);
+app.use('/clientes',apiClientes);
+app.use('/mascotas',apiMascotas);
 
 app.listen(app.get('port'), ()=>{
   console.log("Servidor corriendo en http://localhost:" + app.get('port') + "\n presionar ctrl+c para terminar");

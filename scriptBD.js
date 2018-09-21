@@ -60,7 +60,7 @@ db.operarios.insert({
 
 //creando tabla perros
 db.mascota.insert({
-	'dni':75699485,
+	'dni':75699486,
 	'nombre': 'firulais',
 	'raza':'pitbul',
 	'edad': 8,
@@ -68,6 +68,20 @@ db.mascota.insert({
 });
 db.mascota.insert({
 	'dni':75699485,
+	'nombre': 'doki',
+	'raza':'pitbul',
+	'edad': 8,
+	'enfermedad': 'rabia'
+});
+db.mascota.insert({
+	'dni':75699481,
+	'nombre': 'doki',
+	'raza':'pitbul',
+	'edad': 8,
+	'enfermedad': 'rabia'
+});
+db.mascota.insert({
+	'dni':75699482,
 	'nombre': 'doki',
 	'raza':'pitbul',
 	'edad': 8,

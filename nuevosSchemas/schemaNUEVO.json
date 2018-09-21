@@ -1,0 +1,335 @@
+{
+	"mascota": {
+		"_id": {
+			"type": "Object",
+			"structure": {
+				"_bsontype": {
+					"type": "string",
+					"required": true
+				},
+				"id": {
+					"type": "Uint8Array",
+					"required": true
+				},
+				"toHexString": {
+					"type": "function",
+					"required": true
+				},
+				"get_inc": {
+					"type": "function",
+					"required": true
+				},
+				"getInc": {
+					"type": "function",
+					"required": true
+				},
+				"generate": {
+					"type": "function",
+					"required": true
+				},
+				"toJSON": {
+					"type": "function",
+					"required": true
+				},
+				"equals": {
+					"type": "function",
+					"required": true
+				},
+				"getTimestamp": {
+					"type": "function",
+					"required": true
+				},
+				"generationTime": {
+					"type": "number",
+					"required": true
+				}
+			},
+			"required": true
+		},
+		"dni": {
+			"type": "number",
+			"required": true
+		},
+		"nombre": {
+			"type": "string",
+			"required": true
+		},
+		"raza": {
+			"type": "string",
+			"required": true
+		},
+		"edad": {
+			"type": "number",
+			"required": true
+		},
+		"enfermedad": {
+			"type": "string",
+			"required": true
+		}
+	},
+	"clientes": {
+		"_id": {
+			"type": "Object",
+			"structure": {
+				"_bsontype": {
+					"type": "string",
+					"required": true
+				},
+				"id": {
+					"type": "Uint8Array",
+					"required": true
+				},
+				"toHexString": {
+					"type": "function",
+					"required": true
+				},
+				"get_inc": {
+					"type": "function",
+					"required": true
+				},
+				"getInc": {
+					"type": "function",
+					"required": true
+				},
+				"generate": {
+					"type": "function",
+					"required": true
+				},
+				"toJSON": {
+					"type": "function",
+					"required": true
+				},
+				"equals": {
+					"type": "function",
+					"required": true
+				},
+				"getTimestamp": {
+					"type": "function",
+					"required": true
+				},
+				"generationTime": {
+					"type": "number",
+					"required": true
+				}
+			},
+			"required": true
+		},
+		"nombres": {
+			"type": "string",
+			"required": true
+		},
+		"apellidos": {
+			"type": "string",
+			"required": true
+		},
+		"username": {
+			"type": "string",
+			"required": true
+		},
+		"email": {
+			"type": "string",
+			"required": true
+		},
+		"password": {
+			"type": "string",
+			"required": true
+		},
+		"dni": {
+			"type": "string",
+			"required": true
+		},
+		"telefono": {
+			"type": "number",
+			"required": true
+		},
+		"direccion": {
+			"type": "string",
+			"required": true
+		},
+		"administrador": {
+			"type": "boolean",
+			"required": true
+		},
+		"operario": {
+			"type": "boolean",
+			"required": true
+		},
+		"__v": {
+			"type": "number",
+			"required": true
+		}
+	},
+	"secretarias": {
+		"_id": {
+			"type": "Object",
+			"structure": {
+				"_bsontype": {
+					"type": "string",
+					"required": true
+				},
+				"id": {
+					"type": "Uint8Array",
+					"required": true
+				},
+				"toHexString": {
+					"type": "function",
+					"required": true
+				},
+				"get_inc": {
+					"type": "function",
+					"required": true
+				},
+				"getInc": {
+					"type": "function",
+					"required": true
+				},
+				"generate": {
+					"type": "function",
+					"required": true
+				},
+				"toJSON": {
+					"type": "function",
+					"required": true
+				},
+				"equals": {
+					"type": "function",
+					"required": true
+				},
+				"getTimestamp": {
+					"type": "function",
+					"required": true
+				},
+				"generationTime": {
+					"type": "number",
+					"required": true
+				}
+			},
+			"required": true
+		},
+		"dni": {
+			"type": "number",
+			"required": true
+		},
+		"horario": {
+			"type": "string",
+			"required": true
+		}
+	},
+	"mascotas": {},
+	"operarios": {
+		"_id": {
+			"type": "Object",
+			"structure": {
+				"_bsontype": {
+					"type": "string",
+					"required": true
+				},
+				"id": {
+					"type": "Uint8Array",
+					"required": true
+				},
+				"toHexString": {
+					"type": "function",
+					"required": true
+				},
+				"get_inc": {
+					"type": "function",
+					"required": true
+				},
+				"getInc": {
+					"type": "function",
+					"required": true
+				},
+				"generate": {
+					"type": "function",
+					"required": true
+				},
+				"toJSON": {
+					"type": "function",
+					"required": true
+				},
+				"equals": {
+					"type": "function",
+					"required": true
+				},
+				"getTimestamp": {
+					"type": "function",
+					"required": true
+				},
+				"generationTime": {
+					"type": "number",
+					"required": true
+				}
+			},
+			"required": true
+		},
+		"dni": {
+			"type": "number",
+			"required": true
+		},
+		"horario": {
+			"type": "string",
+			"required": true
+		}
+	},
+	"citas": {
+		"_id": {
+			"type": "Object",
+			"structure": {
+				"_bsontype": {
+					"type": "string",
+					"required": true
+				},
+				"id": {
+					"type": "Uint8Array",
+					"required": true
+				},
+				"toHexString": {
+					"type": "function",
+					"required": true
+				},
+				"get_inc": {
+					"type": "function",
+					"required": true
+				},
+				"getInc": {
+					"type": "function",
+					"required": true
+				},
+				"generate": {
+					"type": "function",
+					"required": true
+				},
+				"toJSON": {
+					"type": "function",
+					"required": true
+				},
+				"equals": {
+					"type": "function",
+					"required": true
+				},
+				"getTimestamp": {
+					"type": "function",
+					"required": true
+				},
+				"generationTime": {
+					"type": "number",
+					"required": true
+				}
+			},
+			"required": true
+		},
+		"dni": {
+			"type": "number",
+			"required": true
+		},
+		"fecha": {
+			"type": "string",
+			"required": true
+		},
+		"Descripcion": {
+			"type": "string",
+			"required": true
+		}
+	}
+}

@@ -22,4 +22,12 @@ router.get("/formularioCliente", (req,res)=>{
     res.render("formularioCliente");
 });
 
+router.get("/PerfilCliente", (req,res)=>{
+  res.render("PerfilCliente");
+})
+
+router.get("/PerfilMascota",(req,res)=>{
+  res.render("PerfilInformacionMascotas");
+});
+
 module.exports = router;
