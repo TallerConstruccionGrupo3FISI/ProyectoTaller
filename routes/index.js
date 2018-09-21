@@ -1,8 +1,33 @@
 const express = require('express');
 const router = express.Router();
+let db = require('../libs/db-connection.js')();
+var perro = require('../models/perro')();
 
-router.get("/",(req,res)=>{
-  res.render('index');
+db.once('open', function() {
+  console.log("CONECTADO A LA BD");
+});
+
+router.get("/", (req,res)=>{
+    perro.find({}, (err, perros)=>{
+      if(err) throw err;
+      res.render('index',{
+      title: "titulos",
+      perro: perros
+      });
+    });
+});
+
+
+router.get("/formularioCliente", (req,res)=>{
+    res.render("formularioCliente");
+});
+
+router.get("/PerfilCliente", (req,res)=>{
+  res.render("PerfilCliente");
+})
+
+router.get("/PerfilMascota",(req,res)=>{
+  res.render("PerfilInformacionMascotas");
 });
 
 module.exports = router;
