@@ -4,27 +4,25 @@
 <body>
   <% include ./partials/navbar %>
 
+  <div class="container">
+    <section class="login-form">
+    <form action="/clientes/sign_in" method="post" role="login">
+      <img src="http://i.imgur.com/RcmcLv4.png" class="img-responsive" alt="" />
+      <input type="email" name="email" placeholder="Email" required class="form-control input-lg" value="joestudent@gmail.com" />
 
-  <div class="container" id="franjaInicio">
-    <div class="container">
-    <div class="row">
-      <div class="col-md-4">
-        CLIENTE
+      <input type="password" class="form-control input-lg" id="password" placeholder="Password" required="" />
+
+
+      <div class="pwstrength_viewport_progress"></div>
+
+
+      <button type="submit" name="go" class="btn btn-lg btn-primary btn-block">Iniciar session</button>
+      <div>
+        <a href="#">No tiene una cuenta? Registrese</a>
       </div>
-    </div>
-    <ul>
-    <%for (var result in clientes){%>
-      <li><%=result%><br>
-        <strong><%=clientes[result].nombres%></strong> <br>
-        <strong><%=clientes[result].apellidos%></strong><br>
-        <strong><%=clientes[result].username%></strong><br>
-        <strong><%=clientes[result].email%></strong><br>
-        <strong><%=clientes[result].password%></strong><br>
-        <strong><%=clientes[result].dni%></strong><br>
-      </li>
-    <%}%>
-    </ul>
-    </div>
+
+    </form>
+  </section>
   </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

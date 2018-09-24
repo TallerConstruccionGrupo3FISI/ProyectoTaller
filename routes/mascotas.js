@@ -1,13 +1,11 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const router = express.Router();
-let db = require('../libs/db-connection.js')();
-var mascota = require("../models/mascotas")();
 
-/*
-db.once('open', function() {
-  console.log("CONECTADO A LA BD");
-});
-*/
+
+let db = mongoose.createConnection();
+var mascota = require("../models/mascotas");
+
 console.log(mascota);
 router.get('/', (req, res)=>{
   mascota.find({}, (err, mascotas)=>{
