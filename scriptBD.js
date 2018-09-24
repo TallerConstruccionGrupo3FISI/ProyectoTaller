@@ -87,3 +87,20 @@ db.mascota.insert({
 	'edad': 8,
 	'enfermedad': 'rabia'
 });
+
+db.mascota.insert({
+	'dni':75699482,
+	'nombre': 'doki',
+	'raza':'pitbul',
+	'edad': 8,
+	'enfermedad': ['rabia','anemia' ]
+});
+
+
+db.mascota.insert({
+	'dni':75699482,
+	'nombre': 'doki',
+	'raza':'pitbul',
+	'edad': 8,
+	'enfermedad': ['rabia','gripe' ]
+});
