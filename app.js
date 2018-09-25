@@ -9,10 +9,13 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('./config/config.js');
 
-
-
+const passport = require("passport");
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
+require("./passport");
 //mongoose.connect("mongodb://localhost:27017/harold", { useNewUrlParser: true });
 const app = express();
+
 
 if (typeof localStorage === "undefined" || localStorage === null) {
   var LocalStorage = require('node-localstorage').LocalStorage;
@@ -27,6 +30,26 @@ app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
 app.use(bodyParser.json());
+app.use(cookieParser());
+
+app.use(session({
+secret: 'botnyuserdetails', // session secret
+resave: true,
+saveUninitialized: true
+}));
+
+app.use(function(req, res, next) {
+  if(req.session.user)
+  res.locals.user = req.session.user;
+  next();
+});
+/*
+//pasport middlewares
+app.use(session({ secret: 'cats' }));
+app.use(passport.initialize());
+app.use(passport.session());
+*/
+
 
 
 //settings
@@ -37,7 +60,9 @@ app.use(express.static(__dirname + '/public'));
 
 
 //verificando los tokens de los get y post
+/*
 app.use(function(req, res, next) {
+  console.log(req.headers);
   if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT') {
     jsonwebtoken.verify(req.headers.authorization.split(' ')[1], 'RESTFULAPIs', function(err, decode) {
       if (err) req.user = undefined;
@@ -49,17 +74,19 @@ app.use(function(req, res, next) {
     next();
   }
 });
-
-
+*/
 //variables rutas
 const indexRoutes = require('./routes/index');
 const apiClientes = require('./routes/clientes');
 const apiMascotas = require('./routes/mascotas');
+const auth = require('./routes/auth');
 
 //routes
 app.use('/',indexRoutes);
+//app.use('/clientes',passport.authenticate('jwt', {session: false}),apiClientes);
 app.use('/clientes',apiClientes);
 app.use('/mascotas',apiMascotas);
+app.use('/auth', auth);
 
 app.listen(app.get('port'), ()=>{
   console.log("Servidor corriendo en http://localhost:" + app.get('port') + "\n presionar ctrl+c para terminar");
