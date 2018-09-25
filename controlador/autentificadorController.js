@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const config = require('../config/config.js');
 var clientes = require('../models/cliente.js')();
+var expressSession = require('express-session');
+
 //let db= require("../libs/db-connection.js")();
 //var clientes = mongoose.model('clientes');
 
@@ -28,8 +30,6 @@ exports.registrar= function(req, res){
   });
 };
 
-
-
 exports.sign_in = function(req, res) {
   console.log("aqui va el request");
   console.log(req.body);
@@ -40,21 +40,32 @@ exports.sign_in = function(req, res) {
    if (!cliente || !cliente.comparePassword(req.body.password)) {
      return res.status(401).json({ message: 'Authentication failed. Invalid user or password.' });
    }
-    localStorage.setItem("token",jwt.sign({ email: cliente.email, fullName: cliente.apellidos, _id: cliente._id }, 'RESTFULAPIs'));
-    //res.json({ token: jwt.sign({ email: cliente.email, fullName: cliente.apellidos, _id: cliente._id }, 'RESTFULAPIs') });
-    console.log(localStorage.getItem("token"));
-    //return res.json({token: localStorage.getItem("token")});
-    res.redirect("/perfilCliente");
-    res.render("perfilCliente");
+    //localStorage.setItem("token",jwt.sign({ email: cliente.email, fullName: cliente.apellidos, dni: cliente.dni }, 'RESTFULAPIs',{ expiresIn: '1h' }));
+    //var token =  jwt.sign({ email: cliente.email, fullName: cliente.apellidos, dni: cliente.dni }, 'RESTFULAPIs',{ expiresIn: '1h' });
+    //res.set("authorization","JWT " + token);
+    //res.json(token);
+    //var token = localStorage.getItem("token");
+    //console.log("\nEL TOKEN ES: " + token + "\n");
+    //res.cookie('id_token' ,token);
+    req.session.user = cliente;
+    res.redirect('/perfilInformacionCliente');
+    //res.redirect("/perfilCliente");
  });
 };
 
-
-
 exports.loginRequired = function(req, res, next) {
-  if (req.user) {
+  //console.log("req.user: \n" );
+  //console.log(req.user + "\n" );
+  if (req.session.user) {
     next();
   } else {
     return res.status(401).json({ message: 'Unauthorized user!' });
   }
 };
+
+exports.log_out = function(req,res){
+  req.session.destroy(function(){
+      console.log("user logged out.")
+   });
+   res.redirect('/login');
+}

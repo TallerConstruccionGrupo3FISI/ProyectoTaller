@@ -13,8 +13,9 @@ db.once('open', function() {
   console.log("CONECTADO A LA BD");
 });
 
+
 router.get("/", (req,res)=>{
-    res.render('index');
+   res.render('index');
 });
 router.get("/clinica",(req,res)=>{
   res.render("clinica");
@@ -31,12 +32,24 @@ router.get("/contactos",(req,res)=>{
 router.get("/login",(req,res)=>{
   res.render("login");
 });
+router.get("/log_out",(req,res)=>{
+  req.session.destroy(function(){
+      console.log("user logged out.")
+   });
+   res.redirect('/login');
+});
 router.get("/formularioCliente", (req,res)=>{
     res.render("formularioCliente");
 });
-router.get("/perfilCliente",(req,res)=>{
+router.get("/perfilCliente",autentificador.loginRequired,(req,res)=>{
+  //console.log("mi cookie " + req.cookies + "\nacabo la cookie");
+  //console.log("valor de res.locals nuevo\n");
+  //console.log(res.locals.user);
   res.render("perfilCliente");
-})
+});
+router.get("/perfilInformacionCliente",autentificador.loginRequired,(req,res)=>{
+  res.render("perfilInformacionCliente");
+});
 router.get("/perfilMascota",(req,res)=>{
   res.render("perfilInformacionMascotas");
 });

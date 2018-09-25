@@ -22,40 +22,11 @@ module.exports = function(){
 		},
 		"enfermedad": {
 			"type": "string",
-			"required": true
+			"required": false
 		}
+  },
+  {
+    versionKey: false
   });
-  return db.model('mascota',mascotasSchema,"mascota");
+  return db.model('Mascota',mascotasSchema,"mascota");
 }
-/*
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-let db= require("../libs/db-connection.js")();
-
-var mascotaSchema = new Schema({
-  "dni": {
-    "type": "number",
-    "required": true
-  },
-  "nombre": {
-    "type": "string",
-    "required": true
-  },
-  "raza": {
-    "type": "string",
-    "required": true
-  },
-  "edad": {
-    "type": "number",
-    "required": true
-  },
-  "enfermedad": {
-    "type": "string",
-    "required": true
-  }
-});
-
-var Mascota = db.model('Mascota',mascotaSchema,'mascota');
-
-module.export = Mascota;
-*/
