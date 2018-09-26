@@ -44,7 +44,7 @@
                processing: true,
                serverSide: true,
                  "ajax": {
-                     "url": "/mascotas",
+                     "url": "/mascotas/<%=locals.user.dni%>",
                      "type": "GET",
                      "datatype": "json",
                       dataSrc: "mascota"

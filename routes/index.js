@@ -47,9 +47,14 @@ router.get("/perfilCliente",autentificador.loginRequired,(req,res)=>{
   //console.log(res.locals.user);
   res.render("perfilCliente");
 });
+
 router.get("/perfilInformacionCliente",autentificador.loginRequired,(req,res)=>{
   res.render("perfilInformacionCliente");
 });
+router.get("/perfilFormularioMascota",autentificador.loginRequired,(req,res)=>{
+  res.render("perfilFormularioMascota");
+});
+
 router.get("/perfilMascota",(req,res)=>{
   res.render("perfilInformacionMascotas");
 });

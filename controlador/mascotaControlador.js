@@ -16,6 +16,9 @@ mascotas.find({}, function(err,mascota){
 // Display detail page for a specific mascota.
 exports.crear_una_mascota = function(req, res) {
     //res.send('NOT IMPLEMENTED: client detail: ' + req.params.id);
+    console.log("\nEL DNI DEL USUARIO ES: " + req.session.user.dni);
+    console.log("\nEL BODY DEL REQUEST ES: " + req.body);
+    req.body.dni = req.session.user.dni;
     var newMascota = new mascotas(req.body);
     newMascota.save(function(err, mascota){
       if(err)
@@ -30,7 +33,8 @@ exports.leer_mascotas = function(req, res) {
   mascotas.find({dni:req.params.mascotaID},function(err, mascota){
     if(err)
       res.send(err);
-    res.json(mascota);
+    //res.json(mascota);
+    res.json({"mascota":mascota});
   });
 };
 
