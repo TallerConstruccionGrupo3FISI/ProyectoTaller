@@ -12,8 +12,8 @@ var expressSession = require('express-session');
 
 exports.registrar= function(req, res){
   var nuevoCliente = new clientes(req.body);
-  console.log("Aqui va el nuevoCliente");
-  console.log(nuevoCliente);
+  //console.log("Aqui va el nuevoCliente");
+  //console.log(nuevoCliente);
   nuevoCliente.password = bcrypt.hashSync(req.body.password,10);
   nuevoCliente.operario = false;
   nuevoCliente.administrador= false;
@@ -24,8 +24,10 @@ exports.registrar= function(req, res){
      });
     }
     else{
-        nuevoCliente.password = undefined;
-        return res.json(nuevoCliente);
+        //nuevoCliente.password = undefined;
+        //res.json(nuevoCliente);
+        req.session.user = nuevoCliente;
+        return res.redirect('/perfilInformacionCliente');
     }
   });
 };
