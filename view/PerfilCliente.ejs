@@ -19,9 +19,9 @@
 		            </div>
 		            <div class="row">
 		                <div class="col-md-12">
-		                    <form action="/clientes/<%=locals.user.dni%>">
+		                    <form id="myFormPUT">
                               <div class="form-group row">
-                                <label for="username" class="col-4 col-form-label">Nombre de usuario></label>
+                                <label for="username" class="col-4 col-form-label">Nombre de usuario</label>
                                 <div class="col-8">
                                   <input id="username" name="username" placeholder="Username" class="form-control here" required="required" type="text">
                                 </div>
@@ -64,12 +64,12 @@
                                   <textarea id="publicinfo" cols="40" rows="4" class="form-control"></textarea>
                                 </div>
                               </div>
-                              <div class="form-group row">
-                                <div class="offset-4 col-8">
-                                  <button name="submit" type="submit" class="btn btn-primary">Actualizar mi perfil</button>
-                                </div>
-                              </div>
                             </form>
+                            <div class="form-group row">
+                              <div class="offset-4 col-8">
+                                <button onclick="update();" class="btn btn-primary" >Actualizar mi perfil</button>
+                              </div>
+                            </div>
 		                </div>
 		            </div>
 
@@ -79,21 +79,30 @@
 	</div>
   </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<!--script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 <script  type="text/javascript">
 
 function update(){
+                console.log(formToJson());
                 $.ajax({
-                    type: 'PUT',
-                    contentType: "application/atom+xml",
-                    url: "https://spreadsheets.google.com/feeds/cells/0Aq69FHX3TV4ndDBDVFFETUFhamc5S25rdkNoRkd4WXc/od6/private/full/R2C1",
-                    dataType: "xml",
-                    data: "new.xml",
+                    method: 'PUT',
+                    contentType: "application/json",
+                    url: "/clientes/<%=locals.user.dni%>",
+                    dataType: 'json',
+                    data: formToJson(),
+                    /*data: JSON.stringify({
+                      "username": $("username").val(),
+                      "nombres":$("name").val(),
+                      "apellidos":$("lastname").val(),
+                      "email":$("email").val(),
+                      "telefono":$("telefono").val(),
+                      "direccion":$("direccion").val(),
+                    }),*/
                     success: function() {
-                        alert('Put Success');
+                        alert('Actualizacion con exito');
                     },
                     error: function(a,b,c) {
                         console.log("XMLHttpRequest: " + a);
@@ -104,17 +113,45 @@ function update(){
                 });
             }
 
+function formToJson(){
+        var formElement = document.getElementById("myFormPUT"),
+            inputElements = formElement.getElementsByTagName("input"),
+            jsonObject = {};
+        for(var i = 0; i < inputElements.length; i++){
+            var inputElement = inputElements[i];
+            jsonObject[inputElement.name] = inputElement.value;
+
+        }
+        return JSON.stringify(jsonObject);
+    }
+
+    $(document).ready(function () {
+              var $nombres = $('#name');
+              var $apellidos = $('#lastname');
+              var $email = $('#email');
+              var $direccion = $('#direccion');
+              var $telefono = $('#telefono');
+               $.ajax(
+                 {
+                   "type": "GET",
+                   "url": "/clientes/<%=locals.user.dni%>",
+                   "datatype": "json",
+                   success: function(datas){
+                            $.each(datas, function(i, data){
+                              $nombres.val(data.nombres);
+                              $apellidos.val(data.apellidos);
+                              $email.val(data.email);
+                              $direccion.val(data.direccion);
+                              $telefono.val(data.telefono);
+                            });
+                   }
+                });
+    });
+
+
+
 
 </script>
-
-
-
-
-
-
-
-
-
 
 </body>
 </html>

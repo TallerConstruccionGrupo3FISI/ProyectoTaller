@@ -37,6 +37,7 @@ exports.leer_un_cliente = function(req, res) {
 // Handle Author create on POST.
 exports.actualizar_un_cliente = function(req, res) {
     //res.send('NOT IMPLEMENTED: cliente create POST');
+    console.log("el body de actualizar es: " + req.body);
     clientes.findOneAndUpdate({dni:req.params.clienteID},req.body,{new: true}, function(err, cliente){
       if(err)
         res.send(err);

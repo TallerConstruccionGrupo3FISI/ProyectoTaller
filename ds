@@ -1,0 +1,321 @@
+[1mdiff --git a/controlador/clienteControlador.js b/controlador/clienteControlador.js[m
+[1mindex b03c8fe..9b16452 100644[m
+[1m--- a/controlador/clienteControlador.js[m
+[1m+++ b/controlador/clienteControlador.js[m
+[36m@@ -37,6 +37,7 @@[m [mexports.leer_un_cliente = function(req, res) {[m
+ // Handle Author create on POST.[m
+ exports.actualizar_un_cliente = function(req, res) {[m
+     //res.send('NOT IMPLEMENTED: cliente create POST');[m
+[32m+[m[32m    console.log("el body de actualizar es: " + req.body);[m
+     clientes.findOneAndUpdate({dni:req.params.clienteID},req.body,{new: true}, function(err, cliente){[m
+       if(err)[m
+         res.send(err);[m
+[1mdiff --git a/controlador/mascotaControlador.js b/controlador/mascotaControlador.js[m
+[1mindex 8645446..8bb7748 100644[m
+[1m--- a/controlador/mascotaControlador.js[m
+[1m+++ b/controlador/mascotaControlador.js[m
+[36m@@ -23,7 +23,8 @@[m [mexports.crear_una_mascota = function(req, res) {[m
+     newMascota.save(function(err, mascota){[m
+       if(err)[m
+         res.send(err);[m
+[31m-      res.json(mascota);[m
+[32m+[m[32m      //res.json(mascota);[m
+[32m+[m[32m      return res.redirect('/perfilMascota');[m
+     });[m
+ };[m
+ [m
+[1mdiff --git a/view/PerfilCliente.ejs b/view/PerfilCliente.ejs[m
+[1mindex bff12bb..910dd88 100644[m
+[1m--- a/view/PerfilCliente.ejs[m
+[1m+++ b/view/PerfilCliente.ejs[m
+[36m@@ -19,9 +19,9 @@[m
+ 		            </div>[m
+ 		            <div class="row">[m
+ 		                <div class="col-md-12">[m
+[31m-		                    <form action="/clientes/<%=locals.user.dni%>">[m
+[32m+[m		[32m                    <form id="myFormPUT">[m
+                               <div class="form-group row">[m
+[31m-                                <label for="username" class="col-4 col-form-label">Nombre de usuario></label>[m
+[32m+[m[32m                                <label for="username" class="col-4 col-form-label">Nombre de usuario</label>[m
+                                 <div class="col-8">[m
+                                   <input id="username" name="username" placeholder="Username" class="form-control here" required="required" type="text">[m
+                                 </div>[m
+[36m@@ -64,12 +64,12 @@[m
+                                   <textarea id="publicinfo" cols="40" rows="4" class="form-control"></textarea>[m
+                                 </div>[m
+                               </div>[m
+[31m-                              <div class="form-group row">[m
+[31m-                                <div class="offset-4 col-8">[m
+[31m-                                  <button name="submit" type="submit" class="btn btn-primary">Actualizar mi perfil</button>[m
+[31m-                                </div>[m
+[31m-                              </div>[m
+                             </form>[m
+[32m+[m[32m                            <div class="form-group row">[m
+[32m+[m[32m                              <div class="offset-4 col-8">[m
+[32m+[m[32m                                <button onclick="update();" class="btn btn-primary" >Actualizar mi perfil</button>[m
+[32m+[m[32m                              </div>[m
+[32m+[m[32m                            </div>[m
+ 		                </div>[m
+ 		            </div>[m
+ [m
+[36m@@ -79,21 +79,30 @@[m
+ 	</div>[m
+   </div>[m
+ [m
+[31m-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>[m
+[32m+[m[32m<!--script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script-->[m
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>[m
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>[m
+ [m
+ <script  type="text/javascript">[m
+ [m
+ function update(){[m
+[32m+[m[32m                console.log(formToJson());[m
+                 $.ajax({[m
+[31m-                    type: 'PUT',[m
+[31m-                    contentType: "application/atom+xml",[m
+[31m-                    url: "https://spreadsheets.google.com/feeds/cells/0Aq69FHX3TV4ndDBDVFFETUFhamc5S25rdkNoRkd4WXc/od6/private/full/R2C1",[m
+[31m-                    dataType: "xml",[m
+[31m-                    data: "new.xml",[m
+[32m+[m[32m                    method: 'PUT',[m
+[32m+[m[32m                    contentType: "application/json",[m
+[32m+[m[32m                    url: "/clientes/<%=locals.user.dni%>",[m
+[32m+[m[32m                    dataType: 'json',[m
+[32m+[m[32m                    data: formToJson(),[m
+[32m+[m[32m                    /*data: JSON.stringify({[m
+[32m+[m[32m                      "username": $("username").val(),[m
+[32m+[m[32m                      "nombres":$("name").val(),[m
+[32m+[m[32m                      "apellidos":$("lastname").val(),[m
+[32m+[m[32m                      "email":$("email").val(),[m
+[32m+[m[32m                      "telefono":$("telefono").val(),[m
+[32m+[m[32m                      "direccion":$("direccion").val(),[m
+[32m+[m[32m                    }),*/[m
+                     success: function() {[m
+[31m-                        alert('Put Success');[m
+[32m+[m[32m                        alert('Actualizacion con exito');[m
+                     },[m
+                     error: function(a,b,c) {[m
+                         console.log("XMLHttpRequest: " + a);[m
+[36m@@ -104,17 +113,45 @@[m [mfunction update(){[m
+                 });[m
+             }[m
+ [m
+[31m-[m
+[31m-</script>[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[32m+[m[32mfunction formToJson(){[m
+[32m+[m[32m        var formElement = document.getElementById("myFormPUT"),[m
+[32m+[m[32m            inputElements = formElement.getElementsByTagName("input"),[m
+[32m+[m[32m            jsonObject = {};[m
+[32m+[m[32m        for(var i = 0; i < inputElements.length; i++){[m
+[32m+[m[32m            var inputElement = inputElements[i];[m
+[32m+[m[32m            jsonObject[inputElement.name] = inputElement.value;[m
+[32m+[m
+[32m+[m[32m        }[m
+[32m+[m[32m        return JSON.stringify(jsonObject);[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    $(document).ready(function () {[m
+[32m+[m[32m              var $nombres = $('#name');[m
+[32m+[m[32m              var $apellidos = $('#lastname');[m
+[32m+[m[32m              var $email = $('#email');[m
+[32m+[m[32m              var $direccion = $('#direccion');[m
+[32m+[m[32m              var $telefono = $('#telefono');[m
+[32m+[m[32m               $.ajax([m
+[32m+[m[32m                 {[m
+[32m+[m[32m                   "type": "GET",[m
+[32m+[m[32m                   "url": "/clientes/<%=locals.user.dni%>",[m
+[32m+[m[32m                   "datatype": "json",[m
+[32m+[m[32m                   success: function(datas){[m
+[32m+[m[32m                            $.each(datas, function(i, data){[m
+[32m+[m[32m                              $nombres.val(data.nombres);[m
+[32m+[m[32m                              $apellidos.val(data.apellidos);[m
+[32m+[m[32m                              $email.val(data.email);[m
+[32m+[m[32m                              $direccion.val(data.direccion);[m
+[32m+[m[32m                              $telefono.val(data.telefono);[m
+[32m+[m[32m                            });[m
+[32m+[m[32m                   }[m
+[32m+[m[32m                });[m
+[32m+[m[32m    });[m
+ [m
+ [m
+ [m
+ [m
+[32m+[m[32m</script>[m
+ [m
+ </body>[m
+ </html>[m
+[1mdiff --git a/view/PerfilInformacionMascotas.ejs b/view/PerfilInformacionMascotas.ejs[m
+[1mindex 7d28e03..31a2393 100644[m
+[1m--- a/view/PerfilInformacionMascotas.ejs[m
+[1m+++ b/view/PerfilInformacionMascotas.ejs[m
+[36m@@ -13,7 +13,7 @@[m
+ 		        <div class="card-body">[m
+ 		            <div class="row">[m
+ 		                <div class="col-md-12">[m
+[31m-		                    <h4>Tu h<%locals.user.nombres%>h perfil </h4>[m
+[32m+[m		[32m                    <h4>Las mascotas de <%=locals.user.nombres%> </h4>[m
+ 		                    <hr>[m
+                         <div id="dataTable_wrapper"></div>[m
+                             <table id="dataTable" class="table table-bordered table-striped">[m
+[1mdiff --git a/view/formularioCliente.ejs b/view/formularioCliente.ejs[m
+[1mindex 246ffe1..f237ac4 100644[m
+[1m--- a/view/formularioCliente.ejs[m
+[1m+++ b/view/formularioCliente.ejs[m
+[36m@@ -59,5 +59,10 @@[m
+ <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>[m
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>[m
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m
+ </body>[m
+ </html>[m
+[1mdiff --git a/view/perfilFormularioMascota.ejs b/view/perfilFormularioMascota.ejs[m
+[1mindex ef129e7..ae3a9b1 100644[m
+[1m--- a/view/perfilFormularioMascota.ejs[m
+[1m+++ b/view/perfilFormularioMascota.ejs[m
+[36m@@ -21,27 +21,27 @@[m
+ 		                <div class="col-md-12">[m
+ 		                    <form action="/mascotas/registro" method="post">[m
+                               <div class="form-group row">[m
+[31m-                                <label for="username" class="col-4 col-form-label">Nombre de mascota</label>[m
+[32m+[m[32m                                <label for="mascota_name" class="col-4 col-form-label">Nombre de mascota</label>[m
+                                 <div class="col-8">[m
+[31m-                                  <input id="username" name="nombre" placeholder="Username" class="form-control here" required="required" type="text">[m
+[32m+[m[32m                                  <input id="mascota_name" name="nombre" placeholder="Nombre mascota" class="form-control here" required="required" type="text">[m
+                                 </div>[m
+                               </div>[m
+                               <div class="form-group row">[m
+[31m-                                <label for="name" class="col-4 col-form-label">raza</label>[m
+[32m+[m[32m                                <label for="mascota_raza" class="col-4 col-form-label">raza</label>[m
+                                 <div class="col-8">[m
+[31m-                                  <input id="name" name="raza" placeholder="First Name" class="form-control here" type="text">[m
+[32m+[m[32m                                  <input id="mascota_raza" name="raza" placeholder="raza" class="form-control here" type="text">[m
+                                 </div>[m
+                               </div>[m
+                               <div class="form-group row">[m
+[31m-                                <label for="lastname" class="col-4 col-form-label">edad</label>[m
+[32m+[m[32m                                <label for="mascota_edad" class="col-4 col-form-label">edad</label>[m
+                                 <div class="col-8">[m
+[31m-                                  <input id="lastname" name="edad" placeholder="Last Name" class="form-control here" type="text">[m
+[32m+[m[32m                                  <input id="mascota_edad" name="edad" placeholder="edad" class="form-control here" type="text">[m
+                                 </div>[m
+                               </div>[m
+                               <div class="form-group row">[m
+[31m-                                <label for="email" class="col-4 col-form-label">enfermedad</label>[m
+[32m+[m[32m                                <label for="mascota_enfermedad" class="col-4 col-form-label">enfermedad</label>[m
+                                 <div class="col-8">[m
+[31m-                                  <input id="email" name="enfermedad" placeholder="Email" class="form-control here" required="required" type="text">[m
+[32m+[m[32m                                  <input id="mascota_enfermedad" name="enfermedad" placeholder="enfermedad" class="form-control here" required="required" type="text">[m
+                                 </div>[m
+                               </div>[m
+ [m
+[1mdiff --git a/view/perfilInformacionCliente.ejs b/view/perfilInformacionCliente.ejs[m
+[1mindex 8d06433..999f539 100644[m
+[1m--- a/view/perfilInformacionCliente.ejs[m
+[1m+++ b/view/perfilInformacionCliente.ejs[m
+[36m@@ -29,12 +29,6 @@[m
+ <div style="color:#999;" >click here to change profile image</div>[m
+           <!--Upload Image Js And Css-->[m
+ [m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+                </div>[m
+ [m
+         <br>[m
+[36m@@ -42,37 +36,35 @@[m
+         <!-- /input-group -->[m
+       </div>[m
+       <div class="col-sm-6">[m
+[31m-      <h4 style="color:#00b1b1;"><%=locals.user.nombres%> <%=locals.user.apellidos%></h4></span>[m
+[32m+[m[32m      <h4 id = titulo style="color:#00b1b1;"></h4></span>[m
+         <span><p>Cliente</p></span>[m
+       </div>[m
+       <div class="clearfix"></div>[m
+       <hr style="margin:5px 0 5px 0;">[m
+[31m-[m
+[31m-[m
+[31m-                    <div class="col-sm-5 col-xs-6 tital " >Nombres</div><div class="col-sm-7 col-xs-6 "><%=locals.user.nombres%></div>[m
+[32m+[m[32m                    <div class="col-sm-5 col-xs-6 tital " >Nombres</div><div id="nombresDiv" class="col-sm-7 col-xs-6 "></div>[m
+                     <div class="clearfix"></div>[m
+                     <div class="bot-border"></div>[m
+ [m
+[31m-                    <div class="col-sm-5 col-xs-6 tital " >Apellidos:</div><div class="col-sm-7"><%=locals.user.apellidos%></div>[m
+[32m+[m[32m                    <div class="col-sm-5 col-xs-6 tital " >Apellidos:</div><div id="apellidosDiv" class="col-sm-7"></div>[m
+                     <div class="clearfix"></div>[m
+                     <div class="bot-border"></div>[m
+ [m
+[31m-                    <div class="col-sm-5 col-xs-6 tital " >email:</div><div class="col-sm-7"><%=locals.user.email%></div>[m
+[32m+[m[32m                    <div class="col-sm-5 col-xs-6 tital " >email:</div><div id="emailDiv" class="col-sm-7"></div>[m
+ [m
+                     <div class="clearfix"></div>[m
+                     <div class="bot-border"></div>[m
+ [m
+[31m-                    <div class="col-sm-5 col-xs-6 tital " >Dni:</div><div class="col-sm-7"><%=locals.user.dni%></div>[m
+[32m+[m[32m                    <div class="col-sm-5 col-xs-6 tital " >Dni:</div><div id="dniDiv" class="col-sm-7"></div>[m
+ [m
+                     <div class="clearfix"></div>[m
+                     <div class="bot-border"></div>[m
+ [m
+[31m-                    <div class="col-sm-5 col-xs-6 tital " >Direccion:</div><div class="col-sm-7"><%=locals.user.direccion%></div>[m
+[32m+[m[32m                    <div class="col-sm-5 col-xs-6 tital " >Direccion:</div><div id="direccionDiv" class="col-sm-7"></div>[m
+ [m
+                     <div class="clearfix"></div>[m
+                     <div class="bot-border"></div>[m
+ [m
+[31m-                    <div class="col-sm-5 col-xs-6 tital " >Telefono:</div><div class="col-sm-7"><%=locals.user.telefono%></div>[m
+[32m+[m[32m                    <div class="col-sm-5 col-xs-6 tital " >Telefono:</div><div id="telefonoDiv" class="col-sm-7"></div>[m
+ [m
+ [m
+       <!-- /.box-body -->[m
+[36m@@ -101,8 +93,37 @@[m
+     $('#profile-image-upload').click();[m
+   });[m
+   });[m
+[31m-          </script>[m
+[31m-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>[m
+[32m+[m
+[32m+[m
+[32m+[m[32m  $(document).ready(function () {[m
+[32m+[m[32m            var $nombres = $('#nombresDiv');[m
+[32m+[m[32m            var $apellidos = $('#apellidosDiv');[m
+[32m+[m[32m            var $email = $('#emailDiv');[m
+[32m+[m[32m            var $dni = $('#dniDiv');[m
+[32m+[m[32m            var $direccion = $('#direccionDiv');[m
+[32m+[m[32m            var $telefono = $('#telefonoDiv');[m
+[32m+[m[32m            var $titulo = $('#titulo');[m
+[32m+[m
+[32m+[m[32m             $.ajax([m
+[32m+[m[32m               {[m
+[32m+[m[32m                 "type": "GET",[m
+[32m+[m[32m                 "url": "/clientes/<%=locals.user.dni%>",[m
+[32m+[m[32m                 "datatype": "json",[m
+[32m+[m[32m                 success: function(datas){[m
+[32m+[m[32m                          $.each(datas, function(i, data){[m
+[32m+[m[32m                            $nombres.append(data.nombres);[m
+[32m+[m[32m                            $apellidos.append(data.apellidos);[m
+[32m+[m[32m                            $email.append(data.email);[m
+[32m+[m[32m                            $dni.append(data.dni);[m
+[32m+[m[32m                            $direccion.append(data.direccion);[m
+[32m+[m[32m                            $telefono.append(data.telefono);[m
+[32m+[m[32m                            $titulo.append(data.nombres + " " + data.apellidos);[m
+[32m+[m[32m                          });[m
+[32m+[m[32m                 }[m
+[32m+[m[32m              });[m
+[32m+[m[32m         });[m
+[32m+[m[32m  </script>[m
+[32m+[m[32m<!--script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script-->[m
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>[m
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>[m
+ </body>[m

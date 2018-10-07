@@ -23,7 +23,8 @@ exports.crear_una_mascota = function(req, res) {
     newMascota.save(function(err, mascota){
       if(err)
         res.send(err);
-      res.json(mascota);
+      //res.json(mascota);
+      return res.redirect('/perfilMascota');
     });
 };
 
