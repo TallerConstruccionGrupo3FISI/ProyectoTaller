@@ -43,16 +43,15 @@ app.use(function(req, res, next) {
   res.locals.user = req.session.user;
   next();
 });
+
 /*
 //pasport middlewares
 app.use(session({ secret: 'cats' }));
 app.use(passport.initialize());
 app.use(passport.session());
 */
-
-
-
 //settings
+
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname +'/view/');
 app.set('view engine','ejs');

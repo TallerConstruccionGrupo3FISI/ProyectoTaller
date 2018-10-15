@@ -32,6 +32,52 @@ exports.registrar= function(req, res){
   });
 };
 
+exports.registrar_operario= function(req, res){
+  var nuevoCliente = new clientes(req.body);
+  //console.log("Aqui va el nuevoCliente");
+  //console.log(nuevoCliente);
+  nuevoCliente.password = bcrypt.hashSync(req.body.password,10);
+  nuevoCliente.operario = true;
+  nuevoCliente.administrador= false;
+  nuevoCliente.save(function(err, user){
+    if(err){
+      return res.status(400).send({
+       message: err
+     });
+    }
+    else{
+        //nuevoCliente.password = undefined;
+        //res.json(nuevoCliente);
+        req.session.user = nuevoCliente;
+        return res.redirect('/perfilInformacionCliente');
+    }
+  });
+};
+
+exports.registrar_administrador= function(req, res){
+  var nuevoCliente = new clientes(req.body);
+  //console.log("Aqui va el nuevoCliente");
+  //console.log(nuevoCliente);
+  nuevoCliente.password = bcrypt.hashSync(req.body.password,10);
+  nuevoCliente.operario = false;
+  nuevoCliente.administrador= true;
+  nuevoCliente.save(function(err, user){
+    if(err){
+      return res.status(400).send({
+       message: err
+     });
+    }
+    else{
+        //nuevoCliente.password = undefined;
+        //res.json(nuevoCliente);
+        req.session.user = nuevoCliente;
+        return res.redirect('/perfilInformacionCliente');
+    }
+  });
+};
+
+
+
 exports.sign_in = function(req, res) {
   console.log("aqui va el request");
   console.log(req.body);
