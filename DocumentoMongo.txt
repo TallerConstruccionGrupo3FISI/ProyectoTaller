@@ -1,0 +1,76 @@
+Cliente
+{
+ nombres: String,
+ apellidos: String,
+ email: String,
+ contraseña: String,
+ numeroTelefono: Int,
+ fechaNacimiento: Date,
+ distrito: String,
+ direccion: String,
+ Medico: Medico,
+ Secretaria: Secretaria,
+ Mascota: Array
+}
+
+Medico{
+especialidad: String,
+cargo: String,
+Horario: Array
+}
+
+Secretaria{
+horario: Array
+}
+
+Horario{
+ dia: String,
+ HoraInicio: String,
+ HoraSalida: String
+}
+
+Mascota{
+ nombre: String,
+ tipo: String,
+ raza: String,
+ fechaNacimiento: Date,
+ sexo: String,
+ alimentacion: String,
+ estirilizado: Boolean,
+ conViveConOtrosAnimales: Boolean,
+ vacunado: Boolean,
+ ultimaVisitaVeterinario: Date,
+ enfermedadesDiagnosticadas: Array,
+ citas: Array,
+ HistorialClinico: HistorialSchema
+}
+
+Citas{
+ fecha: Date,
+ hora: Date,
+ motivo: String,
+ estado: String,
+ tipo: Object
+}
+
+BañoCorte{
+ tipo: String,
+ corte: Boolean
+}
+
+consulta{
+ tipo: String
+ motivo: String
+}
+
+HistorialClinico{
+F.C : Int,
+F.R : String,
+T: String,
+linfonodos: String,
+mucosas: Int,
+DH: String,
+pulso: String,
+TLLC: String,
+palpitacionAbdominal: String
+}
