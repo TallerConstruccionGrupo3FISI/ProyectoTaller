@@ -2,6 +2,7 @@ module.exports = function(){
   var db= require('../libs/db-connection.js')();
   var Schema = require('mongoose').Schema;
   var bcrypt = require('bcryptjs');
+
   var clientesSchema= Schema({
     nombres:{
       type: String,
@@ -10,12 +11,6 @@ module.exports = function(){
     apellidos:{
       type: String,
       required: true
-    },
-    username:{
-      type: String,
-      unique:true,
-      required: true,
-      trim: true
     },
     email:{
       type: String,
@@ -35,23 +30,44 @@ module.exports = function(){
       type: Number,
       required: true
     },
+    fechaNacimiento:{
+      type: Date,
+      required: true
+    },
     direccion:{
       type: String,
       required: true
     },
-    administrador:{
-      type: Boolean,
+    distrito:{
+        type: String,
+        required: true
+      },
+    secretaria:{
+      type: Schema.Types.ObjectId,
+      ref: 'Secretaria',
       required: false
     },
-    operario:{
-      type: Boolean,
+    medico:{
+      type: Schema.Types.ObjectId,
+      ref: 'Medico',
       required: false
-    }
+    },
+    mascotas:[{
+      type: Schema.Types.ObjectId,
+      ref: "Mascota",
+      required: false
+    }]
   });
+
+
+
 
   clientesSchema.methods.comparePassword = function(pass){
     return bcrypt.compareSync(pass,this.password);
   };
 
+  //db.model('horario',horarioSchema);
+  //db.model('medico',medicoSchema);
+  //db.model('secretaria',secretariaSchema);
   return db.model('Cliente',clientesSchema,"clientes");
 }

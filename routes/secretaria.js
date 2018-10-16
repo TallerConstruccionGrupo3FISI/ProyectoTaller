@@ -1,7 +1,7 @@
 const express = require('express');
 //const mongoose = require('mongoose');
 const router = express.Router();
-const mascotaControlador = require("../controlador/mascotaControlador.js");
+const secretariaControlador = require("../controlador/secretariaControlador.js");
 const autentificador = require("../controlador/autentificadorController.js");
 
 //let db = mongoose.createConnection();
@@ -19,12 +19,12 @@ router.get('/', (req, res)=>{
 */
 
 router.route("/")
-          .get(mascotaControlador.listar_mascotas)
-          .post(mascotaControlador.crear_una_mascota);
-router.route("/:mascotaID")
-          .get(mascotaControlador.leer_mascotas)
-          .put(mascotaControlador.actualizar_una_mascota)
-          .delete(mascotaControlador.eliminar_una_mascota);
+          .get(secretariaControlador.listar_secretarias)
+          .post(secretariaControlador.crear_una_secretaria);
+router.route("/:secretariaID")
+          .get(secretariaControlador.leer_una_secretaria)
+          .put(secretariaControlador.actualizar_una_secretaria)
+          .delete(secretariaControlador.eliminar_una_secretaria);
 /*
 router.route("/registro")
           .post(autentificador.registrar);

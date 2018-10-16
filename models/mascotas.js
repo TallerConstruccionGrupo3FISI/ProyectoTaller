@@ -3,30 +3,71 @@ module.exports = function(){
   var Schema = require('mongoose').Schema;
 
   var mascotasSchema= Schema({
-
-    "dni": {
-			"type": "number",
-			"required": true
+    _dueño: {
+      type: Schema.Types.ObjectId,
+      ref: "clientes",
+      required: true
+    },
+		nombre: {
+			type: String,
+			required: true
 		},
-		"nombre": {
-			"type": "string",
-			"required": true
+    tipo:{
+      type: String,
+      required: true
+    },
+		raza: {
+			type: String,
+			required: true
 		},
-		"raza": {
-			"type": "string",
-			"required": true
+		fechaNacimiento: {
+			type: Date,
+			required: true
 		},
-		"edad": {
-			"type": "number",
-			"required": true
+		sexo: {
+			type: String,
+			required: false
 		},
-		"enfermedad": {
-			"type": "string",
-			"required": false
-		}
+    alimentacion: {
+      type: String,
+      required: false
+    },
+    estirilizado:{
+      type: Boolean,
+      required: true
+    },
+    conviveConOtrosAnimales: {
+      type: Boolean,
+      required: true
+    },
+    vacunado: {
+      type: Boolean,
+      required: true
+    },
+    ultimaVisitaVeterinario: {
+      type: Date,
+      required: false
+    },
+    enfermedadesDiagnosticadas: {
+      type: Array,
+      required: false
+    },
+    citas: [{
+      type: Schema.Types.ObjectId,
+      ref: "citas",
+      required: false
+    }],
+    historialClinico: {
+      type: Schema.Types.ObjectId,
+      ref: "historialClinico",
+      required: false
+    }
   },
   {
     versionKey: false
   });
-  return db.model('Mascota',mascotasSchema,"mascota");
+
+
+
+  return db.model('Mascota',mascotasSchema,"mascotas");
 }
