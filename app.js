@@ -15,7 +15,7 @@ const cookieParser = require("cookie-parser");
 require("./passport");
 //mongoose.connect("mongodb://localhost:27017/harold", { useNewUrlParser: true });
 const app = express();
-
+mongoose.set('useFindAndModify', false);
 
 if (typeof localStorage === "undefined" || localStorage === null) {
   var LocalStorage = require('node-localstorage').LocalStorage;

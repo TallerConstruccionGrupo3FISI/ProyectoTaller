@@ -37,12 +37,17 @@ exports.leer_un_cliente = function(req, res) {
 // Handle Author create on POST.
 exports.actualizar_un_cliente = function(req, res) {
     //res.send('NOT IMPLEMENTED: cliente create POST');
-    console.log("el body de actualizar es: " + req.body);
-    clientes.findOneAndUpdate({dni:req.params.clienteID},req.body,{new: true}, function(err, cliente){
-      if(err)
-        res.send(err);
-      res.json(cliente);
+    console.log(req.body);
+    console.log("el valor de param.clienteID: " + req.params.clienteID);
+    clientes.findOneAndUpdate({_id:req.session.user._id},req.body, function(err, cliente){
+      if(err){
+        return res.status(400).send({
+         message: err
+       });}
+      res.json({"cliente": cliente});
     });
+    //req.body.fechaNacimiento = new Date(req.body.fechaNacimiento).toJSON;
+    //req.body.fechaNacimiento = new Date(req.body.fechaNacimiento);
 };
 
 // Display Author delete form on GET.

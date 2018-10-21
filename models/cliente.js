@@ -49,7 +49,7 @@ module.exports = function(){
     },
     medico:{
       type: Schema.Types.ObjectId,
-      ref: 'Medico',
+      ref: 'medicos',
       required: false
     },
     mascotas:[{

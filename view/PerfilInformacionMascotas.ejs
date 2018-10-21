@@ -18,12 +18,18 @@
                         <div id="dataTable_wrapper"></div>
                             <table id="dataTable" class="table table-bordered table-striped">
                                 <thead>
-                                    <tr>
-                                        <th>DNI</th>
+                                    <tr id="tableHead">
                                         <th>NOMBRE</th>
+                                        <th>TIPO</th>
                                         <th>RAZA</th>
-                                        <th>EDAD</th>
-                                        <th>ENFERMEDAD</th>
+                                        <th>FECHA NACIMIENTO</th>
+
+                                        <th>SEXO</th>
+                                        <th>ALIMENTACION</th>
+                                        <th>ESTIRILIZADO</th>
+                                        <th>CONVIVE CON OTROS ANIMALES</th>
+                                        <th>VACUNADO</th>
+                                        <th>ULTIMA VISITA</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -44,17 +50,40 @@
                processing: true,
                serverSide: true,
                  "ajax": {
-                     "url": "/mascotas/<%=locals.user.dni%>",
+                     "url": "/mascotas/<%=locals.user._id%>",
                      "type": "GET",
                      "datatype": "json",
                       dataSrc: "mascota"
                  },
                  "columns": [
-                     { "data": "dni" },
                      { "data": "nombre" },
+                     { "data": "tipo" },
                      { "data": "raza" },
-                     { "data": "edad" },
-                     { "data": "enfermedad" }
+                     { "data": "fechaNacimiento",
+                       "render": function(data){
+                         var dataIso = new Date(data);
+                         var dia= dataIso.getDate();
+                         var mes= dataIso.getMonth();
+                         var ano= dataIso.getFullYear();
+                         var fecha = dia + "/" + (mes+1) + "/" + ano;
+                         return fecha;
+                       }
+                     },
+                     { "data": "sexo" },
+                     { "data": "alimentacion" },
+                     { "data": "estirilizado" },
+                     { "data": "conviveConOtrosAnimales" },
+                     { "data": "vacunado" },
+                     { "data": "ultimaVisitaVeterinario",
+                       "render": function(data){
+                         var dataIso = new Date(data);
+                         var dia= dataIso.getDate();
+                         var mes= dataIso.getMonth();
+                         var ano= dataIso.getFullYear();
+                         var fecha = dia + "/" + (mes+1) + "/" + ano;
+                         return fecha;
+                       }
+                     }
                  ]
              });
          });
