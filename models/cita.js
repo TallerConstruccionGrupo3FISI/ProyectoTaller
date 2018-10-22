@@ -8,13 +8,10 @@ module.exports = function(){
       required: true,
       ref: "Mascota"
     },
-    fecha: {
-      type: Date,
-      required: false
-    },
-    hora: {
-      type: Date,
-      required: false
+    _horario:{
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "Horario"
     },
     motivo: {
       type: String,
