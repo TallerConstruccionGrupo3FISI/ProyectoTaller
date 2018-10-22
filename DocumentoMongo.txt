@@ -24,9 +24,11 @@ horario: Array
 }
 
 Horario{
+ fecha:date,
  dia: String,
  HoraInicio: String,
- HoraSalida: String
+ HoraSalida: String,
+ _citas: Array
 }
 
 Mascota{

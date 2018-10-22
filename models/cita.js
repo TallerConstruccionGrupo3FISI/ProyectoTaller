@@ -3,6 +3,11 @@ module.exports = function(){
   var Schema = require('mongoose').Schema;
 
   var citas = Schema({
+    _mascota: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "Mascota"
+    },
     fecha: {
       type: Date,
       required: false
@@ -20,14 +25,8 @@ module.exports = function(){
       required: false
     },
     tipo: {
-      type: Schema.Types.ObjectId,
-      required: true,
-      refPath: "tipoModel"
-    },
-    tipoModel: {
       type: String,
-      required: true,
-      enum: ['BanoCorte','Consultas']
+      required: true
     }
   },
   {

@@ -105,8 +105,13 @@ exports.sign_in = function(req, res) {
     //console.log("\nEL TOKEN ES: " + token + "\n");
     //res.cookie('id_token' ,token);
     req.session.user = cliente;
-    res.redirect('/perfilInformacionCliente');
-    //res.redirect("/perfilCliente");
+    if(cliente.secretaria){
+      res.redirect('/perfilInformacionSecretaria');
+    }else if(cliente.medico){
+      res.redirect('/perfilInformacionMedico');
+    }else{
+      res.redirect('/perfilInformacionCliente');
+  }
  });
 };
 
