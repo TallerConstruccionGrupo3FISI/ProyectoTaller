@@ -15,6 +15,16 @@ mascotas.find({}, function(err,mascota){
   //console.log("\nfechaNacimiento ES " + mascota.fechaNacimiento + "\n");
   res.json({mascota});
   });
+/*
+mascotas.find()
+.populate("_dueño")
+.exec(function(err, resultados){
+  if(err){
+    res.send(err);
+  }
+    res.json({resultados: resultados});
+});
+*/
 };
 
 // Display detail page for a specific mascota.

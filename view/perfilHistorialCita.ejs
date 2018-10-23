@@ -17,17 +17,11 @@
                             <table id="dataTable" class="table table-bordered table-striped">
                                 <thead>
                                     <tr id="tableHead">
-                                        <th>NOMBRE</th>
+                                        <th>CLIENTE</th>
+                                        <th>MASCOTA</th>
+                                        <th>MOTIVO</th>
+                                        <th>ESTADO</th>
                                         <th>TIPO</th>
-                                        <th>RAZA</th>
-                                        <th>FECHA NACIMIENTO</th>
-
-                                        <th>SEXO</th>
-                                        <th>ALIMENTACION</th>
-                                        <th>ESTIRILIZADO</th>
-                                        <th>CONVIVE CON OTROS ANIMALES</th>
-                                        <th>VACUNADO</th>
-                                        <th>ULTIMA VISITA</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -46,7 +40,7 @@
                processing: true,
                serverSide: true,
                  "ajax": {
-                     "url": "/mascotas/<%=locals.user._id%>",
+                     "url": "/cita/<%=locals.user._id%>",
                      "type": "GET",
                      "datatype": "json",
                       dataSrc: "mascota"

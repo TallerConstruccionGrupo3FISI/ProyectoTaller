@@ -5,7 +5,7 @@ module.exports = function(){
   var mascotasSchema= Schema({
     _dueño: {
       type: Schema.Types.ObjectId,
-      ref: "clientes",
+      ref: "Cliente",
       required: true
     },
 		nombre: {

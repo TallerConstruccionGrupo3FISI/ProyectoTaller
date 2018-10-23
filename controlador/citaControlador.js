@@ -2,14 +2,25 @@
 var mongoose = require('mongoose');
 //var clientes = mongoose.model('clientes');
 var cita = require("../models/cita")();
-
+var cliente = require("../models/cliente")();
+var mascota = require("../models/mascotas")();
 // Display list of all mascota.
 exports.listar_citas = function(req, res) {
 //    res.send('NOT IMPLEMENTED: cliente list');
+/*
 cita.find({}, function(err,citas){
   if(err)
     res.send(err);
   res.json({"cita":citas});
+  });
+  */
+  cita.find({})
+  .populate('_mascota')
+  .populate('_horario')
+  .exec(function (err, resultados){
+    if(err)
+      res.send(err);
+    res.json({"cita":resultados});
   });
 };
 
@@ -27,11 +38,20 @@ exports.crear_una_cita = function(req, res) {
 // Display Author create form on GET.
 exports.leer_una_cita= function(req, res) {
   //  res.send('NOT IMPLEMENTED: cliente create GET');
-  cita.find({_id:req.params.citaID},function(err, citas){
+  /*cita.find({_id:req.params.citaID},function(err, citas){
     if(err)
       res.send(err);
     //res.json(mascota);
     res.json({"cita":citas});
+  });*/
+  console.log("EL PARAETRO DE CITA ES : " + req.params.citaID );
+  cita.find( { "_mascota": { $elemMatch: { "_dueño": req.params.citaID }}} )
+  .populate('_mascota')
+  .populate('_horario')
+  .exec(function (err, resultados){
+    if(err)
+      res.send(err);
+    res.json(resultados);
   });
 };
 
