@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include ./partials/headers %>
+<body>
+  <% include ./partials/navbar %>
+
+
+  <div class="container" >
+    <div class="row">
+    <% include ./partials/dashboard %>
+
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>REGISTRAR CITA</h4>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form action="/citas" method="post">
+
+                              <div class="form-group row">
+                                <label for="_mascota" class="col-4 col-form-label">Escoger Mascota</label>
+                                <div class="col-8">
+                                  <select class="form-control" id="_mascota" name="_mascota">
+                                  </select>
+                                </div>
+                              </div>
+
+                              <div class="form-group row">
+                                <label for="_horario" class="col-4 col-form-label">Escoger Horario Cita</label>
+                                <div class="col-8">
+                                  <select class="form-control" id="_horario" name="_horario">
+
+                                  </select>
+                                </div>
+                              </div>
+
+
+                              <div class="form-group row">
+                                <label for="motivo" class="col-4 col-form-label">Motivo</label>
+                                <div class="col-8">
+                                      <textarea class="form-control" id="motivo" name="motivo" placeholder="agregar el motivo de la cita" rows="3"></textarea>
+                                </div>
+                              </div>
+
+
+                              <div class="form-group row">
+                                <div class="offset-4 col-8">
+                                  <button type="submit" class="btn btn-primary">Registrar mi mascota</button>
+                                </div>
+                              </div>
+                            </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+  </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+
+  var $mascotas = $('#_mascota');
+  var $horarios = $('#_horario');
+
+   $.ajax(
+     {
+       "type": "GET",
+       "url": "/mascotas",
+       "datatype": "json",
+       success: function(datas){
+                $.each(datas, function(i, data){
+                  $mascotas.append("<option> "+ data.nombres+" </option>");
+                });
+       }
+    });
+
+    $.ajax(
+      {
+        "type": "GET",
+        "url": "/horarios",
+        "datatype": "json",
+        success: function(datas){
+                 $.each(datas, function(i, data){
+                    $horarios.append("<option> "+ data.fecha+" </option>");
+                 });
+        }
+     });
+
+
+})
+</script>
+
+<% include ./partials/footer-js %>
+
+</body>
+</html>

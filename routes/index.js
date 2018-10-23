@@ -51,12 +51,31 @@ router.get("/perfilCliente",autentificador.loginRequired,(req,res)=>{
 router.get("/perfilInformacionCliente",autentificador.loginRequired,(req,res)=>{
   res.render("perfilInformacionCliente");
 });
+
+//DATOS SECRETARIA
+router.get("/perfilInformacionSecretaria",autentificador.loginRequired,(req,res)=>{
+  res.render("perfilInformacionSecretaria");
+});
+router.get("/perfilIngresarHorarioAtencion",autentificador.loginRequired,(req,res)=>{
+  res.render("perfilIngresarHorarioAtencion");
+});
+
+router.get("/perfilInformacionMedico",autentificador.loginRequired,(req,res)=>{
+  res.render("perfilInformacionMedico");
+});
+
 router.get("/perfilFormularioMascota",autentificador.loginRequired,(req,res)=>{
   res.render("perfilFormularioMascota");
 });
 
 router.get("/perfilMascota",(req,res)=>{
   res.render("perfilInformacionMascotas");
+});
+router.get("/perfilReservarCita",(req,res)=>{
+  res.render("perfilReservarCita");
+});
+router.get("/perfilHistorialCita",(req,res)=>{
+  res.render("perfilHistorialCita");
 });
 
 module.exports = router;

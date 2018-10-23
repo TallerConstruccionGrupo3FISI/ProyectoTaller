@@ -15,7 +15,7 @@ const cookieParser = require("cookie-parser");
 require("./passport");
 //mongoose.connect("mongodb://localhost:27017/harold", { useNewUrlParser: true });
 const app = express();
-
+mongoose.set('useFindAndModify', false);
 
 if (typeof localStorage === "undefined" || localStorage === null) {
   var LocalStorage = require('node-localstorage').LocalStorage;
@@ -56,7 +56,7 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname +'/view/');
 app.set('view engine','ejs');
 app.use(express.static(__dirname + '/public'));
-
+app.use(express.static(__dirname + '/node_modules'));
 
 //verificando los tokens de los get y post
 /*
@@ -78,6 +78,15 @@ app.use(function(req, res, next) {
 const indexRoutes = require('./routes/index');
 const apiClientes = require('./routes/clientes');
 const apiMascotas = require('./routes/mascotas');
+const apiHorarios = require('./routes/horarios');
+const apiMedicos = require('./routes/medico');
+const apiSecretaria = require("./routes/secretaria");
+const apiHistorialClinico = require("./routes/historialClinico");
+const apiBanoCorte = require("./routes/banoCorte");
+const apiCita = require("./routes/cita");
+const apiConsulta = require("./routes/consulta");
+
+
 const auth = require('./routes/auth');
 
 //routes
@@ -85,6 +94,13 @@ app.use('/',indexRoutes);
 //app.use('/clientes',passport.authenticate('jwt', {session: false}),apiClientes);
 app.use('/clientes',apiClientes);
 app.use('/mascotas',apiMascotas);
+app.use('/horarios',apiHorarios);
+app.use('/medicos',apiMedicos);
+app.use('/secretaria',apiSecretaria);
+app.use('/historialClinico',apiHistorialClinico);
+app.use('/banoCorte',apiBanoCorte);
+app.use('/cita',apiCita);
+app.use('/consulta',apiConsulta);
 app.use('/auth', auth);
 
 app.listen(app.get('port'), ()=>{

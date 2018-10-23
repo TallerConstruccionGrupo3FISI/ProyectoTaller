@@ -6,25 +6,21 @@ const bcrypt = require('bcryptjs');
 const config = require('../config/config.js');
 var clientes = require('../models/cliente.js')();
 var expressSession = require('express-session');
-
+var medicos = require('../models/medico.js')();
+var secretarias = require('../models/secretaria.js')();
 //let db= require("../libs/db-connection.js")();
 //var clientes = mongoose.model('clientes');
 
 exports.registrar= function(req, res){
   var nuevoCliente = new clientes(req.body);
-  //console.log("Aqui va el nuevoCliente");
-  //console.log(nuevoCliente);
   nuevoCliente.password = bcrypt.hashSync(req.body.password,10);
-  nuevoCliente.operario = false;
-  nuevoCliente.administrador= false;
-  nuevoCliente.save(function(err, user){
+  nuevoCliente.save(function(err){
     if(err){
       return res.status(400).send({
        message: err
      });
     }
     else{
-        //nuevoCliente.password = undefined;
         //res.json(nuevoCliente);
         req.session.user = nuevoCliente;
         return res.redirect('/perfilInformacionCliente');
@@ -32,35 +28,44 @@ exports.registrar= function(req, res){
   });
 };
 
-exports.registrar_operario= function(req, res){
+exports.registrar_medico= function(req, res){
   var nuevoCliente = new clientes(req.body);
-  //console.log("Aqui va el nuevoCliente");
-  //console.log(nuevoCliente);
   nuevoCliente.password = bcrypt.hashSync(req.body.password,10);
-  nuevoCliente.operario = true;
-  nuevoCliente.administrador= false;
-  nuevoCliente.save(function(err, user){
+
+  var medico = new medicos({
+    _cliente : nuevoCliente._id,
+    especialidad: "cirujano en proceso",
+    cargo: "jefazo",
+    horario: []
+  });
+  nuevoCliente.medico = medico._id;
+
+  nuevoCliente.save(function(err){
     if(err){
       return res.status(400).send({
        message: err
-     });
-    }
+     });}
     else{
-        //nuevoCliente.password = undefined;
-        //res.json(nuevoCliente);
-        req.session.user = nuevoCliente;
-        return res.redirect('/perfilInformacionCliente');
+        medico.save(function(err) {
+          if(err){
+            return res.status(400).send({
+             message: err
+           });
+          }
+      });
+        res.json(nuevoCliente);
     }
   });
 };
 
-exports.registrar_administrador= function(req, res){
+exports.registrar_secretaria= function(req, res){
   var nuevoCliente = new clientes(req.body);
-  //console.log("Aqui va el nuevoCliente");
-  //console.log(nuevoCliente);
+  var secretaria = new secretarias({
+    _cliente: nuevoCliente._id,
+    horario: []
+  });
   nuevoCliente.password = bcrypt.hashSync(req.body.password,10);
-  nuevoCliente.operario = false;
-  nuevoCliente.administrador= true;
+  nuevoCliente.secretaria = secretaria._id;
   nuevoCliente.save(function(err, user){
     if(err){
       return res.status(400).send({
@@ -68,11 +73,15 @@ exports.registrar_administrador= function(req, res){
      });
     }
     else{
-        //nuevoCliente.password = undefined;
-        //res.json(nuevoCliente);
-        req.session.user = nuevoCliente;
-        return res.redirect('/perfilInformacionCliente');
-    }
+        secretaria.save(function(err){
+          if(err){
+            return res.status(400).send({
+              message: err
+            });
+          }
+        });
+        res.json(nuevoCliente);
+        }
   });
 };
 
@@ -96,8 +105,13 @@ exports.sign_in = function(req, res) {
     //console.log("\nEL TOKEN ES: " + token + "\n");
     //res.cookie('id_token' ,token);
     req.session.user = cliente;
-    res.redirect('/perfilInformacionCliente');
-    //res.redirect("/perfilCliente");
+    if(cliente.secretaria){
+      res.redirect('/perfilInformacionSecretaria');
+    }else if(cliente.medico){
+      res.redirect('/perfilInformacionMedico');
+    }else{
+      res.redirect('/perfilInformacionCliente');
+  }
  });
 };
 
