@@ -8,7 +8,11 @@ module.exports = function(){
       required: true,
       ref: "Mascota"
     },
+<<<<<<< HEAD
     _horario: {
+=======
+    _horario:{
+>>>>>>> alexandra
       type: Schema.Types.ObjectId,
       required: true,
       ref: "Horario"

@@ -4,46 +4,59 @@
 <body>
   <% include ./partials/navbar %>
 
-
   <div class="container" >
     <div class="row">
     <% include ./partials/dashboard-secretaria %>
-		<div class="col-md-9">
+		  <div class="col-md-9">
 		    <div class="card">
 		        <div class="card-body">
-                    <!--div class="container"-->
-                                  <div class="row">
-                                  <div class='col-sm-6'>
-                                  <div class="form-group">
-                                  <div class='input-group date' id='datetimepicker3'>
-                                  <input type='text' class="form-control" />
-                                  <span class="input-group-addon">
-                                  <span class="glyphicon glyphicon-time"></span>
-                                  </span>
-                                  </div>
-                                  </div>
-                                  </div>
-                                  <script type="text/javascript">
-                                  $(function () {
-                                  $('#datetimepicker3').datetimepicker({
-                                  format: 'LT'
-                                  });
-                                  });
-                                  </script>
-                                  </div>
-                      <!--/div-->
+
+              <div class="row">
+                  <div class="col-12">
+                      <h4>HORARIO ATENCION</h4>
+                      <hr>
+                      <form class="form-inline" action="/horarios" method="post">
+
+                        <div class="form-group  col">
+                                <label for="fecha" class="col-4 col-form-label col-form-label-lg ">Fecha</label>
+                                <input class="form-control form-control" name="fecha" id="fecha" placeholder="Ingresar fecha"/>
+                        </div>
+
+                        <div class="form-group row">
+                                <div class="form-group col-md-6">
+                                        <label for="horaInicio" class="col-4 col-form-label ">Tiempo inicio</label>
+                                        <input class="timepicker form-control mr-sm-2" name="horaInicio" id="horaInicio" placeholder="Ingresar Hora inicio"/>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                      <label for="horaSalida" class="col-4 col-form-label">Tiempo Salida</label>
+                                      <input class="timepicker form-control mr-sm-2" name="horaSalida" id="horaSalida" placeholder="Ingresar Hora Salida"/>
+                                </div>
+                          </div>
+
+                          <div class="form-group col">
+                            <div class="offset-4 col-8">
+                              <button type="submit" class="btn btn-primary btn-espacio">Registrar Horario</button>
+                            </div>
+                          </div>
+
+                       </form>
+                  </div>
+              </div>
+
+
+
             </div>
         </div>
-    </div>
+      </div>
 		</div>
 </div>
 
-  <script src="js/utilidades.js"></script>
+<% include ./partials/footer-js %>
   <script>
-
+         $('#horaInicio').timepicker();
+         $('#horaSalida').timepicker();
+         $('#fecha').datepicker();
   </script>
-<!--script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script-->
-<!--script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script-->
-<!--script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script-->
 </body>
 </html>

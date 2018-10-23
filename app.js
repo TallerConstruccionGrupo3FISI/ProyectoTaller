@@ -56,7 +56,7 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname +'/view/');
 app.set('view engine','ejs');
 app.use(express.static(__dirname + '/public'));
-
+app.use(express.static(__dirname + '/node_modules'));
 
 //verificando los tokens de los get y post
 /*
