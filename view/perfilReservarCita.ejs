@@ -46,20 +46,21 @@
                                       <textarea class="form-control" id="motivo" name="motivo" placeholder="agregar el motivo de la cita" rows="3"></textarea>
                                 </div>
                               </div>
-                              <button type="submit" class="btn btn-outline-dark text-white btn-lg stripe-button-el">Registrar cita</button>
+
                               <script
                                  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                  data-key="<%=stripePublishableKey%>"
-                                 data-amount="20"
-                                 data-name="Cita"
+                                 data-amount="1000"
+                                 data-name="cita"
                                  data-description="Cita para una consulta en la veterinaria"
                                  data-image=""
                                  data-locale="auto">
                                </script>
-                               <script>
+                               <!--button type="submit" class="btn btn-outline-dark text-white btn-lg stripe-button-el">Registrar cita</button-->
+                               <!--script>
                                  // Hide default stripe button
                                  document.getElementsByClassName('stripe-button-el')[0].style.display = 'none';
-                               </script>
+                               </script-->
 
                         </form>
                     </div>
@@ -86,7 +87,7 @@ $(document).ready(function(){
        "datatype": "json",
        success: function(datas){
                      $.each(datas[0].mascotas, function(i,elemento){
-                          $mascotas.append("<option> "+ elemento.nombre +" </option>");
+                          $mascotas.append("<option "+ "value=\"" + elemento._id + "\"" + " >" + elemento.nombre +" </option>");
                      });
        }
     });
@@ -99,7 +100,8 @@ $(document).ready(function(){
         success: function(datas){
                  $.each(datas, function(i,data){
                    $.each(data, function(i,atributo){
-                     $horarios.append("<option> "+ data[i].horaInicio + "-" + data[i].horaSalida +" </option>");
+                     //$horarios.append("<option> "+ data[i].horaInicio + "-" + data[i].horaSalida +" </option>");
+                     $horarios.append("<option "+ "value=\"" + data[i]._id + "\"" + " >" +  data[i].horaInicio + "-" + data[i].horaSalida  +" </option>");
                    });
                  });
         }
