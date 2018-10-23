@@ -17,7 +17,6 @@ const cookieParser = require("cookie-parser");
 const stripe = require('stripe')(keys.stripeSecretKey);
 
 
-
 require("./passport");
 //mongoose.connect("mongodb://localhost:27017/harold", { useNewUrlParser: true });
 const app = express();

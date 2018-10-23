@@ -3,169 +3,86 @@
 <% include ./partials/headers %>
 <body>
   <% include ./partials/navbar %>
-
-  <div class="container" >
+  <div class="container">
     <div class="row">
     <% include ./partials/dashboard %>
+		<div class="col-md-9">
+		    <div class="card">
+		        <div class="card-body">
+		            <div class="row">
+		                <div class="col-md-12">
+		                    <h4>Las citas de <%=locals.user.nombres%> </h4>
+		                    <hr>
+                        <div id="dataTable_wrapper"></div>
+                            <table id="dataTable" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr id="tableHead">
+                                        <th>NOMBRE</th>
+                                        <th>TIPO</th>
+                                        <th>RAZA</th>
+                                        <th>FECHA NACIMIENTO</th>
 
-    <div class="col-md-9">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>REGISTRAR CITA</h4>
-                        <hr>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <form action="/mascotas" method="post">
-                              <div class="form-group row">
-                                <label for="mascota_name" class="col-4 col-form-label">Nombre de mascota</label>
-                                <div class="col-8">
-                                  <input id="mascota_name" name="nombre" placeholder="Nombre mascota" class="form-control" required="required" type="text">
-                                </div>
-                              </div>
-
-                              <div class="form-group row">
-                                <label for="mascota_tipo" class="col-4 col-form-label">Tipo de mascota</label>
-                                <div class="col-8">
-                                  <select class="form-control" id="mascota_tipo" name="tipo">
-                                  <option>Perro</option>
-                                  <option>Gato</option>
-                                  </select>
-                                </div>
-                              </div>
-
-                              <div class="form-group row">
-                                <label for="mascota_raza" class="col-4 col-form-label">Raza</label>
-                                <div class="col-8">
-                                  <input id="mascota_raza" name="raza" placeholder="Raza" class="form-control here" type="text">
-                                </div>
-                              </div>
-
-
-
-                              <div class="form-group row">
-                                <label for="mascota_fecha_nacimiento" class="col-4 col-form-label">Fecha de nacimiento</label>
-                                <div class="col-8">
-                                  <input id="mascota_fecha_nacimiento" name="fechaNacimiento" type="date"  value="2015-08-09" class="form-control" placeholder="Ingresa fecha de nacimiento">
-                                </div>
-                              </div>
-
-                              <div class="form-group row">
-                                <label for="mascota_sexo1" class="col-4 col-form-label">Sexo</label>
-                                <div class="col-8">
-                                  <div class="form-check form-check-inline">
-                                      <input name="sexo" class="form-check-input" type="radio" value="macho" id="mascota_sexo1">
-                                      <label class="form-check-label" for="mascota_sexo1">
-                                      ♂(macho)
-                                      </label>
-                                  </div>
-                                  <div class="form-check form-check-inline">
-                                      <input name="sexo" class="form-check-input" type="radio" value="hembra" id="mascota_sexo2">
-                                      <label class="form-check-label" for="mascota_sexo2">
-                                      ♀(hembra)
-                                      </label>
-                                  </div>
-                                 </div>
-                              </div>
-
-                              <div class="form-group row">
-                                <label for="mascota_alimentazion" class="col-4 col-form-label">Alimentacion</label>
-                                <div class="col-8">
-                                  <input id="mascota_alimentazion" name="alimentacion" placeholder="Alimentacion" class="form-control here" type="text">
-                                </div>
-                              </div>
-
-                              <div class="form-group row">
-                                <label for="mascota_estirilizado1" class="col-4 col-form-label">Estirilizado?</label>
-                                <div class="col-8">
-                                  <div class="form-check form-check-inline">
-                                      <input name="estirilizado" class="form-check-input" type="radio" value=true id="mascota_estirilizado1">
-                                      <label class="form-check-label" for="mascota_estirilizado1">
-                                      si
-                                      </label>
-                                  </div>
-                                  <div class="form-check form-check-inline">
-                                      <input name="estirilizado" class="form-check-input" type="radio" value=false id="mascota_estirilizado2">
-                                      <label class="form-check-label" for="mascota_estirilizado1">
-                                      no
-                                      </label>
-                                  </div>
-                                 </div>
-                              </div>
-
-                              <div class="form-group row">
-                                <label for="mascota_convive1" class="col-4 col-form-label">Convive con otros animales?</label>
-                                <div class="col-8">
-                                  <div class="form-check form-check-inline">
-                                      <input name="conviveConOtrosAnimales" class="form-check-input" type="radio" value=true id="mascota_convive1">
-                                      <label class="form-check-label" for="mascota_convive1">
-                                      si
-                                      </label>
-                                  </div>
-                                  <div class="form-check form-check-inline">
-                                      <input name="conviveConOtrosAnimales" class="form-check-input" type="radio" value=false id="mascota_convive2">
-                                      <label class="form-check-label" for="mascota_convive2">
-                                      no
-                                      </label>
-                                  </div>
-                                 </div>
-                              </div>
-
-                              <div class="form-group row">
-                                <label for="mascota_vacunado1" class="col-4 col-form-label">Vacunado</label>
-                                <div class="col-8">
-                                  <div class="form-check form-check-inline">
-                                      <input name="vacunado" class="form-check-input" type="radio" value=true id="mascota_vacunado1">
-                                      <label class="form-check-label" for="mascota_vacunado1">
-                                      si
-                                      </label>
-                                  </div>
-                                  <div class="form-check form-check-inline">
-                                      <input name="vacunado" class="form-check-input" type="radio" value=false id="mascota_vacunado2">
-                                      <label class="form-check-label" for="mascota_vacunado2">
-                                      no
-                                      </label>
-                                  </div>
-                                 </div>
-                              </div>
-
-                              <div class="form-group row">
-                                <label for="mascota_visita_veterinario" class="col-4 col-form-label">Ultima visita veterinario</label>
-                                <div class="col-8">
-                                  <input id="mascota_visita_veterinario" name="ultimaVisitaVeterinario" type="date" value="2015-08-09" class="form-control" placeholder="Ingresa fecha de ultima visita">
-                                </div>
-                              </div>
-
-
-                              <div class="form-group row">
-                                <label for="mascota_enfermedad" class="col-4 col-form-label">Enfermedades diagnosticadas</label>
-                                <div name="enfermedadesDiagnosticadas" class="col-8" id="enfermedades">
-                                  <!--input id="mascota_enfermedad1" name="enfermedad" placeholder="Enfermedades diagnosticadas 1" class="form-control here" required="required" type="text"-->
-                                </div>
-                                <div class="offset-4 col-8">
-                                <input type="button" value="+" class="add" id="add"/>
-                                </div>
-                              </div>
-
-                              <div class="form-group row">
-                                <div class="offset-4 col-8">
-                                  <button type="submit" class="btn btn-primary">Registrar mi mascota</button>
-                                </div>
-                              </div>
-                            </form>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
+                                        <th>SEXO</th>
+                                        <th>ALIMENTACION</th>
+                                        <th>ESTIRILIZADO</th>
+                                        <th>CONVIVE CON OTROS ANIMALES</th>
+                                        <th>VACUNADO</th>
+                                        <th>ULTIMA VISITA</th>
+                                    </tr>
+                                </thead>
+                            </table>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
 	</div>
   </div>
-</div>
 
-<% include ./partials/footer-js %>
+  <% include ./partials/footer-js %>
+  <script  type="text/javascript">
+  $(document).ready(function () {
+             $('#dataTable').DataTable({
+               processing: true,
+               serverSide: true,
+                 "ajax": {
+                     "url": "/mascotas/<%=locals.user._id%>",
+                     "type": "GET",
+                     "datatype": "json",
+                      dataSrc: "mascota"
+                 },
+                 "columns": [
+                     { "data": "nombre" },
+                     { "data": "tipo" },
+                     { "data": "raza" },
+                     { "data": "fechaNacimiento",
+                       "render": function(data){
+                         var dataIso = new Date(data);
+                         var dia= dataIso.getDate();
+                         var mes= dataIso.getMonth();
+                         var ano= dataIso.getFullYear();
+                         var fecha = dia + "/" + (mes+1) + "/" + ano;
+                         return fecha;
+                       }
+                     },
+                     { "data": "sexo" },
+                     { "data": "alimentacion" },
+                     { "data": "estirilizado" },
+                     { "data": "conviveConOtrosAnimales" },
+                     { "data": "vacunado" },
+                     { "data": "ultimaVisitaVeterinario",
+                       "render": function(data){
+                         var dataIso = new Date(data);
+                         var dia= dataIso.getDate();
+                         var mes= dataIso.getMonth();
+                         var ano= dataIso.getFullYear();
+                         var fecha = dia + "/" + (mes+1) + "/" + ano;
+                         return fecha;
+                       }
+                     }
+                 ]
+             });
+         });
+  </script>
 </body>
 </html>
