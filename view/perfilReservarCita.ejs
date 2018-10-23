@@ -20,7 +20,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <form action="/citas" method="post">
+                        <form action="/pagos" method="post">
 
                               <div class="form-group row">
                                 <label for="_mascota" class="col-4 col-form-label">Escoger Mascota</label>
@@ -46,14 +46,22 @@
                                       <textarea class="form-control" id="motivo" name="motivo" placeholder="agregar el motivo de la cita" rows="3"></textarea>
                                 </div>
                               </div>
+                              <button type="submit" class="btn btn-outline-dark text-white btn-lg stripe-button-el">Registrar cita</button>
+                              <script
+                                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                 data-key="<%=stripePublishableKey%>"
+                                 data-amount="20"
+                                 data-name="Cita"
+                                 data-description="Cita para una consulta en la veterinaria"
+                                 data-image=""
+                                 data-locale="auto">
+                               </script>
+                               <script>
+                                 // Hide default stripe button
+                                 document.getElementsByClassName('stripe-button-el')[0].style.display = 'none';
+                               </script>
 
-
-                              <div class="form-group row">
-                                <div class="offset-4 col-8">
-                                  <button type="submit" class="btn btn-primary">Registrar mi mascota</button>
-                                </div>
-                              </div>
-                            </form>
+                        </form>
                     </div>
                 </div>
 
@@ -64,6 +72,7 @@
   </div>
 </div>
 
+<% include ./partials/footer-js %>
 <script>
 $(document).ready(function(){
 
@@ -73,12 +82,12 @@ $(document).ready(function(){
    $.ajax(
      {
        "type": "GET",
-       "url": "/mascotas",
+       "url": "/clientes/<%=locals.user.dni%>",
        "datatype": "json",
        success: function(datas){
-                $.each(datas, function(i, data){
-                  $mascotas.append("<option> "+ data.nombres+" </option>");
-                });
+                     $.each(datas[0].mascotas, function(i,elemento){
+                          $mascotas.append("<option> "+ elemento.nombre +" </option>");
+                     });
        }
     });
 
@@ -88,8 +97,10 @@ $(document).ready(function(){
         "url": "/horarios",
         "datatype": "json",
         success: function(datas){
-                 $.each(datas, function(i, data){
-                    $horarios.append("<option> "+ data.fecha+" </option>");
+                 $.each(datas, function(i,data){
+                   $.each(data, function(i,atributo){
+                     $horarios.append("<option> "+ data[i].horaInicio + "-" + data[i].horaSalida +" </option>");
+                   });
                  });
         }
      });
@@ -98,7 +109,6 @@ $(document).ready(function(){
 })
 </script>
 
-<% include ./partials/footer-js %>
 
 </body>
 </html>

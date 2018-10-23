@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const autentificador = require("../controlador/autentificadorController");
 const db = require("../libs/db-connection")();
+const keys = require('../config/keys');
 
 //let db = mongoose.createConnection();
 
@@ -72,7 +73,9 @@ router.get("/perfilMascota",(req,res)=>{
   res.render("perfilInformacionMascotas");
 });
 router.get("/perfilReservarCita",(req,res)=>{
-  res.render("perfilReservarCita");
+  res.render("perfilReservarCita",{
+   stripePublishableKey: keys.stripePublishableKey
+ });
 });
 router.get("/perfilHistorialCita",(req,res)=>{
   res.render("perfilHistorialCita");

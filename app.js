@@ -8,10 +8,16 @@ const db = require('./libs/db-connection.js')();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('./config/config.js');
+const keys = require('./config/keys.js');
 
 const passport = require("passport");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
+
+const stripe = require('stripe')(keys.stripeSecretKey);
+
+
+
 require("./passport");
 //mongoose.connect("mongodb://localhost:27017/harold", { useNewUrlParser: true });
 const app = express();
@@ -75,6 +81,7 @@ app.use(function(req, res, next) {
 });
 */
 //variables rutas
+const pagos = require('./routes/pagos');
 const indexRoutes = require('./routes/index');
 const apiClientes = require('./routes/clientes');
 const apiMascotas = require('./routes/mascotas');
@@ -92,6 +99,7 @@ const auth = require('./routes/auth');
 //routes
 app.use('/',indexRoutes);
 //app.use('/clientes',passport.authenticate('jwt', {session: false}),apiClientes);
+app.use('/pagos',pagos);
 app.use('/clientes',apiClientes);
 app.use('/mascotas',apiMascotas);
 app.use('/horarios',apiHorarios);

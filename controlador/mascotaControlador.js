@@ -13,7 +13,7 @@ mascotas.find({}, function(err,mascota){
   }
 
   //console.log("\nfechaNacimiento ES " + mascota.fechaNacimiento + "\n");
-  res.json({"mascota":mascota});
+  res.json({mascota});
   });
 };
 

@@ -9,14 +9,14 @@ exports.listar_horarios = function(req, res) {
 horarios.find({}, function(err,horario){
   if(err)
     res.send(err);
-  res.json({"horario":horario});
+  res.json({horario});
   });
 };
 
 // Display detail page for a specific mascota.
 exports.crear_un_horario = function(req, res) {
     //res.send('NOT IMPLEMENTED: client detail: ' + req.params.id);
-    
+
     var newHorarios = new horarios(req.body);
     newHorarios.save(function(err, horario){
       if(err)

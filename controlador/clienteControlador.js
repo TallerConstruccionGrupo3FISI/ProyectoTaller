@@ -6,10 +6,21 @@ var clientes = require("../models/cliente")();
 // Display list of all clientes.
 exports.listar_clientes = function(req, res) {
 //    res.send('NOT IMPLEMENTED: cliente list');
+/*
 clientes.find({}, function(err,cliente){
   if(err)
     res.send(err);
   res.json(cliente);
+  });
+  */
+  clientes.
+  find({}).
+  populate('mascotas').
+  exec(function (err, cliente) {
+    if (err) return handleError(err);
+    res.json(cliente);
+    //console.log('The author is %s', story.author.name);
+    // prints "The author is Ian Fleming"
   });
 };
 
@@ -27,9 +38,18 @@ exports.crear_un_cliente = function(req, res) {
 // Display Author create form on GET.
 exports.leer_un_cliente = function(req, res) {
   //  res.send('NOT IMPLEMENTED: cliente create GET');
+  /*
   clientes.find({dni:req.params.clienteID},function(err, cliente){
     if(err)
       res.send(err);
+    res.json(cliente);
+  });
+*/
+  clientes.
+  find({dni:req.params.clienteID}).
+  populate('mascotas').
+  exec(function (err, cliente) {
+    if (err) return handleError(err);
     res.json(cliente);
   });
 };
