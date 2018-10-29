@@ -6,11 +6,11 @@ module.exports = function(){
   var secretariaSchema = Schema({
     _cliente: {
       type: Schema.Types.ObjectId,
-      ref: "clientes"
+      ref: "Cliente"
     },
-    horario:[{
+    _horario:[{
       type: Schema.Types.ObjectId,
-      ref: "horario"}]
+      ref: "Horario"}]
 });
 return db.model('Secretaria',secretariaSchema,"secretarias");
 }

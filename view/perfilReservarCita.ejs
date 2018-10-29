@@ -86,7 +86,7 @@ $(document).ready(function(){
        "url": "/clientes/<%=locals.user.dni%>",
        "datatype": "json",
        success: function(datas){
-                     $.each(datas[0].mascotas, function(i,elemento){
+                     $.each(datas[0]._mascotas, function(i,elemento){
                           $mascotas.append("<option "+ "value=\"" + elemento._id + "\"" + " >" + elemento.nombre +" </option>");
                      });
        }

@@ -17,6 +17,7 @@ cita.find({}, function(err,citas){
   cita.find({})
   .populate('_mascota')
   .populate('_horario')
+  .populate('_cliente')
   .exec(function (err, resultados){
     if(err)
       res.send(err);
@@ -45,13 +46,14 @@ exports.leer_una_cita= function(req, res) {
     res.json({"cita":citas});
   });*/
   console.log("EL PARAETRO DE CITA ES : " + req.params.citaID );
-  cita.find( { "_mascota": { $elemMatch: { "_dueño": req.params.citaID }}} )
+  cita.find( { "_cliente":  req.params.citaID })
   .populate('_mascota')
   .populate('_horario')
+  .populate('_cliente')
   .exec(function (err, resultados){
     if(err)
       res.send(err);
-    res.json(resultados);
+    res.json({"cita":resultados});
   });
 };
 

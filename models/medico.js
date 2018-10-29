@@ -6,7 +6,7 @@ module.exports = function(){
   var medicoSchema = Schema({
     _cliente: {
       type: Schema.Types.ObjectId,
-      ref: "clientes"
+      ref: "Cliente"
     },
     especialidad: {
       type: String,
@@ -18,7 +18,7 @@ module.exports = function(){
     },
     horario:[{
       type: Schema.Types.ObjectId,
-      ref: "horarios"
+      ref: "Horario"
     }]
   });
 

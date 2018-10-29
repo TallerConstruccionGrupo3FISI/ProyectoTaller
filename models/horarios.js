@@ -17,9 +17,9 @@ module.exports = function(){
       _cita: {
         type: [{
         type: Schema.Types.ObjectId,
-        ref: "cita",
+        ref: "Cita",
         required: false
-        
+
       }],
       validate: [arrayLimit, '{PATH} excede el limite de 6' ]
     }

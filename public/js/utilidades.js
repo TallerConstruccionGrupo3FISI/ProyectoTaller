@@ -4,7 +4,7 @@ $(document).ready(function() {
         var intId = (lastField && lastField.length && lastField.data("idx") + 1) || 1;
         var fieldWrapper = $("<div class=\"input-group\" id=\"field"+ intId + "\"></div>");
         fieldWrapper.data("idx", intId);
-        var inputEnfermedad = $("<input name=\"enfermedad\" class=\"form-control here\"  placeholder=\"Enfermedades diagnosticadas " + intId +  "\" class=\"form-control here\" required=\"required\" type=\"text\" id=\"mascota_enfermedad" + intId + "\"/>");
+        var inputEnfermedad = $("<input name=\"enfermedadesDiagnosticadas\" class=\"form-control here\"  placeholder=\"Enfermedades diagnosticadas " + intId +  "\" class=\"form-control here\" required=\"required\" type=\"text\" id=\"mascota_enfermedad" + intId + "\"/>");
         var removeButton =  $("<input type=\"button\" value=\"Borrar\" class=\"minus\" />");
         removeButton.click(function(){
           $(this).parent().remove();

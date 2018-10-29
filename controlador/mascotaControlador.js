@@ -56,7 +56,7 @@ exports.crear_una_mascota = function(req, res) {
     var newMascota = new mascotas(req.body);
     console.log(newMascota);
 
-    clientes.findOneAndUpdate({_id:req.session.user._id},{ $push: { mascotas: newMascota._id }},{new:true},function(err,cliente){
+      clientes.findOneAndUpdate({_id:req.session.user._id},{ $push: { _mascotas: newMascota._id }},{new:true},function(err,cliente){
       if(err){
         return res.status(400).send({
          message: err
