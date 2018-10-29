@@ -6,11 +6,21 @@ var horarios = require("../models/horarios")();
 // Display list of all mascota.
 exports.listar_horarios = function(req, res) {
 //    res.send('NOT IMPLEMENTED: cliente list');
+/*
 horarios.find({}, function(err,horario){
   if(err)
     res.send(err);
   res.json({horario});
   });
+*/
+horarios.
+find({}).
+populate("_cita").
+exec(function(err,horario){
+  if(err)
+      res.send(err);
+  res.json({horario});
+});
 };
 
 // Display detail page for a specific mascota.

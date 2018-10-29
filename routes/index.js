@@ -87,6 +87,8 @@ router.get("/perfilInformacionCitas",(req,res)=>{
 router.get("/perfilSecretariaInformacionUsuarios", (req,res)=>{
   res.render("perfilSecretariaInformacionUsuarios");
 });
-
+router.get("/perfilHorarioDia", (req,res)=>{
+    res.render("perfilHorarioDia");
+});
 
 module.exports = router;

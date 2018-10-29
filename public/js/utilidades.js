@@ -24,3 +24,8 @@ var fechaToString = function(data){
   var stringFecha = (dia+1) + "-" + (mes+1) + "-" + ano;
   return stringFecha;
 }
+var fechaToStringHora = function(data, hora){
+  var fecha = moment(data).format("YYYY-MM-DD");
+  var StringHora = fecha + "T" + hora + ":55.008";
+  return StringHora;
+}
