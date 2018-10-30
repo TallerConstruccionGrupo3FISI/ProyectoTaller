@@ -95,7 +95,7 @@ $(document).ready(function(){
     $.ajax(
       {
         "type": "GET",
-        "url": "/horarios",
+        "url": "/horarios/hoy",
         "datatype": "json",
         success: function(datas){
                  $.each(datas, function(i,data){

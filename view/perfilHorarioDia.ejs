@@ -48,7 +48,11 @@
             var fecha=value.fecha;
             var horaInicio=value.horaInicio;
             var horaSalida=value.horaSalida;
-            objeto.title = "horario";
+            objeto.title= "horario\n"
+            $.each(value._cita,function(index,cita){
+              objeto.title = objeto.title + "#cita" + (index+1) + "-" + cita._cliente.dni + "\n"
+            })
+            //objeto.title = "horario\n"+value._cita;
             objeto.start = fechaToStringHora(fecha,horaInicio);
             objeto.end = fechaToStringHora(fecha,horaSalida);
             events.push(objeto);

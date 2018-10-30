@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 //var clientes = mongoose.model('clientes');
 var horarios = require("../models/horarios")();
-
+var moment = require("moment");
 // Display list of all mascota.
 exports.listar_horarios = function(req, res) {
 //    res.send('NOT IMPLEMENTED: cliente list');
@@ -15,7 +15,7 @@ horarios.find({}, function(err,horario){
 */
 horarios.
 find({}).
-populate("_cita").
+populate({path: "_cita", populate: {path: "_cliente"}}).
 exec(function(err,horario){
   if(err)
       res.send(err);
@@ -56,6 +56,17 @@ exports.actualizar_un_horario = function(req, res) {
       //res.json(mascota);
       res.json(horario);
     });
+};
+
+exports.horario_hoy = function(req, res){
+  var today = moment().startOf('day')
+  var tomorrow = moment(today).endOf('day')
+
+  horarios.find({fecha: {"$gte": today, "$lt": tomorrow } },function(err,horario){
+    if(err)
+        res.send(err);
+    res.json({"horario":horario});
+  });
 };
 
 // Display Author delete form on GET.
