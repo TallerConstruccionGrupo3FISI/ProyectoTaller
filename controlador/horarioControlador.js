@@ -39,18 +39,26 @@ exports.crear_un_horario = function(req, res) {
 // Display Author create form on GET.
 exports.leer_un_horario = function(req, res) {
   //  res.send('NOT IMPLEMENTED: cliente create GET');
-  horarios.find({_id:req.params.horarioID},function(err, horario){
-    if(err)
-      res.send(err);
-    //res.json(mascota);
-    res.json({"horario":horario});
-  });
+  var fecha = req.params.fecha;
+  var thatDay = moment(fecha).startOf('day');
+  var tomorrowThatDay = moment(thatDay).endOf('day');
+
+  horarios.find( {fecha: {"$gte": thatDay, "$lt": tomorrowThatDay }})
+  .populate({path: "_cita", populate: {path: "_cliente"}})
+  .populate({path: "_cita", populate: {path: "_mascota"}})
+  .exec(
+    function(err, horario){
+      if(err)
+        res.send(err);
+      //res.json(mascota);
+      res.json({"horario":horario});
+    });
 };
 
 // Handle Author create on POST.
 exports.actualizar_un_horario = function(req, res) {
     //res.send('NOT IMPLEMENTED: cliente create POST');
-    horarios.findOneAndUpdate({dni:req.params.horarioID},req.body,{new: true}, function(err, horario){
+    horarios.findOneAndUpdate({dni:req.params.fecha},req.body,{new: true}, function(err, horario){
       if(err)
         res.send(err);
       //res.json(mascota);
@@ -73,7 +81,7 @@ exports.horario_hoy = function(req, res){
 exports.eliminar_un_horario = function(req, res) {
     //res.send('NOT IMPLEMENTED: cliente delete GET');
     horarios.remove({
-         _id: req.params.horarioID
+         _id: req.params.fecha
     },function(err, horario){
       if(err)
         res.send(err);

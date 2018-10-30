@@ -90,5 +90,8 @@ router.get("/perfilSecretariaInformacionUsuarios", (req,res)=>{
 router.get("/perfilHorarioDia", (req,res)=>{
     res.render("perfilHorarioDia");
 });
+router.get("/perfilMedicoCitaDia",(req,res)=>{
+    res.render("perfilMedicoCitaDia");
+});
 
 module.exports = router;

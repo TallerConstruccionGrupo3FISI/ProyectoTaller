@@ -11,7 +11,7 @@ router.route("/")
           .post(horarioControlador.crear_un_horario);
 router.route("/hoy")
           .get(horarioControlador.horario_hoy);
-router.route("/:horarioID")
+router.route("/:fecha")
           .get(horarioControlador.leer_un_horario)
           .put(horarioControlador.actualizar_un_horario)
           .delete(horarioControlador.eliminar_un_horario);

@@ -4,16 +4,10 @@ var mongoose = require('mongoose');
 var cita = require("../models/cita")();
 var cliente = require("../models/cliente")();
 var mascota = require("../models/mascotas")();
+var moment = require("moment");
 // Display list of all mascota.
 exports.listar_citas = function(req, res) {
-//    res.send('NOT IMPLEMENTED: cliente list');
-/*
-cita.find({}, function(err,citas){
-  if(err)
-    res.send(err);
-  res.json({"cita":citas});
-  });
-  */
+
   cita.find({})
   .populate('_mascota')
   .populate('_horario')
@@ -38,13 +32,7 @@ exports.crear_una_cita = function(req, res) {
 
 // Display Author create form on GET.
 exports.leer_una_cita= function(req, res) {
-  //  res.send('NOT IMPLEMENTED: cliente create GET');
-  /*cita.find({_id:req.params.citaID},function(err, citas){
-    if(err)
-      res.send(err);
-    //res.json(mascota);
-    res.json({"cita":citas});
-  });*/
+
   console.log("EL PARAETRO DE CITA ES : " + req.params.citaID );
   cita.find( { "_cliente":  req.params.citaID })
   .populate('_mascota')
@@ -78,4 +66,21 @@ exports.eliminar_una_cita = function(req, res) {
         res.send(err);
       res.json({message: 'Cita eliminada exitosamente'});
     });
+};
+
+exports.leer_una_cita_x_fecha = function(req,res){
+
+  var fecha = req.params.fecha;
+  var thatDay = moment(fecha).startOf('day');
+  var tomorrowThatDay = moment(thatDay).endOf('day');
+
+  cita.find( {})
+  .populate('_mascota')
+  .populate({path:"_horario", match: { fecha: {"$gte": thatDay, "$lt": tomorrowThatDay}}})
+  .populate('_cliente')
+  .exec(function (err, resultados){
+    if(err)
+      res.send(err);
+    res.json({"cita":resultados});
+  });
 };
