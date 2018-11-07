@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include ./partials/headers %>
+<body>
+  <% include ./partials/navbar %>
+
+
+  <div class="container" >
+    <div class="row">
+    <% include ./partials/dashboard-medico %>
+		<div class="col-md-9">
+		    <div class="card">
+		        <div class="card-body">
+		            <div class="row">
+		                <div class="col-md-12">
+		                    <h4>FICHA HISTORIAL CLINICO</h4>
+		                    <hr>
+		                </div>
+		            </div>
+		            <div class="row">
+                  <form action="/historialClinico" method="post">
+		                <div class="col-md-12">
+
+                      <div class="form-row">
+                        <label for="id_cliente" class="col-sm-2 col-form-label col-form-label-sm">DNI</label>
+                        <div class="col-auto">
+                          <input id="id_cliente" class="form-control form-control-sm mb-2" name="id_cliente" placeholder="Ingresa el dni del cliente" type="text">
+                        </div>
+                          <button id="buscarCliente" class="btn btn-primary mb-2">Buscar</button>
+                      </div>
+
+                      <div class="form-row">
+                        <label for="mascotaSelector" class="col-sm-2 col-form-label col-form-label-sm">Mascota</label>
+                        <div class="col-6">
+                          <select class="form-control form-control-sm mb-2" id="mascotaSelector" name="_mascota">
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="form-row bloqueForm">
+
+                        <div class="cabecera">Informacion Mascota</div>
+
+                        <div class="form-row contenido">
+
+                        <label for="mascota_tipo" class="col-sm-2 col-form-label col-form-label-sm">Tipo</label>
+                        <div class="col-auto">
+                          <input id="mascota_tipo" class="form-control form-control-sm mb-2" type="text" placeholder="tipo" readonly>
+                        </div>
+
+                        <label for="mascota_raza" class="col-sm-2 col-form-label col-form-label-sm">Raza</label>
+                        <div class="col-auto">
+                          <input id="mascota_raza" name="raza" placeholder="Raza" class="form-control form-control-sm mb-2" type="text" readonly>
+                        </div>
+
+                        <label for="mascota_fecha_nacimiento" class="col-sm-2 col-form-label col-form-label-sm">Nacimiento</label>
+                        <div class="col-auto">
+                          <input id="mascota_fecha_nacimiento" name="fechaNacimiento" type="text" class="form-control form-control-sm mb-2" placeholder="fecha de nacimiento" readonly>
+                        </div>
+
+
+                        <label for="mascota_sexo" class="col-sm-2 col-form-label col-form-label-sm">Sexo</label>
+                        <div class="col-auto">
+                          <!--div class="form-check form-check-inline"-->
+                              <input name="sexo" class="form-control form-control-sm mb-2" type="text"  id="mascota_sexo" placeholder="sexo" readonly>
+                          <!--/div-->
+                         </div>
+
+                         <label for="mascota_alimentazion" class="col-sm-2 col-form-label col-form-label-sm">Alimentacion</label>
+                         <div class="col-auto">
+                           <input id="mascota_alimentazion" name="alimentacion" placeholder="Alimentacion" class="form-control form-control-sm mb-2" type="text" readonly>
+                         </div>
+
+                      <label for="mascota_estirilizado" class="col-sm-2 col-form-label col-form-label-sm">Estirilizado</label>
+                      <div class="col-auto">
+                        <!-- <div class="form-check form-check-inline"> -->
+                            <input name="estirilizado" class="form-control form-control-sm mb-2" placeholder="Estirilizado" type="text" id="mascota_estirilizado" readonly>
+                        <!-- </div> -->
+                       </div>
+
+                       <label for="mascota_convive" class="col-sm-2 col-form-label col-form-label-sm">Convive con otros animales</label>
+                       <div class="col-auto">
+                         <!-- <div class="form-check form-check-inline"> -->
+                             <input name="conviveConOtrosAnimales" class="form-control form-control-sm mb-2" placeholder="Convive con otros animales" type="text" id="mascota_convive" readonly>
+                         <!-- </div> -->
+                        </div>
+
+                        <label for="mascota_vacunado" class="col-sm-2 col-form-label col-form-label-sm">Vacunado</label>
+                        <div class="col-auto">
+                          <!-- <div class="form-check form-check-inline"> -->
+                              <input name="vacunado" class="form-control form-control-sm mb-2" placeholder="Vacunado" type="text" id="mascota_vacunado" readonly>
+                          <!-- </div> -->
+                         </div>
+
+                         <label for="mascota_visita_veterinario" class="col-sm-2 col-form-label col-form-label-sm">Ultima visita veterinario</label>
+                         <div class="col-auto">
+                           <input id="mascota_visita_veterinario" name="ultimaVisitaVeterinario" type="text" class="form-control form-control-sm mb-2" placeholder="fecha de ultima visita" readonly>
+                         </div>
+
+                         <label for="mascota_enfermedad" class="col-sm-2 col-form-label col-form-label-sm">Enfermedades diagnosticadas</label>
+                         <div name="enfermedadesDiagnosticadas" class="col-auto" id="enfermedades">
+                           <input id="mascota_enfermedad" name="enfermedad" placeholder="Enfermedades diagnosticadas" class="form-control form-control-sm mb-2"  type="text" readonly>
+                         </div>
+
+                       </div>
+                    </div>
+                          <div class="form-row bloqueForm">
+                          <div class="cabecera">historial clinico</div>
+                          <div class="form-row contenido">
+
+                            <label for="FC" class="col-sm-2 col-form-label col-form-label-sm">FC</label>
+                            <div class="col-auto">
+                              <input id="FC" name="FC" type="text" class="form-control form-control-sm mb-2" placeholder="FC" >
+                            </div>
+
+                            <label for="FR" class="col-sm-2 col-form-label col-form-label-sm">FR</label>
+                            <div class="col-auto">
+                              <input id="FR" name="FR" type="text" class="form-control form-control-sm mb-2" placeholder="FR" >
+                            </div>
+
+                            <label for="T" class="col-sm-2 col-form-label col-form-label-sm">T</label>
+                            <div class="col-auto">
+                              <input id="T" name="T" type="text" class="form-control form-control-sm mb-2" placeholder="T" >
+                            </div>
+
+                            <label for="linfonodos" class="col-sm-2 col-form-label col-form-label-sm">linfonodos</label>
+                            <div class="col-auto">
+                              <input id="linfonodos" name="linfonodos" type="text" class="form-control form-control-sm mb-2" placeholder="linfonodos" >
+                            </div>
+
+                            <label for="mucosas" class="col-sm-2 col-form-label col-form-label-sm">mucosas</label>
+                            <div class="col-auto">
+                              <input id="mucosas" name="mucosas" type="text" class="form-control form-control-sm mb-2" placeholder="mucosas" >
+                            </div>
+
+                            <label for="DH" class="col-sm-2 col-form-label col-form-label-sm">DH</label>
+                            <div class="col-auto">
+                              <input id="DH" name="DH" type="text" class="form-control form-control-sm mb-2" placeholder="DH" >
+                            </div>
+
+                            <label for="pulso" class="col-sm-2 col-form-label col-form-label-sm">pulso</label>
+                            <div class="col-auto">
+                              <input id="pulso" name="pulso" type="text" class="form-control form-control-sm mb-2" placeholder="pulso" >
+                            </div>
+
+                            <label for="TLLC" class="col-sm-2 col-form-label col-form-label-sm">TLLC</label>
+                            <div class="col-auto">
+                              <input id="TLLC" name="TLLC" type="text" class="form-control form-control-sm mb-2" placeholder="TLLC" >
+                            </div>
+
+                            <label for="palpitacionAbdominal" class="col-sm-2 col-form-label col-form-label-sm">palpitacionAbdominal</label>
+                            <div class="col-auto">
+                              <input id="palpitacionAbdominal" name="palpitacionAbdominal" type="text" class="form-control form-control-sm mb-2" placeholder="palpitacionAbdominal" >
+                            </div>
+                          </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <div class="offset-4 col-8">
+                              <button type="submit" class="btn btn-primary"> Registrar historial clinico</button>
+                            </div>
+                          </div>
+
+		                </div>
+                  </form>
+		            </div>
+
+		        </div>
+		    </div>
+		</div>
+	</div>
+  </div>
+
+  <% include ./partials/footer-js %>
+<script>
+
+  $(document).ready(function(){
+
+    var $botonBuscar = $('#buscarCliente');
+    var $mascotaSelector = $("#mascotaSelector");
+
+    var $mascotaTipo = $('#mascota_tipo');
+    var $mascotaRaza = $('#mascota_raza');
+    var $mascotaFechaNacimiento = $('#mascota_fecha_nacimiento');
+    var $mascotaSexo = $('#mascota_sexo');
+    var $mascotaAlimentacion = $('#mascota_alimentazion');
+    var $mascotaEstirilizado = $('#mascota_estirilizado');
+    var $mascotaConvive = $('#mascota_convive');
+    var $mascotaVacunado = $('#mascota_vacunado');
+    var $mascotaUltimaVisita = $('#mascota_visita_veterinario');
+    var $mascotaEnfermedades = $('#mascota_enfermedad');
+    var dataMascotas;
+    $botonBuscar.click(function(e){
+      e.preventDefault();
+      var dni = $('#id_cliente').val();
+      $.ajax(
+        {
+          "type": "GET",
+          "url": "/clientes/" + dni,
+          "datatype": "json",
+          success: function(datas){
+                        dataMascotas = datas[0]._mascotas;
+                        $mascotaSelector.empty();
+                        $mascotaTipo.empty();
+                        $mascotaRaza.empty();
+                        $mascotaFechaNacimiento.empty();
+                        $mascotaSexo.empty();
+                        $mascotaAlimentacion.empty();
+                        $mascotaEstirilizado.empty();
+                        $mascotaConvive.empty();
+                        $mascotaVacunado.empty();
+                        $mascotaUltimaVisita.empty();
+                        $mascotaEnfermedades.empty();
+
+                        $mascotaSelector.val("");
+                        $mascotaTipo.val("");
+                        $mascotaRaza.val("");;
+                        $mascotaFechaNacimiento.val("");
+                        $mascotaSexo.val("");
+                        $mascotaAlimentacion.val("");
+                        $mascotaEstirilizado.val("");
+                        $mascotaConvive.val("");
+                        $mascotaVacunado.val("");
+                        $mascotaUltimaVisita.val("");
+                        $mascotaEnfermedades.val("");
+
+                        $mascotaSelector.append("<option>" + "--SELECCIONA--" + " </option>");
+                        $.each(dataMascotas, function(i,elemento){
+                             $mascotaSelector.append("<option "+ "value=\"" + elemento._id + "\"" +  " id_array=\"" +  i + "\"" +  " >" + elemento.nombre +" </option>");
+                        });
+          }
+       });
+    });
+
+        $mascotaSelector.on("change",function(){
+
+            var i = $(this).find('option:selected').attr('id_array');
+            if(i!=undefined){
+                console.log("valor de i: ", i);
+                $mascotaTipo.val(dataMascotas[i].tipo);
+                $mascotaRaza.val(dataMascotas[i].raza);
+                $mascotaFechaNacimiento.val(dataMascotas[i].fechaNacimiento);
+                $mascotaSexo.val(dataMascotas[i].sexo);
+                $mascotaAlimentacion.val(dataMascotas[i].alimentacion);
+                $mascotaEstirilizado.val(dataMascotas[i].estirilizado);
+                $mascotaConvive.val(dataMascotas[i].conviveConOtrosAnimales);
+                $mascotaVacunado.val(dataMascotas[i].vacunado);
+                $mascotaUltimaVisita.val(dataMascotas[i].ultimaVisitaVeterinario);
+                $mascotaEnfermedades.val(dataMascotas[i].enfermedadesDiagnosticadas);
+            }
+            else{
+                console.log("error la mascota no esta en el array");
+            }
+        });
+
+  });
+
+</script>
+</body>
+</html>
