@@ -94,4 +94,23 @@ router.get("/perfilMedicoCitaDia",(req,res)=>{
     res.render("perfilMedicoCitaDia");
 });
 
+router.get("/perfilMedicoIngresarHistorialClinico", (req,res)=>{
+    res.render("perfilMedicoIngresarHistorialClinico");
+});
+router.get("/perfilMedicoHorarios", (req,res)=>{
+    res.render("perfilMedicoHorarios");
+});
+
+router.get("/perfilAdmin",(req,res)=>{
+    res.render("perfilAdmin");
+});
+router.get("/perfilAdminRegistrarMedico", (req,res)=>{
+    res.render("perfilAdminRegistrarMedico");
+});
+
+router.get("/perfilAdminRegistrarSecretaria", (req,res)=>{
+    res.render("perfilAdminRegistrarSecretaria");
+});
+
+
 module.exports = router;

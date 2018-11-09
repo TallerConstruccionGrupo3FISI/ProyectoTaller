@@ -28,9 +28,30 @@ img {
 }
 
 
+.bloqueForm{
+  margin-top: 1em;
+  margin-bottom: 1em;
+ border: solid cadetblue;
+ border-radius: 40px;
+ padding: 15px 10px 10px;
+ width: 95%;
+}
 
 
 
+.bloqueForm .cabecera {
+position:absolute;
+ margin-top:-25px;
+ margin-left:10px;
+ color:white;
+ background:cadetblue;
+ border-radius:10px;
+ padding:2px 10px;
+}
+
+.bloqueForm .contenido{
+  margin-top: 2em;
+}
 
 @CHARSET "UTF-8";
 /*

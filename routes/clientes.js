@@ -10,9 +10,11 @@ router.route("/")
           .get(clienteControlador.listar_clientes)
           .post(clienteControlador.crear_un_cliente);
 router.route("/secretaria")
-          .get(clienteControlador.listar_clientes_secretaria);
+          .get(clienteControlador.listar_clientes_secretaria)
+          .post(autentificador.registrar_secretaria);
 router.route("/medico")
-          .get(clienteControlador.listar_clientes_medico);
+          .get(clienteControlador.listar_clientes_medico)
+          .post(autentificador.registrar_medico);
 router.route("/:clienteID")
           .get(clienteControlador.leer_un_cliente)
           .put(clienteControlador.actualizar_un_cliente)
