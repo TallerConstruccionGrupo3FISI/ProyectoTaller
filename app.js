@@ -14,7 +14,7 @@ const keys = require('./config/keys.js');
 const passport = require("passport");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
-
+const admin = require("./models/admin.js")();
 const stripe = require('stripe')(keys.stripeSecretKey);
 
 
@@ -24,11 +24,12 @@ const stripe = require('stripe')(keys.stripeSecretKey);
 const app = express();
 mongoose.set('useFindAndModify', false);
 
+/*
 if (typeof localStorage === "undefined" || localStorage === null) {
   var LocalStorage = require('node-localstorage').LocalStorage;
   localStorage = new LocalStorage('./scratch');
 }
-
+*/
 
 //middlewares
 app.use(cors());
@@ -81,6 +82,29 @@ app.use(function(req, res, next) {
   }
 });
 */
+admin.findOne({
+  email:"admin"
+}, function(err,admines){
+  if (err) throw err;
+  if (!admines){
+    var adminNuevo = new admin({
+      "email": "admin",
+      "password": "$2y$10$/JYzkYnfWc5/4eUxVEDGke4zQ1PSw8DYHbzn1PY/22EIgO/F8Thha"
+    });
+    adminNuevo.save(function(error){
+      if(error){
+        console.log(error);
+      }
+      else{
+        console.log("admin exito");
+      }
+    });
+    return console.log("error");
+  }
+  console.log("existe admin");
+});
+
+
 //variables rutas
 const pagos = require('./routes/pagos');
 const indexRoutes = require('./routes/index');

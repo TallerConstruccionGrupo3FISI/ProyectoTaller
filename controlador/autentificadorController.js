@@ -9,6 +9,7 @@ var expressSession = require('express-session');
 var medicos = require('../models/medico.js')();
 var secretarias = require('../models/secretaria.js')();
 
+
 var admin = require('../models/admin.js')();
 
 //let db= require("../libs/db-connection.js")();
@@ -48,23 +49,15 @@ exports.registrar_medico= function(req, res){
   });
 
 
-  var nuevoCliente = new clientes(req.body);
-
   nuevoCliente.password = bcrypt.hashSync(req.body.password,10);
 
   var medico = new medicos({
     _cliente : nuevoCliente._id,
-
     especialidad: req.body.especialidad,
     cargo: req.body.cargo,
     _horario: []
   });
 
-
-    especialidad: "cirujano en proceso",
-    cargo: "jefazo",
-    _horario: []
-  });
   nuevoCliente._medico = medico._id;
 
   nuevoCliente.save(function(err){
@@ -81,9 +74,6 @@ exports.registrar_medico= function(req, res){
           }
       });
         res.redirect("/perfilAdminRegistrarMedico");
-
-        res.json(nuevoCliente);
-
     }
   });
 };
@@ -103,9 +93,6 @@ exports.registrar_secretaria= function(req, res){
       distrito: req.body.distrito
     }
   );
-
-
-  var nuevoCliente = new clientes(req.body);
 
   var secretaria = new secretarias({
     _cliente: nuevoCliente._id,
@@ -129,9 +116,6 @@ exports.registrar_secretaria= function(req, res){
         });
 
         res.redirect("/perfilAdminRegistrarSecretaria");
-
-        res.json(nuevoCliente);
-
         }
   });
 };
