@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include ./partials/headers %>
+<body>
+  <% include ./partials/navbar %>
+
+
+  <div class="container" >
+    <div class="row">
+    <% include ./partials/dashboard-medico %>
+		<div class="col-md-9">
+		    <div class="card">
+		        <div class="card-body">
+		            <div class="row">
+		                <div class="col-md-12">
+		                    <h4>Tu perfil</h4>
+		                    <hr>
+		                </div>
+		            </div>
+		            <div class="row">
+		                <div class="col-md-12">
+                      <div class="box box-info">
+
+      <div class="box-body">
+               <div class="col-sm-6">
+               <div  align="center"> <img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" id="profile-image1" class="img-circle img-responsive">
+
+                  <input id="profile-image-upload" class="hidden" type="file">
+                  <div style="color:#999;" >Click aqui para cambiar imagen</div>
+          <!--Upload Image Js And Css-->
+               </div>
+                <br>
+                <!-- /input-group -->
+              </div>
+      <div class="col-sm-6">
+      <h4 id = titulo style="color:#00b1b1;"></h4></span>
+        <span><p>Medico</p></span>
+      </div>
+      <div class="clearfix"></div>
+      <hr style="margin:5px 0 5px 0;">
+                    <div class="col-sm-5 col-xs-6 tital " >Nombres</div><div id="nombresDiv" class="col-sm-7 col-xs-6 "></div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+
+                    <div class="col-sm-5 col-xs-6 tital " >Apellidos:</div><div id="apellidosDiv" class="col-sm-7"></div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+
+                    <div class="col-sm-5 col-xs-6 tital " >email:</div><div id="emailDiv" class="col-sm-7"></div>
+
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+
+                    <div class="col-sm-5 col-xs-6 tital " >Dni:</div><div id="dniDiv" class="col-sm-7"></div>
+
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+
+                    <div class="col-sm-5 col-xs-6 tital " >Direccion:</div><div id="direccionDiv" class="col-sm-7"></div>
+
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+
+                    <div class="col-sm-5 col-xs-6 tital " >Telefono:</div><div id="telefonoDiv" class="col-sm-7"></div>
+
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+
+                    <div class="col-sm-5 col-xs-6 tital " >Distrito:</div><div id="distritoDiv" class="col-sm-7"></div>
+
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+
+                    <div class="col-sm-5 col-xs-6 tital " >Fecha Nacimiento:</div><div id="fechaNacimientoDiv" class="col-sm-7"></div>
+
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+
+  </div>
+
+
+</div>
+</div>
+</div>
+		                </div>
+		            </div>
+
+		        </div>
+		    </div>
+		</div>
+	</div>
+  </div>
+
+  <% include ./partials/footer-js %>
+  <script>
+          $(function() {
+  $('#profile-image1').on('click', function() {
+    $('#profile-image-upload').click();
+  });
+  });
+
+  $(document).ready(function () {
+            var $nombres = $('#nombresDiv');
+            var $apellidos = $('#apellidosDiv');
+            var $email = $('#emailDiv');
+            var $dni = $('#dniDiv');
+            var $direccion = $('#direccionDiv');
+            var $telefono = $('#telefonoDiv');
+            var $titulo = $('#titulo');
+            var $distrito = $('#distritoDiv');
+            var $fecha = $('#fechaNacimientoDiv');
+             $.ajax(
+               {
+                 "type": "GET",
+                 "url": "/clientes/<%=locals.user.dni%>",
+                 "datatype": "json",
+                 success: function(datas){
+                          $.each(datas, function(i, data){
+                            $nombres.append(data.nombres);
+                            $apellidos.append(data.apellidos);
+                            $email.append(data.email);
+                            $dni.append(data.dni);
+                            $direccion.append(data.direccion);
+                            $telefono.append(data.telefono);
+                            $titulo.append(data.nombres + " " + data.apellidos);
+                            $distrito.append(data.distrito);
+                            $fecha.append(fechaToString(data.fechaNacimiento));
+                          });
+                 }
+              });
+         });
+  </script>
+</body>
+</html>

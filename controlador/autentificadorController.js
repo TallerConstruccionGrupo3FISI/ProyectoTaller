@@ -8,7 +8,9 @@ var clientes = require('../models/cliente.js')();
 var expressSession = require('express-session');
 var medicos = require('../models/medico.js')();
 var secretarias = require('../models/secretaria.js')();
+
 var admin = require('../models/admin.js')();
+
 //let db= require("../libs/db-connection.js")();
 //var clientes = mongoose.model('clientes');
 
@@ -33,6 +35,7 @@ exports.registrar= function(req, res){
 //FUNCION PARA REGISTRAR UN MEDICO
 exports.registrar_medico= function(req, res){
 
+
   var nuevoCliente = new clientes({
       nombres: req.body.nombres,
       apellidos: req.body.apellidos,
@@ -44,15 +47,24 @@ exports.registrar_medico= function(req, res){
       distrito: req.body.distrito
   });
 
+
+  var nuevoCliente = new clientes(req.body);
+
   nuevoCliente.password = bcrypt.hashSync(req.body.password,10);
 
   var medico = new medicos({
     _cliente : nuevoCliente._id,
+
     especialidad: req.body.especialidad,
     cargo: req.body.cargo,
     _horario: []
   });
 
+
+    especialidad: "cirujano en proceso",
+    cargo: "jefazo",
+    _horario: []
+  });
   nuevoCliente._medico = medico._id;
 
   nuevoCliente.save(function(err){
@@ -69,12 +81,16 @@ exports.registrar_medico= function(req, res){
           }
       });
         res.redirect("/perfilAdminRegistrarMedico");
+
+        res.json(nuevoCliente);
+
     }
   });
 };
 
 //FUNCION PARA REGISTRAR UNA SECRETARIA
 exports.registrar_secretaria= function(req, res){
+
   var nuevoCliente = new clientes(
     {
       nombres: req.body.nombres,
@@ -87,6 +103,9 @@ exports.registrar_secretaria= function(req, res){
       distrito: req.body.distrito
     }
   );
+
+
+  var nuevoCliente = new clientes(req.body);
 
   var secretaria = new secretarias({
     _cliente: nuevoCliente._id,
@@ -108,7 +127,11 @@ exports.registrar_secretaria= function(req, res){
             });
           }
         });
+
         res.redirect("/perfilAdminRegistrarSecretaria");
+
+        res.json(nuevoCliente);
+
         }
   });
 };
@@ -117,6 +140,7 @@ exports.registrar_secretaria= function(req, res){
 //FUNCION PARA VALIDAR EL LOGIN
 exports.sign_in = function(req, res) {
   console.log(req.body);
+
   admin.findOne({
     email: req.body.email
   }, function(err, admines){
@@ -147,6 +171,30 @@ exports.sign_in = function(req, res) {
     }
   }
 );
+
+  clientes.findOne({
+   email: req.body.email
+ }, function(err, cliente) {
+   if (err) throw err;
+   if (!cliente || !cliente.comparePassword(req.body.password)) {
+     return res.status(401).json({ message: 'Authentication failed. Invalid user or password.' });
+   }
+    //localStorage.setItem("token",jwt.sign({ email: cliente.email, fullName: cliente.apellidos, dni: cliente.dni }, 'RESTFULAPIs',{ expiresIn: '1h' }));
+    //var token =  jwt.sign({ email: cliente.email, fullName: cliente.apellidos, dni: cliente.dni }, 'RESTFULAPIs',{ expiresIn: '1h' });
+    //res.set("authorization","JWT " + token);
+    //res.json(token);
+    //var token = localStorage.getItem("token");
+    //console.log("\nEL TOKEN ES: " + token + "\n");
+    //res.cookie('id_token' ,token);
+    req.session.user = cliente;
+    if(cliente._secretaria){
+      res.redirect('/perfilInformacionSecretaria');
+    }else if(cliente._medico){
+      res.redirect('/perfilInformacionMedico');
+    }else{
+      res.redirect('/perfilInformacionCliente');
+  }
+ });
 
 };
 

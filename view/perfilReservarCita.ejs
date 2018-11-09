@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include ./partials/headers %>
+<body>
+  <% include ./partials/navbar %>
+
+
+  <div class="container" >
+    <div class="row">
+    <% include ./partials/dashboard %>
+
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>REGISTRAR CITA</h4>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form action="/pagos" method="post">
+
+                              <div class="form-group row">
+                                <label for="_mascota" class="col-4 col-form-label">Escoger Mascota</label>
+                                <div class="col-8">
+                                  <select class="form-control" id="_mascota" name="_mascota">
+                                  </select>
+                                </div>
+                              </div>
+
+                              <div class="form-group row">
+                                <label for="_horario" class="col-4 col-form-label">Escoger Horario Cita</label>
+                                <div class="col-8">
+                                  <select class="form-control" id="_horario" name="_horario">
+
+                                  </select>
+                                </div>
+                              </div>
+
+
+                              <div class="form-group row">
+                                <label for="motivo" class="col-4 col-form-label">Motivo</label>
+                                <div class="col-8">
+                                      <textarea class="form-control" id="motivo" name="motivo" placeholder="agregar el motivo de la cita" rows="3"></textarea>
+                                </div>
+                              </div>
+
+                              <script
+                                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                 data-key="<%=stripePublishableKey%>"
+                                 data-amount="1000"
+                                 data-name="cita"
+                                 data-description="Cita para una consulta en la veterinaria"
+                                 data-image=""
+                                 data-locale="auto">
+                               </script>
+                               <!--button type="submit" class="btn btn-outline-dark text-white btn-lg stripe-button-el">Registrar cita</button-->
+                               <!--script>
+                                 // Hide default stripe button
+                                 document.getElementsByClassName('stripe-button-el')[0].style.display = 'none';
+                               </script-->
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+  </div>
+  </div>
+</div>
+
+<% include ./partials/footer-js %>
+<script>
+$(document).ready(function(){
+
+  var $mascotas = $('#_mascota');
+  var $horarios = $('#_horario');
+
+   $.ajax(
+     {
+       "type": "GET",
+       "url": "/clientes/<%=locals.user.dni%>",
+       "datatype": "json",
+       success: function(datas){
+                     $.each(datas[0]._mascotas, function(i,elemento){
+                          $mascotas.append("<option "+ "value=\"" + elemento._id + "\"" + " >" + elemento.nombre +" </option>");
+                     });
+       }
+    });
+
+    $.ajax(
+      {
+        "type": "GET",
+        "url": "/horarios/hoy",
+        "datatype": "json",
+        success: function(datas){
+                 $.each(datas, function(i,data){
+                   $.each(data, function(i,atributo){
+                     //$horarios.append("<option> "+ data[i].horaInicio + "-" + data[i].horaSalida +" </option>");
+                     $horarios.append("<option "+ "value=\"" + data[i]._id + "\"" + " >" +  data[i].horaInicio + "-" + data[i].horaSalida  +" </option>");
+                   });
+                 });
+        }
+     });
+
+
+})
+</script>
+
+
+</body>
+</html>

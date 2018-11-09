@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include ./partials/headers %>
+<body>
+  <% include ./partials/navbar %>
+  <div class="container">
+    <div class="row">
+    <% include ./partials/dashboard-medico %>
+		<div class="col-md-9">
+		    <div class="card">
+		        <div class="card-body">
+		            <div class="row">
+		                <div class="col-md-12">
+		                    <h4>Las citas del dia para el doctor</h4>
+		                    <hr>
+                        <div id="dataTable_wrapper"></div>
+                            <table id="dataTable" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr id="tableHead">
+                                        <th>CLIENTE</th>
+                                        <th>MASCOTA</th>
+                                        <th>MOTIVO</th>
+                                        <th>ESTADO</th>
+                                        <th>TIPO</th>
+                                        <th>FECHA</th>
+                                        <th>HORA INICIO</th>
+                                        <th>HORA SALIDA</th>
+                                    </tr>
+                                </thead>
+                            </table>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	</div>
+  </div>
+
+  <% include ./partials/footer-js %>
+  <script  type="text/javascript">
+  $(document).ready(function () {
+             $('#dataTable').DataTable({
+               processing: true,
+               serverSide: true,
+                 "ajax": {
+                     "url": "/cita/fecha/" + new moment().format("YYYY-MM-DD"),
+                     "type": "GET",
+                     "datatype": "json",
+                      dataSrc: "cita"
+                 },
+                 "columns": [
+                     { "data": "_cliente.dni" },
+                     { "data": "_mascota.nombre" },
+                     { "data": "motivo" },
+                     { "data": "estado"},
+                     { "data": "tipo" },
+                     { "data": "_horario.fecha",
+                       "render": function(data){
+                         var dataIso = new Date(data);
+                         var dia= dataIso.getDate();
+                         var mes= dataIso.getMonth();
+                         var ano= dataIso.getFullYear();
+                         var fecha = dia + "/" + (mes+1) + "/" + ano;
+                         return fecha;
+                       }
+                     },
+                     { "data": "_horario.horaInicio"},
+                     { "data": "_horario.horaSalida"}
+                 ]
+             });
+         });
+  </script>
+</body>
+</html>

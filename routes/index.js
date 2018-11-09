@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const autentificador = require("../controlador/autentificadorController");
 const db = require("../libs/db-connection")();
+const keys = require('../config/keys');
 
 //let db = mongoose.createConnection();
 
@@ -51,12 +52,46 @@ router.get("/perfilCliente",autentificador.loginRequired,(req,res)=>{
 router.get("/perfilInformacionCliente",autentificador.loginRequired,(req,res)=>{
   res.render("perfilInformacionCliente");
 });
+
+//DATOS SECRETARIA
+router.get("/perfilInformacionSecretaria",autentificador.loginRequired,(req,res)=>{
+  res.render("perfilInformacionSecretaria");
+});
+router.get("/perfilIngresarHorarioAtencion",autentificador.loginRequired,(req,res)=>{
+  res.render("perfilIngresarHorarioAtencion");
+});
+
+router.get("/perfilInformacionMedico",autentificador.loginRequired,(req,res)=>{
+  res.render("perfilInformacionMedico");
+});
+
 router.get("/perfilFormularioMascota",autentificador.loginRequired,(req,res)=>{
   res.render("perfilFormularioMascota");
 });
 
 router.get("/perfilMascota",(req,res)=>{
   res.render("perfilInformacionMascotas");
+});
+router.get("/perfilReservarCita",(req,res)=>{
+  res.render("perfilReservarCita",{
+   stripePublishableKey: keys.stripePublishableKey
+ });
+});
+router.get("/perfilHistorialCita",(req,res)=>{
+  res.render("perfilHistorialCita");
+});
+router.get("/perfilInformacionCitas",(req,res)=>{
+  res.render("perfilSecretariaInformacionCitas");
+});
+
+router.get("/perfilSecretariaInformacionUsuarios", (req,res)=>{
+  res.render("perfilSecretariaInformacionUsuarios");
+});
+router.get("/perfilHorarioDia", (req,res)=>{
+    res.render("perfilHorarioDia");
+});
+router.get("/perfilMedicoCitaDia",(req,res)=>{
+    res.render("perfilMedicoCitaDia");
 });
 
 module.exports = router;

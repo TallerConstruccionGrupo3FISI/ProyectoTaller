@@ -18,12 +18,19 @@
                         <div id="dataTable_wrapper"></div>
                             <table id="dataTable" class="table table-bordered table-striped">
                                 <thead>
-                                    <tr>
-                                        <th>DNI</th>
+                                    <tr id="tableHead">
                                         <th>NOMBRE</th>
+                                        <th>TIPO</th>
                                         <th>RAZA</th>
-                                        <th>EDAD</th>
-                                        <th>ENFERMEDAD</th>
+                                        <th>FECHA NACIMIENTO</th>
+
+                                        <th>SEXO</th>
+                                        <th>ALIMENTACION</th>
+                                        <th>ESTIRILIZADO</th>
+                                        <th>CONVIVE CON OTROS ANIMALES</th>
+                                        <th>VACUNADO</th>
+                                        <th>ULTIMA VISITA</th>
+                                        <th>ENFERMEDADES</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -34,27 +41,49 @@
 		</div>
 	</div>
   </div>
-  <!--script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.js"></script>
+
+  <% include ./partials/footer-js %>
   <script  type="text/javascript">
   $(document).ready(function () {
              $('#dataTable').DataTable({
                processing: true,
                serverSide: true,
                  "ajax": {
-                     "url": "/mascotas/<%=locals.user.dni%>",
+                     "url": "/mascotas/<%=locals.user._id%>",
                      "type": "GET",
                      "datatype": "json",
                       dataSrc: "mascota"
                  },
                  "columns": [
-                     { "data": "dni" },
                      { "data": "nombre" },
+                     { "data": "tipo" },
                      { "data": "raza" },
-                     { "data": "edad" },
-                     { "data": "enfermedad" }
+                     { "data": "fechaNacimiento",
+                       "render": function(data){
+                         var dataIso = new Date(data);
+                         var dia= dataIso.getDate();
+                         var mes= dataIso.getMonth();
+                         var ano= dataIso.getFullYear();
+                         var fecha = dia + "/" + (mes+1) + "/" + ano;
+                         return fecha;
+                       }
+                     },
+                     { "data": "sexo" },
+                     { "data": "alimentacion" },
+                     { "data": "estirilizado" },
+                     { "data": "conviveConOtrosAnimales" },
+                     { "data": "vacunado" },
+                     { "data": "ultimaVisitaVeterinario",
+                       "render": function(data){
+                         var dataIso = new Date(data);
+                         var dia= dataIso.getDate();
+                         var mes= dataIso.getMonth();
+                         var ano= dataIso.getFullYear();
+                         var fecha = dia + "/" + (mes+1) + "/" + ano;
+                         return fecha;
+                       }
+                     },
+                     { "data": "enfermedadesDiagnosticadas"}
                  ]
              });
          });

@@ -8,25 +8,29 @@ Cliente
  fechaNacimiento: Date,
  distrito: String,
  direccion: String,
- Medico: Medico,
- Secretaria: Secretaria,
- Mascota: Array
+ _Medico: ObjectMedico,
+ _Secretaria: ObjectSecretaria,
+ _Mascota: Array
 }
 
 Medico{
+_cliente: Object,
 especialidad: String,
 cargo: String,
 Horario: Array
 }
 
 Secretaria{
+_cliente: Object,
 horario: Array
 }
 
 Horario{
+ fecha:date,
  dia: String,
  HoraInicio: String,
- HoraSalida: String
+ HoraSalida: String,
+ _citas: Array
 }
 
 Mascota{
@@ -41,29 +45,32 @@ Mascota{
  vacunado: Boolean,
  ultimaVisitaVeterinario: Date,
  enfermedadesDiagnosticadas: Array,
- citas: Array,
+ _citas: Array,
  HistorialClinico: HistorialSchema
 }
 
 Citas{
- fecha: Date,
- hora: Date,
+ _mascota: Object
+ _horario: Object
  motivo: String,
  estado: String,
- tipo: Object
+ tipo: String
 }
 
+//? aqui estoy en duda si habra bañoCorte
 BañoCorte{
  tipo: String,
  corte: Boolean
 }
 
+//? esto creo que no habra pero no estoy seguro
 consulta{
  tipo: String
  motivo: String
 }
 
 HistorialClinico{
+_mascota: Object
 F.C : Int,
 F.R : String,
 T: String,

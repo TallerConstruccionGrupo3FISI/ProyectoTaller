@@ -25,8 +25,6 @@ router.route("/:mascotaID")
           .get(mascotaControlador.leer_mascotas)
           .put(mascotaControlador.actualizar_una_mascota)
           .delete(mascotaControlador.eliminar_una_mascota);
-router.route("/registro")
-          .post(mascotaControlador.crear_una_mascota);
 /*
 router.route("/registro")
           .post(autentificador.registrar);
