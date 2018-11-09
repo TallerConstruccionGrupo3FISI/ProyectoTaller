@@ -5,7 +5,7 @@ module.exports = function(){
   var banoCorteSchema = Schema({
     _cita:{
       type: Schema.Types.ObjectId,
-      ref: "citas"
+      ref: "Cita"
     },
     tipo: {
       type: String,

@@ -8,7 +8,11 @@ module.exports = function(){
       required: true,
       ref: "Mascota"
     },
-
+   _cliente: {
+     type: Schema.Types.ObjectId,
+     required: true,
+     ref: "Cliente"
+   },
     _horario:{
       type: Schema.Types.ObjectId,
       required: true,

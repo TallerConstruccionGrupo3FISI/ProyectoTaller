@@ -42,19 +42,24 @@ module.exports = function(){
         type: String,
         required: true
       },
-    secretaria:{
+    _secretaria:{
       type: Schema.Types.ObjectId,
       ref: 'Secretaria',
       required: false
     },
-    medico:{
+    _medico:{
       type: Schema.Types.ObjectId,
-      ref: 'medicos',
+      ref: 'Medico',
       required: false
     },
-    mascotas:[{
+    _mascotas:[{
       type: Schema.Types.ObjectId,
       ref: "Mascota",
+      required: false
+    }],
+    _citas:[{
+      type: Schema.Types.ObjectId,
+      ref: "Cita",
       required: false
     }]
   });

@@ -48,18 +48,18 @@ module.exports = function(){
       type: Date,
       required: false
     },
-    enfermedadesDiagnosticadas: {
-      type: Array,
-      required: false
-    },
-    citas: [{
-      type: Schema.Types.ObjectId,
-      ref: "citas",
+    enfermedadesDiagnosticadas: [{
+      type: String,
       required: false
     }],
-    historialClinico: {
+    _citas: [{
       type: Schema.Types.ObjectId,
-      ref: "historialClinico",
+      ref: "Cita",
+      required: false
+    }],
+    _historialClinico: {
+      type: Schema.Types.ObjectId,
+      ref: "HistorialClinico",
       required: false
     }
   },

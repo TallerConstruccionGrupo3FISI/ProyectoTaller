@@ -74,13 +74,14 @@ exports.leer_una_cita_x_fecha = function(req,res){
   var thatDay = moment(fecha).startOf('day');
   var tomorrowThatDay = moment(thatDay).endOf('day');
 
-  cita.find({})
+  cita.find( {})
   .populate('_mascota')
   .populate({path:"_horario", match: { fecha: {"$gte": thatDay, "$lt": tomorrowThatDay}}})
   .populate('_cliente')
   .exec(function (err, resultados){
     if(err)
       res.send(err);
+
 
     res.json({"cita": filtroDeMapeado(resultados)});
   });
@@ -92,3 +93,6 @@ function filtroDeMapeado(json){
   }
 );
 }
+    res.json({"cita":resultados});
+  });
+};

@@ -31,6 +31,7 @@ router.post('/', (req, res) => {
     var newCita = new cita({
       _mascota: req.body._mascota,
       _horario: req.body._horario,
+      _cliente: req.session.user._id,
       motivo: req.body.motivo,
       estado: "pagado",
       tipo: "consulta"});
