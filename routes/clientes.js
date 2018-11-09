@@ -9,6 +9,10 @@ const autentificador = require("../controlador/autentificadorController.js");
 router.route("/")
           .get(clienteControlador.listar_clientes)
           .post(clienteControlador.crear_un_cliente);
+router.route("/secretaria")
+          .get(clienteControlador.listar_clientes_secretaria);
+router.route("/medico")
+          .get(clienteControlador.listar_clientes_medico);
 router.route("/:clienteID")
           .get(clienteControlador.leer_un_cliente)
           .put(clienteControlador.actualizar_un_cliente)

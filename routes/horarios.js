@@ -9,7 +9,9 @@ const autentificador = require("../controlador/autentificadorController.js");
 router.route("/")
           .get(horarioControlador.listar_horarios)
           .post(horarioControlador.crear_un_horario);
-router.route("/:horarioID")
+router.route("/hoy")
+          .get(horarioControlador.horario_hoy);
+router.route("/:fecha")
           .get(horarioControlador.leer_un_horario)
           .put(horarioControlador.actualizar_un_horario)
           .delete(horarioControlador.eliminar_un_horario);

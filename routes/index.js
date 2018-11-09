@@ -80,5 +80,18 @@ router.get("/perfilReservarCita",(req,res)=>{
 router.get("/perfilHistorialCita",(req,res)=>{
   res.render("perfilHistorialCita");
 });
+router.get("/perfilInformacionCitas",(req,res)=>{
+  res.render("perfilSecretariaInformacionCitas");
+});
+
+router.get("/perfilSecretariaInformacionUsuarios", (req,res)=>{
+  res.render("perfilSecretariaInformacionUsuarios");
+});
+router.get("/perfilHorarioDia", (req,res)=>{
+    res.render("perfilHorarioDia");
+});
+router.get("/perfilMedicoCitaDia",(req,res)=>{
+    res.render("perfilMedicoCitaDia");
+});
 
 module.exports = router;

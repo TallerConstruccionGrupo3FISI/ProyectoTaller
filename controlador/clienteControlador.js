@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 //var clientes = mongoose.model('clientes');
 var clientes = require("../models/cliente")();
 
-// Display list of all clientes.
+// MUESTRA UNA LISTA DE TODOS LOS CLIENTES
 exports.listar_clientes = function(req, res) {
 //    res.send('NOT IMPLEMENTED: cliente list');
 /*
@@ -14,8 +14,20 @@ clientes.find({}, function(err,cliente){
   });
   */
   clientes.
-  find({}).
-  populate('mascotas').
+  find({_secretaria: null, _medico: null}).
+  populate('_mascotas').
+  exec(function (err, cliente) {
+    if (err) return handleError(err);
+    res.json({"clientes":cliente});
+    //console.log('The author is %s', story.author.name);
+    // prints "The author is Ian Fleming"
+  });
+};
+
+exports.listar_clientes_secretaria = function(req,res){
+  clientes.
+  find({"_secretaria": { $exists: true, $ne: null}}).
+  populate('_mascotas').
   exec(function (err, cliente) {
     if (err) return handleError(err);
     res.json(cliente);
@@ -24,7 +36,20 @@ clientes.find({}, function(err,cliente){
   });
 };
 
-// Display detail page for a specific client.
+exports.listar_clientes_medico = function(req,res){
+  clientes.
+  find({"_medico": { $exists: true, $ne: null}}).
+  populate('_mascotas').
+  exec(function (err, cliente) {
+    if (err) return handleError(err);
+    res.json(cliente);
+    //console.log('The author is %s', story.author.name);
+    // prints "The author is Ian Fleming"
+  });
+};
+
+
+//CREAR UN CLIENTE EN MONGO
 exports.crear_un_cliente = function(req, res) {
     //res.send('NOT IMPLEMENTED: client detail: ' + req.params.id);
     var newCliente = new clientes(req.body);
@@ -35,7 +60,7 @@ exports.crear_un_cliente = function(req, res) {
     });
 };
 
-// Display Author create form on GET.
+//LEE UN CLIENTE Y TE LO REGRESA
 exports.leer_un_cliente = function(req, res) {
   //  res.send('NOT IMPLEMENTED: cliente create GET');
   /*
@@ -47,14 +72,14 @@ exports.leer_un_cliente = function(req, res) {
 */
   clientes.
   find({dni:req.params.clienteID}).
-  populate('mascotas').
+  populate('_mascotas').
   exec(function (err, cliente) {
     if (err) return handleError(err);
     res.json(cliente);
   });
 };
 
-// Handle Author create on POST.
+//ACTUALIZAR UN CLIENTE
 exports.actualizar_un_cliente = function(req, res) {
     //res.send('NOT IMPLEMENTED: cliente create POST');
     console.log(req.body);
@@ -70,7 +95,7 @@ exports.actualizar_un_cliente = function(req, res) {
     //req.body.fechaNacimiento = new Date(req.body.fechaNacimiento);
 };
 
-// Display Author delete form on GET.
+//ELIMINAR UN CLIENTE
 exports.eliminar_un_cliente = function(req, res) {
     //res.send('NOT IMPLEMENTED: cliente delete GET');
     clientes.remove({

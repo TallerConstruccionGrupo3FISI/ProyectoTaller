@@ -4,7 +4,7 @@ $(document).ready(function() {
         var intId = (lastField && lastField.length && lastField.data("idx") + 1) || 1;
         var fieldWrapper = $("<div class=\"input-group\" id=\"field"+ intId + "\"></div>");
         fieldWrapper.data("idx", intId);
-        var inputEnfermedad = $("<input name=\"enfermedad\" class=\"form-control here\"  placeholder=\"Enfermedades diagnosticadas " + intId +  "\" class=\"form-control here\" required=\"required\" type=\"text\" id=\"mascota_enfermedad" + intId + "\"/>");
+        var inputEnfermedad = $("<input name=\"enfermedadesDiagnosticadas\" class=\"form-control here\"  placeholder=\"Enfermedades diagnosticadas " + intId +  "\" class=\"form-control here\" required=\"required\" type=\"text\" id=\"mascota_enfermedad" + intId + "\"/>");
         var removeButton =  $("<input type=\"button\" value=\"Borrar\" class=\"minus\" />");
         removeButton.click(function(){
           $(this).parent().remove();
@@ -23,4 +23,9 @@ var fechaToString = function(data){
   var ano = fecha.getFullYear();
   var stringFecha = (dia+1) + "-" + (mes+1) + "-" + ano;
   return stringFecha;
+}
+var fechaToStringHora = function(data, hora){
+  var fecha = moment(data).format("YYYY-MM-DD");
+  var StringHora = fecha + "T" + hora + ":55.008";
+  return StringHora;
 }

@@ -39,6 +39,11 @@ module.exports = function(){
    palpitacionAbdominal: {
      type: String,
      required: false
+   },
+   _mascota:{
+     type: Schema.Types.ObjectId,
+     ref: "Mascota",
+     required: true
    }
   },
   {

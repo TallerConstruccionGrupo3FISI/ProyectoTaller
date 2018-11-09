@@ -13,5 +13,6 @@ router.route("/:citaID")
           .get(citaControlador.leer_una_cita)
           .put(citaControlador.actualizar_una_cita)
           .delete(citaControlador.eliminar_una_cita);
-
+router.route("/fecha/:fecha")
+          .get(citaControlador.leer_una_cita_x_fecha);
 module.exports = router;
