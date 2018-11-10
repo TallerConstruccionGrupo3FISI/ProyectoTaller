@@ -122,8 +122,7 @@ exports.registrar_secretaria= function(req, res){
 
 
 //FUNCION PARA VALIDAR EL LOGIN
-exports.sign_in = function(req, res) {
-  console.log(req.body);
+exports.sign_in = function(req, res){
 
   admin.findOne({
     email: req.body.email
@@ -137,22 +136,20 @@ exports.sign_in = function(req, res) {
              if (!cliente || !cliente.comparePassword(req.body.password)) {
                return res.status(401).json({ message: 'Authentication failed. Invalid user or password.' });
              }
-
-              req.session.user = cliente;
-              if(cliente._secretaria){
-                res.redirect('/perfilInformacionSecretaria');
-              }else if(cliente._medico){
-                res.redirect('/perfilInformacionMedico');
-              }else{
-                res.redirect('/perfilInformacionCliente');
-            }
+             else {
+               req.session.user = cliente;
+               if(cliente._secretaria){
+                 res.redirect('/perfilInformacionSecretaria');
+               }else if(cliente._medico){
+                 res.redirect('/perfilInformacionMedico');
+               }else{
+                 res.redirect('/perfilInformacionCliente');
+             }}        
            });
     }
     else{
-    console.log("VALOR CONTROLADOR ADMIN:", admin);
     req.session.user = admines;
-    //res.send("bienvenido admin");
-    res.redirect("/perfilAdmin");
+    return res.redirect("/perfilAdmin");
     }
   }
 );
@@ -173,19 +170,20 @@ exports.sign_in = function(req, res) {
     //res.cookie('id_token' ,token);
     req.session.user = cliente;
     if(cliente._secretaria){
-      res.redirect('/perfilInformacionSecretaria');
+      return res.redirect('/perfilInformacionSecretaria');
     }else if(cliente._medico){
-      res.redirect('/perfilInformacionMedico');
+      return res.redirect('/perfilInformacionMedico');
     }else{
-      res.redirect('/perfilInformacionCliente');
+      return res.redirect('/perfilInformacionCliente');
   }
  });
 
-};
+}
+
 //CAMBIAR CLAVE
 exports.cambiarClaveAdmin = function(req,res){
   req.body.password = bcrypt.hashSync(req.body.password,10);
-  admin.findOneAndUpdate({_id:req.session.user._id},{email:req.body.email, password:req.body.password}, function(err, adminEncontrado){
+  admin.findOneAndUpdate({_id:req.session.user._id},{password:req.body.password}, function(err, adminEncontrado){
     if(err){
       return res.status(400).send({
        message: err

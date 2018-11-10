@@ -12,18 +12,19 @@
       <div class="card-body">
         <form action="/clientes/cambiarClaveAdmin" method="post">
           <div class="form-group" >
-            <h2 class="titulo-formulario">REGISTRO DE USUARIO NUEVO</h2>
+            <h2 class="titulo-formulario">CAMBIAR CONTRASEÑA</h2>
 
             <div class="form-group">
-              <label for="InputEmail">Nuevo correo</label>
-              <input name="email" type="email" class="form-control" id="InputEmail" placeholder="Ingresa email nuevo">
+              <label for="InputPassword">Actual contraseña</label>
+              <input name="passwordActual" type="password" class="form-control" id="password" placeholder="Ingresa password actual">
             </div>
+
             <div class="form-group">
               <label for="InputPassword">Nueva contraseña</label>
               <input name="password" type="password" class="form-control" id="InputPassword" placeholder="Ingresa password">
             </div>
 
-            <label for="InputEmail">Repite Nueva contraseña</label>
+            <label for="InputConfirmPassword">Repite Nueva contraseña</label>
             <input type="password" class="form-control" id="InputConfirmPassword" placeholder="Confirmar password">
 
             <div  class="form-group col-md-12 text-center">
@@ -41,7 +42,7 @@
 
 <% include ./partials/footer-js %>
 <script  type="text/javascript">
-  var password = document.getElementById("password")
+  var password = document.getElementById("InputPassword")
     , confirm_password = document.getElementById("InputConfirmPassword");
 
   function validatePassword(){
