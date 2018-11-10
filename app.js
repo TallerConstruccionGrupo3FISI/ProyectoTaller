@@ -10,6 +10,7 @@ const jwt = require('jsonwebtoken');
 const config = require('./config/config.js');
 const keys = require('./config/keys.js');
 
+
 const passport = require("passport");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
@@ -17,7 +18,8 @@ const admin = require("./models/admin.js")();
 const stripe = require('stripe')(keys.stripeSecretKey);
 
 
-require("./passport");
+//require("./passport");
+
 //mongoose.connect("mongodb://localhost:27017/harold", { useNewUrlParser: true });
 const app = express();
 mongoose.set('useFindAndModify', false);

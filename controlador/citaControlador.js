@@ -81,10 +81,10 @@ exports.leer_una_cita_x_fecha = function(req,res){
   .exec(function (err, resultados){
     if(err)
       res.send(err);
-
     res.json({"cita": filtroDeMapeado(resultados)});
   });
 };
+
 
 function filtroDeMapeado(json){
   return json.filter( (nuevoJson)=>{
