@@ -85,15 +85,6 @@ exports.leer_una_cita_x_fecha = function(req,res){
   });
 };
 
-function filtroDeMapeado(json){
-  return json.filter( (nuevoJson)=>{
-    return nuevoJson._horario !== null;
-  }
-);
-}
-    res.json({"cita":resultados});
-  });
-};
 
 function filtroDeMapeado(json){
   return json.filter( (nuevoJson)=>{
