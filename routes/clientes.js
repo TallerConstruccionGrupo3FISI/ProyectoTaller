@@ -23,6 +23,7 @@ router.route("/registro")
           .post(autentificador.registrar);
 router.route("/sign_in")
           .post(autentificador.sign_in);
-
+router.route("/cambiarClaveAdmin")
+          .post(autentificador.cambiarClaveAdmin);
 
 module.exports = router;

@@ -141,7 +141,8 @@ exports.sign_in = function(req, res) {
            });
     }
     else{
-    req.session.user = admin;
+    console.log("VALOR CONTROLADOR ADMIN:", admin);
+    req.session.user = admines;
     //res.send("bienvenido admin");
     res.redirect("/perfilAdmin");
     }
@@ -149,7 +150,17 @@ exports.sign_in = function(req, res) {
 );
 
 };
-
+//CAMBIAR CLAVE
+exports.cambiarClaveAdmin = function(req,res){
+  req.body.password = bcrypt.hashSync(req.body.password,10);
+  admin.findOneAndUpdate({_id:req.session.user._id},{email:req.body.email, password:req.body.password}, function(err, adminEncontrado){
+    if(err){
+      return res.status(400).send({
+       message: err
+     });}
+    res.redirect("/perfilAdmin");
+  })
+}
 //FUNCION PARA BLOQUEAR PAGINAS SI NO HAN HECHO LOGIN
 exports.loginRequired = function(req, res, next) {
   //console.log("req.user: \n" );

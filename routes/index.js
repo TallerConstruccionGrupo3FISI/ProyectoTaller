@@ -111,6 +111,9 @@ router.get("/perfilAdminRegistrarMedico", (req,res)=>{
 router.get("/perfilAdminRegistrarSecretaria", (req,res)=>{
     res.render("perfilAdminRegistrarSecretaria");
 });
+router.get("/perfilAdminCambiarClave",(req,res)=>{
+  res.render("perfilAdminCambiarClave");
+})
 
 
 module.exports = router;

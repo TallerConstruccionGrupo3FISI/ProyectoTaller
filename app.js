@@ -50,12 +50,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-/*
-//pasport middlewares
-app.use(session({ secret: 'cats' }));
-app.use(passport.initialize());
-app.use(passport.session());
-*/
+
 //settings
 
 app.set('port', process.env.PORT || 3000);
@@ -97,9 +92,9 @@ admin.findOne({
         console.log("admin exito");
       }
     });
-    return console.log("error");
+    return console.log("No existia admin.Se ha creado uno");
   }
-  console.log("existe admin");
+  return console.log("existe admin");
 });
 
 
