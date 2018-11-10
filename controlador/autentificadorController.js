@@ -123,7 +123,7 @@ exports.registrar_secretaria= function(req, res){
 
 //FUNCION PARA VALIDAR EL LOGIN
 exports.sign_in = function(req, res){
-
+  console.log(req.body);
   admin.findOne({
     email: req.body.email
   }, function(err, admines){
@@ -136,48 +136,24 @@ exports.sign_in = function(req, res){
              if (!cliente || !cliente.comparePassword(req.body.password)) {
                return res.status(401).json({ message: 'Authentication failed. Invalid user or password.' });
              }
-             else {
-               req.session.user = cliente;
-               if(cliente._secretaria){
-                 res.redirect('/perfilInformacionSecretaria');
-               }else if(cliente._medico){
-                 res.redirect('/perfilInformacionMedico');
-               }else{
-                 res.redirect('/perfilInformacionCliente');
-             }}        
+
+              req.session.user = cliente;
+              if(cliente._secretaria){
+                res.redirect('/perfilInformacionSecretaria');
+              }else if(cliente._medico){
+                res.redirect('/perfilInformacionMedico');
+              }else{
+                res.redirect('/perfilInformacionCliente');
+            }
            });
     }
     else{
     req.session.user = admines;
-    return res.redirect("/perfilAdmin");
+    //res.send("bienvenido admin");
+    res.redirect("/perfilAdmin");
     }
   }
 );
-
-  clientes.findOne({
-   email: req.body.email
- }, function(err, cliente) {
-   if (err) throw err;
-   if (!cliente || !cliente.comparePassword(req.body.password)) {
-     return res.status(401).json({ message: 'Authentication failed. Invalid user or password.' });
-   }
-    //localStorage.setItem("token",jwt.sign({ email: cliente.email, fullName: cliente.apellidos, dni: cliente.dni }, 'RESTFULAPIs',{ expiresIn: '1h' }));
-    //var token =  jwt.sign({ email: cliente.email, fullName: cliente.apellidos, dni: cliente.dni }, 'RESTFULAPIs',{ expiresIn: '1h' });
-    //res.set("authorization","JWT " + token);
-    //res.json(token);
-    //var token = localStorage.getItem("token");
-    //console.log("\nEL TOKEN ES: " + token + "\n");
-    //res.cookie('id_token' ,token);
-    req.session.user = cliente;
-    if(cliente._secretaria){
-      return res.redirect('/perfilInformacionSecretaria');
-    }else if(cliente._medico){
-      return res.redirect('/perfilInformacionMedico');
-    }else{
-      return res.redirect('/perfilInformacionCliente');
-  }
- });
-
 }
 
 //CAMBIAR CLAVE
