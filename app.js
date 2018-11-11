@@ -9,7 +9,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('./config/config.js');
 const keys = require('./config/keys.js');
-
+const flash = require('connect-flash');
 
 const passport = require("passport");
 const session = require("express-session");
@@ -47,7 +47,7 @@ resave: true,
 saveUninitialized: true
 }));
 
-
+app.use(flash());
 
 app.use(function(req, res, next) {
   if(req.session.user)
@@ -79,9 +79,7 @@ app.use(function(req, res, next) {
   }
 });
 */
-admin.findOne({
-  email:"admin"
-}, function(err,admines){
+admin.findOne({}, function(err,admines){
   if (err) throw err;
   if (!admines){
     var adminNuevo = new admin({

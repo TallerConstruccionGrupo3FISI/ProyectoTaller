@@ -10,12 +10,18 @@
     <% include ./partials/dashboard-admin%>
     <div class="card">
       <div class="card-body">
-        <% if ( locals.user ) { %>
-        <div class="flash">message= <%=locals.user%></div>
-
+        <% if ( message!='' ) { %>
+        <%- "<div class='flash validation'>" %> <%=message%> <%- "</div>" %>
         <% } %>
+        <% if ( encontrado!='' ) { %>
+        <%- "<div class='flash validation encontrado'>" %> <%=encontrado%> <%- "</div>" %>
+        <% } %>
+        <% if ( noEncontrado!='' ) { %>
+        <%- "<div class='flash validation noEncontrado'>" %> <%=noEncontrado%> <%- "</div>" %>
+        <% } %>
+
         <h1>BIENVENIDO AL SISTEMA ADMIN</h1>
-        <h2>Elija entre crear cuentas de secretaria o medico</h2>
+        <img src="/imagenes/perroSlider3.jpg" alt="" class="slider">
       </div>
 
     </div>

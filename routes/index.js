@@ -40,7 +40,9 @@ router.get("/log_out",(req,res)=>{
    res.redirect('/login');
 });
 router.get("/formularioCliente", (req,res)=>{
-    res.render("formularioCliente");
+    res.render("formularioCliente",{
+      camposIncorrectos: req.flash("camposIncorrectos")
+    });
 });
 router.get("/perfilCliente",autentificador.loginRequired,(req,res)=>{
   //console.log("mi cookie " + req.cookies + "\nacabo la cookie");
@@ -102,8 +104,13 @@ router.get("/perfilMedicoHorarios", (req,res)=>{
 });
 
 router.get("/perfilAdmin",(req,res)=>{
-    //req.session.user.bienvenido = "";
-    res.render("perfilAdmin");
+  //req.flash("exito","hola mundo exito")
+    res.render("perfilAdmin",{
+    message:req.flash('message'),
+    noEncontrado:req.flash('noEncontrado'),
+    encontrado:req.flash('encontrado')
+  });
+    //res.render("perfilAdmin");
 });
 router.get("/perfilAdminRegistrarMedico", (req,res)=>{
     res.render("perfilAdminRegistrarMedico");

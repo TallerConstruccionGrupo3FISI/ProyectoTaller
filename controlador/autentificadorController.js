@@ -21,9 +21,11 @@ exports.registrar= function(req, res){
   nuevoCliente.password = bcrypt.hashSync(req.body.password,10);
   nuevoCliente.save(function(err){
     if(err){
-      return res.status(400).send({
-       message: err
-     });
+      //return res.status(400).send({
+      // message: err
+     //});
+      req.flash("camposIncorrectos","Uno o mas campos incorrectos");
+      return res.redirect("/formularioCliente");
     }
     else{
         //res.json(nuevoCliente);
@@ -150,7 +152,8 @@ exports.sign_in = function(req, res){
     else{
     req.session.user = admines;
     //res.send("bienvenido admin");
-    req.session.user.bienvenido = "bienvenido a la pagina web";
+    //req.session.user.bienvenido = "bienvenido a la pagina web";
+    req.flash('message',"PASSWORD CORRECTO");
     res.redirect("/perfilAdmin");
     }
   }
@@ -168,12 +171,14 @@ exports.cambiarClaveAdmin = function(req,res){
      });}
      else if(!adminEncontrado || !adminEncontrado.comparePassword(req.body.passwordActual)){
        //req.flash('noEncontrado',"Usuario no encontrado en la bd");
-       res.local.user.adminEncontrado = "No se cambio la contraseña";
+       //res.local.user.adminEncontrado = "No se cambio la contraseña";
+       req.flash('noEncontrado',"Contraseña o usuario incorrecto");
        res.redirect("/perfilAdmin");
      }
      else{
        //req.flash('bienvenido',"Bienvenido usuario");
-       res.local.user.adminEncontrado = "Se cambio la contraseña";
+       req.flash("encontrado","Contraseña cambiada");
+       //res.local.user.adminEncontrado = "Se cambio la contraseña";
        res.redirect("/perfilAdmin");
      }
   })

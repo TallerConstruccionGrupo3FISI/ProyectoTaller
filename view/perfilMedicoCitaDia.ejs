@@ -41,7 +41,7 @@
   $(document).ready(function () {
              $('#dataTable').DataTable({
                processing: true,
-               serverSide: true,
+               serverSide: false,
                  "ajax": {
                      "url": "/cita/fecha/" + new moment().format("YYYY-MM-DD"),
                      "type": "GET",

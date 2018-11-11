@@ -9,7 +9,7 @@
         </button>
         <div class="collapse navbar-collapse" id="exCollapsingNavbar">
             <ul class="nav navbar-nav">
-              
+
                 <li class="nav-item"><a href="/nosotros" class="nav-link">Nosotros</a></li>
                 <li class="nav-item"><a href="/servicios" class="nav-link">Servicios</a></li>
                 <li class="nav-item"><a href="/contactos" class="nav-link">Contactos</a></li>
@@ -50,9 +50,18 @@
                          <li class="px-3 py-2">
                            <div>
 
+                             <a class="btn btn-primary btn-block btn-space"
+                             <%if (locals.user._secretaria) {%>
+                             href="/perfilInformacionSecretaria"
+                             <%} else if (locals.user._medico) {%>
+                             href="/perfilInformacionMedico"
+                             <%} else {%>
+                             href="/perfilAdmin"
+                             <%}%>
+                             role="button">Ver perfil</a>
                              <form class="form" role="form" action="/log_out" method="get">
                                   <div class="form-group">
-                                      <button type="submit" class="btn btn-primary btn-block">Desconectar</button>
+                                      <button type="submit" class="btn btn-danger btn-block btn-space">Desconectar</button>
                                   </div>
                               </form>
 

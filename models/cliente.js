@@ -2,7 +2,7 @@ module.exports = function(){
   var db= require('../libs/db-connection.js')();
   var Schema = require('mongoose').Schema;
   var bcrypt = require('bcryptjs');
-
+  var moment = require('moment');
   var clientesSchema= Schema({
     nombres:{
       type: String,
@@ -24,6 +24,7 @@ module.exports = function(){
     },
     dni:{
       type: String,
+      unique: true,
       required: true
     },
     telefono:{
@@ -32,7 +33,8 @@ module.exports = function(){
     },
     fechaNacimiento:{
       type: Date,
-      required: true
+      required: true,
+      validate: verificarFecha
     },
     direccion:{
       type: String,
@@ -64,8 +66,14 @@ module.exports = function(){
     }]
   });
 
-
-
+  function verificarFecha(fecha){
+      var fechaActual = moment(new Date());
+      var fechaComparar = moment(fecha);
+      console.log("FECHA ACTUAL",fechaActual);
+      var diferencia = fechaActual.diff(fechaComparar,'years');
+      console.log("diferencia",diferencia);
+      return (diferencia >=18);
+  };
 
   clientesSchema.methods.comparePassword = function(pass){
     return bcrypt.compareSync(pass,this.password);

@@ -161,7 +161,7 @@ function formToJson(){
                               $direccion.val(data.direccion);
                               $telefono.val(data.telefono);
                               $dni.val(data.dni);
-                              $nacimiento.val(data.fechaNacimiento);
+                              $nacimiento.val(moment(data.fechaNacimiento).format("YYYY-MM-DD"));
                               $distrito.val(data.distrito);
                             });
                    }

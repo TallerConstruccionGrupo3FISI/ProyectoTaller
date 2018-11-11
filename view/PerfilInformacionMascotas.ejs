@@ -47,12 +47,12 @@
   $(document).ready(function () {
              $('#dataTable').DataTable({
                processing: true,
-               serverSide: true,
+               serverSide: false,
                  "ajax": {
                      "url": "/mascotas/<%=locals.user._id%>",
                      "type": "GET",
                      "datatype": "json",
-                      dataSrc: "mascota"
+                      "dataSrc": "mascota"
                  },
                  "columns": [
                      { "data": "nombre" },
