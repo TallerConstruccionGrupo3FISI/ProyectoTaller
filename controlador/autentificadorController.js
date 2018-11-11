@@ -150,6 +150,7 @@ exports.sign_in = function(req, res){
     else{
     req.session.user = admines;
     //res.send("bienvenido admin");
+    req.session.user.bienvenido = "bienvenido a la pagina web";
     res.redirect("/perfilAdmin");
     }
   }
@@ -158,15 +159,27 @@ exports.sign_in = function(req, res){
 
 //CAMBIAR CLAVE
 exports.cambiarClaveAdmin = function(req,res){
+  //var passwordActual = bcrypt.hashSync(req.body.passwordActual,10);
   req.body.password = bcrypt.hashSync(req.body.password,10);
   admin.findOneAndUpdate({_id:req.session.user._id},{password:req.body.password}, function(err, adminEncontrado){
     if(err){
       return res.status(400).send({
        message: err
      });}
-    res.redirect("/perfilAdmin");
+     else if(!adminEncontrado || !adminEncontrado.comparePassword(req.body.passwordActual)){
+       //req.flash('noEncontrado',"Usuario no encontrado en la bd");
+       res.local.user.adminEncontrado = "No se cambio la contraseña";
+       res.redirect("/perfilAdmin");
+     }
+     else{
+       //req.flash('bienvenido',"Bienvenido usuario");
+       res.local.user.adminEncontrado = "Se cambio la contraseña";
+       res.redirect("/perfilAdmin");
+     }
   })
 }
+
+
 //FUNCION PARA BLOQUEAR PAGINAS SI NO HAN HECHO LOGIN
 exports.loginRequired = function(req, res, next) {
   //console.log("req.user: \n" );

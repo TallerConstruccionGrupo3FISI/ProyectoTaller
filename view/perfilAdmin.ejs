@@ -10,6 +10,10 @@
     <% include ./partials/dashboard-admin%>
     <div class="card">
       <div class="card-body">
+        <% if ( locals.user ) { %>
+        <div class="flash">message= <%=locals.user%></div>
+
+        <% } %>
         <h1>BIENVENIDO AL SISTEMA ADMIN</h1>
         <h2>Elija entre crear cuentas de secretaria o medico</h2>
       </div>
@@ -22,6 +26,5 @@
 <% include ./partials/footer-js %>
 <script  type="text/javascript">
 </script>
-
 </body>
 </html>

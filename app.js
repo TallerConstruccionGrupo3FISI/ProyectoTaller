@@ -40,18 +40,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+
 app.use(session({
 secret: 'botnyuserdetails', // session secret
 resave: true,
 saveUninitialized: true
 }));
 
+
+
 app.use(function(req, res, next) {
   if(req.session.user)
   res.locals.user = req.session.user;
   next();
 });
-
 
 //settings
 
@@ -109,9 +111,7 @@ const apiHorarios = require('./routes/horarios');
 const apiMedicos = require('./routes/medico');
 const apiSecretaria = require("./routes/secretaria");
 const apiHistorialClinico = require("./routes/historialClinico");
-const apiBanoCorte = require("./routes/banoCorte");
 const apiCita = require("./routes/cita");
-const apiConsulta = require("./routes/consulta");
 
 
 const auth = require('./routes/auth');
@@ -126,9 +126,7 @@ app.use('/horarios',apiHorarios);
 app.use('/medicos',apiMedicos);
 app.use('/secretaria',apiSecretaria);
 app.use('/historialClinico',apiHistorialClinico);
-app.use('/banoCorte',apiBanoCorte);
 app.use('/cita',apiCita);
-app.use('/consulta',apiConsulta);
 app.use('/auth', auth);
 
 app.listen(app.get('port'), ()=>{

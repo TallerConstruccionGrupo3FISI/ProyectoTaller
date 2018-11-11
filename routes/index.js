@@ -102,6 +102,7 @@ router.get("/perfilMedicoHorarios", (req,res)=>{
 });
 
 router.get("/perfilAdmin",(req,res)=>{
+    //req.session.user.bienvenido = "";
     res.render("perfilAdmin");
 });
 router.get("/perfilAdminRegistrarMedico", (req,res)=>{
