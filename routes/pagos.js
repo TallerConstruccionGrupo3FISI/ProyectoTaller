@@ -49,6 +49,7 @@ router.post('/', (req, res) => {
                    return res.status(400).send({
                     message: err
                   });}
+                 req.flash("PagoExito","Se ha completado el pago");
                  return res.redirect('/perfilInformacionCliente');
                });
              }

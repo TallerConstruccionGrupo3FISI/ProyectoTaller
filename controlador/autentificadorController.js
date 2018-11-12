@@ -30,6 +30,7 @@ exports.registrar= function(req, res){
     else{
         //res.json(nuevoCliente);
         req.session.user = nuevoCliente;
+        req.flash("Bienvenido","Bienvenido al sistema");
         return res.redirect('/perfilInformacionCliente');
     }
   });
@@ -64,18 +65,21 @@ exports.registrar_medico= function(req, res){
 
   nuevoCliente.save(function(err){
     if(err){
-      return res.status(400).send({
-       message: err
-     });}
+      req.flash("Error","No se ha podido crear al medico");
+      res.redirect("/perfilAdminRegistrarMedico");
+      }
     else{
         medico.save(function(err) {
           if(err){
-            return res.status(400).send({
-             message: err
-           });
+            //return res.status(400).send({
+            // message: err
+           //});
+           req.flash("Error","No se ha podido crear al medico");
+           res.redirect("/perfilAdminRegistrarMedico");
           }
       });
-        res.redirect("/perfilAdminRegistrarMedico");
+      req.flash("Exito","Se ha creado un medico");
+      res.redirect("/perfilAdminRegistrarMedico");
     }
   });
 };
@@ -104,19 +108,23 @@ exports.registrar_secretaria= function(req, res){
   nuevoCliente._secretaria = secretaria._id;
   nuevoCliente.save(function(err, user){
     if(err){
-      return res.status(400).send({
-       message: err
-     });
+      //return res.status(400).send({
+      // message: err
+     //});
+     req.flash("Error","Hay un campo o mas con errores");
+     res.redirect("/perfilAdminRegistrarSecretaria");
     }
     else{
         secretaria.save(function(err){
           if(err){
-            return res.status(400).send({
-              message: err
-            });
+            //return res.status(400).send({
+            //  message: err
+            //})
+            req.flash("Error","No se ha podido crear la secretaria");
+            res.redirect("/perfilAdminRegistrarSecretaria");
           }
         });
-
+        req.flash("Exito","Se ha creado una secretaria");
         res.redirect("/perfilAdminRegistrarSecretaria");
         }
   });
@@ -136,16 +144,19 @@ exports.sign_in = function(req, res){
            }, function(err, cliente) {
              if (err) throw err;
              if (!cliente || !cliente.comparePassword(req.body.password)) {
-               return res.status(401).json({ message: 'Authentication failed. Invalid user or password.' });
+               //return res.status(401).json({ message: 'Authentication failed. Invalid user or password.' });
+               req.flash("LoginFallo","Autentificacion fallida. Usuario o password invalidos");
+               return res.redirect("/login");
              }
 
               req.session.user = cliente;
+              req.flash("Bienvenido","Bienvenido al sistema");
               if(cliente._secretaria){
-                res.redirect('/perfilInformacionSecretaria');
+                return res.redirect('/perfilInformacionSecretaria');
               }else if(cliente._medico){
-                res.redirect('/perfilInformacionMedico');
+                return res.redirect('/perfilInformacionMedico');
               }else{
-                res.redirect('/perfilInformacionCliente');
+                return res.redirect('/perfilInformacionCliente');
             }
            });
     }
@@ -164,26 +175,75 @@ exports.sign_in = function(req, res){
 exports.cambiarClaveAdmin = function(req,res){
   //var passwordActual = bcrypt.hashSync(req.body.passwordActual,10);
   req.body.password = bcrypt.hashSync(req.body.password,10);
-  admin.findOneAndUpdate({_id:req.session.user._id},{password:req.body.password}, function(err, adminEncontrado){
+  //req.body.passwordActual = bcrypt.hashSync(req.body.passwordActual,10);
+  admin.findOne(
+    {
+      _id:req.session.user._id
+    },
+    function(err, adminEncontrado){
     if(err){
-      return res.status(400).send({
-       message: err
-     });}
-     else if(!adminEncontrado || !adminEncontrado.comparePassword(req.body.passwordActual)){
-       //req.flash('noEncontrado',"Usuario no encontrado en la bd");
-       //res.local.user.adminEncontrado = "No se cambio la contraseña";
-       req.flash('noEncontrado',"Contraseña o usuario incorrecto");
-       res.redirect("/perfilAdmin");
-     }
-     else{
-       //req.flash('bienvenido',"Bienvenido usuario");
-       req.flash("encontrado","Contraseña cambiada");
-       //res.local.user.adminEncontrado = "Se cambio la contraseña";
-       res.redirect("/perfilAdmin");
-     }
-  })
+      req.flash('error',"Error en un campo");
+      res.redirect("/perfilAdmin");
+    }
+    else{
+      if(adminEncontrado.comparePassword(req.body.passwordActual)){
+        admin.findOneAndUpdate({_id:req.session.user._id},{
+          password: req.body.password
+        },function(err, adminNuevo){
+          if(err){
+            req.flash('error',"Error en un campo");
+            res.redirect("/perfilAdmin");
+          }
+          else{
+            req.flash("encontrado","Contraseña cambiada");
+            res.redirect("/perfilAdmin");
+            }
+          });
+        }
+      else{
+          req.flash('noEncontrado',"Contraseña incorrecta");
+          res.redirect("/perfilAdmin");
+        };
+      }
+    });
 }
 
+//CAMBIAR EMAIL
+exports.cambiarEmailAdmin = function(req,res){
+  //var passwordActual = bcrypt.hashSync(req.body.passwordActual,10);
+  //req.body.password = bcrypt.hashSync(req.body.password,10);
+  //req.body.passwordActual = bcrypt.hashSync(req.body.passwordActual,10);
+  admin.findOne(
+    {
+      _id:req.session.user._id
+    },
+    function(err, adminEncontrado){
+    if(err){
+      req.flash('error',"Error en un campo");
+      res.redirect("/perfilAdmin");
+    }
+    else{
+      if(adminEncontrado.comparePassword(req.body.passwordActual)){
+        admin.findOneAndUpdate({_id:req.session.user._id},{
+          email: req.body.email
+        },function(err, adminNuevo){
+          if(err){
+            req.flash('error',"Error en un campo");
+            res.redirect("/perfilAdmin");
+          }
+          else{
+            req.flash("encontrado","Email cambiado");
+            res.redirect("/perfilAdmin");
+            }
+          });
+        }
+      else{
+          req.flash('noEncontrado',"Contraseña incorrecto");
+          res.redirect("/perfilAdmin");
+        };
+      }
+    });
+}
 
 //FUNCION PARA BLOQUEAR PAGINAS SI NO HAN HECHO LOGIN
 exports.loginRequired = function(req, res, next) {
@@ -192,11 +252,13 @@ exports.loginRequired = function(req, res, next) {
   if (req.session.user) {
     next();
   } else {
-    return res.status(401).json({ message: 'Unauthorized user!' });
+      req.flash("Desautorizado","Registrarse para ver esta pagina primero");
+      res.redirect("/login");
   }
 };
 //FUNCION PARA DESLOGUEARSE
 exports.log_out = function(req,res){
+  req.flash("Desloguearse","Usted se ha deslogueado exitosamente");
   req.session.destroy(function(){
       console.log("user logged out.")
    });

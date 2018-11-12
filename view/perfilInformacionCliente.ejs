@@ -13,7 +13,15 @@
 		        <div class="card-body">
 		            <div class="row">
 		                <div class="col-md-12">
-		                    <h4>Tu perfil</h4>
+                      <% if ( bienvenido!='' ) { %>
+                      <%- "<div class='flash validation'>" %> <%=bienvenido%> <%- "</div>" %>
+                      <% } %>
+
+                      <% if ( pagoExito!='' ) { %>
+                      <%- "<div class='flash validation encontrado'>" %> <%=pagoExito%> <%- "</div>" %>
+                      <% } %>
+                        <h4>Tu perfil</h4>
+
 		                    <hr>
 		                </div>
 		            </div>

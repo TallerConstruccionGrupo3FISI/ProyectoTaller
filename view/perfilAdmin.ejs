@@ -19,7 +19,9 @@
         <% if ( noEncontrado!='' ) { %>
         <%- "<div class='flash validation noEncontrado'>" %> <%=noEncontrado%> <%- "</div>" %>
         <% } %>
-
+        <% if ( error!='' ) { %>
+        <%- "<div class='flash validation noEncontrado'>" %> <%=error%> <%- "</div>" %>
+        <% } %>
         <h1>BIENVENIDO AL SISTEMA ADMIN</h1>
         <img src="/imagenes/perroSlider3.jpg" alt="" class="slider">
       </div>

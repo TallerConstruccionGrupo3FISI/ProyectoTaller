@@ -13,6 +13,9 @@
 		        <div class="card-body">
 		            <div class="row">
 		                <div class="col-md-12">
+                      <% if ( exito!='' ) { %>
+                      <%- "<div class='flash validation encontrado'>" %> <%=exito%> <%- "</div>" %>
+                      <% } %>
 		                    <h4>FICHA HISTORIAL CLINICO</h4>
 		                    <hr>
 		                </div>
@@ -189,6 +192,18 @@
     var $mascotaVacunado = $('#mascota_vacunado');
     var $mascotaUltimaVisita = $('#mascota_visita_veterinario');
     var $mascotaEnfermedades = $('#mascota_enfermedad');
+
+    //DOM de historialClinico
+    var $historialDH=$('#DH');
+    var $historialFC=$('#FC');
+    var $historialFR=$('#FR');
+    var $historialT=$('#T');
+    var $historialTLLC=$('#TLLC');
+    var $historialLinfonodos=$('#linfonodos');
+    var $historialMucosas=$('#mucosas');
+    var $historialPalpitacionAbdominal=$('#palpitacionAbdominal');
+    var $historialPulso=$('#pulso');
+
     var dataMascotas;
     $botonBuscar.click(function(e){
       e.preventDefault();
@@ -211,7 +226,7 @@
                         $mascotaVacunado.empty();
                         $mascotaUltimaVisita.empty();
                         $mascotaEnfermedades.empty();
-
+                        /*
                         $mascotaSelector.val("");
                         $mascotaTipo.val("");
                         $mascotaRaza.val("");;
@@ -223,6 +238,28 @@
                         $mascotaVacunado.val("");
                         $mascotaUltimaVisita.val("");
                         $mascotaEnfermedades.val("");
+
+                        $historialDH.val('');
+                        $historialFC.val('');
+                        $historialFR.val('');
+                        $historialT.val('');
+                        $historialTLLC.val('');
+                        $historialLinfonodos.val('');
+                        $historialMucosas.val('');
+                        $historialPalpitacionAbdominal.val('');
+                        $historialPulso.val('');
+                        */
+
+                        $historialDH.empty();
+                        $historialFC.empty();
+                        $historialFR.empty();
+                        $historialT.empty();
+                        $historialTLLC.empty();
+                        $historialLinfonodos.empty();
+                        $historialMucosas.empty();
+                        $historialPalpitacionAbdominal.empty();
+                        $historialPulso.empty();
+
 
                         $mascotaSelector.append("<option>" + "--SELECCIONA--" + " </option>");
                         $.each(dataMascotas, function(i,elemento){
@@ -247,9 +284,39 @@
                 $mascotaVacunado.val(dataMascotas[i].vacunado);
                 $mascotaUltimaVisita.val(dataMascotas[i].ultimaVisitaVeterinario);
                 $mascotaEnfermedades.val(dataMascotas[i].enfermedadesDiagnosticadas);
+                $historialDH.val(dataMascotas[i]._historialClinico.DH);
+                $historialFC.val(dataMascotas[i]._historialClinico.FC);
+                $historialFR.val(dataMascotas[i]._historialClinico.FR);
+                $historialT.val(dataMascotas[i]._historialClinico.T);
+                $historialTLLC.val(dataMascotas[i]._historialClinico.TLLC);
+                $historialLinfonodos.val(dataMascotas[i]._historialClinico.linfonodos);
+                $historialMucosas.val(dataMascotas[i]._historialClinico.mucosas);
+                $historialPalpitacionAbdominal.val(dataMascotas[i]._historialClinico.palpitacionAbdominal);
+                $historialPulso.val(dataMascotas[i]._historialClinico.pulso);
             }
             else{
                 console.log("error la mascota no esta en el array");
+                $mascotaSelector.val("");
+                $mascotaTipo.val("");
+                $mascotaRaza.val("");;
+                $mascotaFechaNacimiento.val("");
+                $mascotaSexo.val("");
+                $mascotaAlimentacion.val("");
+                $mascotaEstirilizado.val("");
+                $mascotaConvive.val("");
+                $mascotaVacunado.val("");
+                $mascotaUltimaVisita.val("");
+                $mascotaEnfermedades.val("");
+
+                $historialDH.val('');
+                $historialFC.val('');
+                $historialFR.val('');
+                $historialT.val('');
+                $historialTLLC.val('');
+                $historialLinfonodos.val('');
+                $historialMucosas.val('');
+                $historialPalpitacionAbdominal.val('');
+                $historialPulso.val('');
             }
         });
 

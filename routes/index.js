@@ -31,14 +31,21 @@ router.get("/contactos",(req,res)=>{
   res.render("contactos");
 });
 router.get("/login",(req,res)=>{
-  res.render("login");
+  res.render("login",{
+    loginFallo: req.flash("LoginFallo"),
+    desautorizado: req.flash("Desautorizado"),
+    deslogueado: req.flash("Desloguearse")
+  });
 });
+
 router.get("/log_out",(req,res)=>{
-  req.session.destroy(function(){
+   req.flash("Desloguearse","Usted se ha deslogueado exitosamente");
+   req.session.destroy(function(){
       console.log("user logged out.")
    });
    res.redirect('/login');
 });
+
 router.get("/formularioCliente", (req,res)=>{
     res.render("formularioCliente",{
       camposIncorrectos: req.flash("camposIncorrectos")
@@ -52,19 +59,26 @@ router.get("/perfilCliente",autentificador.loginRequired,(req,res)=>{
 });
 
 router.get("/perfilInformacionCliente",autentificador.loginRequired,(req,res)=>{
-  res.render("perfilInformacionCliente");
+  res.render("perfilInformacionCliente",{
+    bienvenido: req.flash("Bienvenido"),
+    pagoExito: req.flash("PagoExito")
+  });
 });
 
 //DATOS SECRETARIA
 router.get("/perfilInformacionSecretaria",autentificador.loginRequired,(req,res)=>{
-  res.render("perfilInformacionSecretaria");
+  res.render("perfilInformacionSecretaria",{
+    bienvenido: req.flash("Bienvenido")
+  });
 });
 router.get("/perfilIngresarHorarioAtencion",autentificador.loginRequired,(req,res)=>{
   res.render("perfilIngresarHorarioAtencion");
 });
 
 router.get("/perfilInformacionMedico",autentificador.loginRequired,(req,res)=>{
-  res.render("perfilInformacionMedico");
+  res.render("perfilInformacionMedico",{
+    bienvenido: req.flash("Bienvenido")
+  });
 });
 
 router.get("/perfilFormularioMascota",autentificador.loginRequired,(req,res)=>{
@@ -97,7 +111,9 @@ router.get("/perfilMedicoCitaDia",(req,res)=>{
 });
 
 router.get("/perfilMedicoIngresarHistorialClinico", (req,res)=>{
-    res.render("perfilMedicoIngresarHistorialClinico");
+    res.render("perfilMedicoIngresarHistorialClinico",{
+      exito: req.flash("Exito")
+    });
 });
 router.get("/perfilMedicoHorarios", (req,res)=>{
     res.render("perfilMedicoHorarios");
@@ -108,19 +124,29 @@ router.get("/perfilAdmin",(req,res)=>{
     res.render("perfilAdmin",{
     message:req.flash('message'),
     noEncontrado:req.flash('noEncontrado'),
-    encontrado:req.flash('encontrado')
+    encontrado:req.flash('encontrado'),
+    error:req.flash('error')
   });
     //res.render("perfilAdmin");
 });
 router.get("/perfilAdminRegistrarMedico", (req,res)=>{
-    res.render("perfilAdminRegistrarMedico");
+    res.render("perfilAdminRegistrarMedico",{
+      error: req.flash("Error"),
+      exito: req.flash("Exito")
+    });
 });
 
 router.get("/perfilAdminRegistrarSecretaria", (req,res)=>{
-    res.render("perfilAdminRegistrarSecretaria");
+    res.render("perfilAdminRegistrarSecretaria",{
+      error: req.flash("Error"),
+      exito: req.flash("Exito")
+    });
 });
 router.get("/perfilAdminCambiarClave",(req,res)=>{
   res.render("perfilAdminCambiarClave");
+})
+router.get("/perfilAdminCambiarEmail",(req,res)=>{
+  res.render("perfilAdminCambiarEmail");
 })
 
 

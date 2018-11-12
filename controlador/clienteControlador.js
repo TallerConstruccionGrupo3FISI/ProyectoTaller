@@ -72,7 +72,7 @@ exports.leer_un_cliente = function(req, res) {
 */
   clientes.
   find({dni:req.params.clienteID}).
-  populate('_mascotas').
+  populate({path: "_mascotas", populate: {path: "_historialClinico"}}).
   exec(function (err, cliente) {
     if (err) return handleError(err);
     res.json(cliente);

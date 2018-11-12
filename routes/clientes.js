@@ -25,5 +25,8 @@ router.route("/sign_in")
           .post(autentificador.sign_in);
 router.route("/cambiarClaveAdmin")
           .post(autentificador.cambiarClaveAdmin);
+router.route("/cambiarEmailAdmin")
+          .post(autentificador.cambiarEmailAdmin);
+
 
 module.exports = router;

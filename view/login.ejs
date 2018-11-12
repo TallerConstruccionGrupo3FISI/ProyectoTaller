@@ -7,6 +7,15 @@
   <div class="container">
     <section class="login-form">
     <form action="/clientes/sign_in" method="post" role="login">
+      <% if ( loginFallo!='' ) { %>
+      <%- "<div class='flash validation noEncontrado'>" %> <%=loginFallo%> <%- "</div>" %>
+      <% } %>
+      <% if ( desautorizado!='' ) { %>
+      <%- "<div class='flash validation noEncontrado'>" %> <%=desautorizado%> <%- "</div>" %>
+      <% } %>
+      <% if ( deslogueado!='' ) { %>
+      <%- "<div class='flash validation noEncontrado'>" %> <%=deslogueado%> <%- "</div>" %>
+      <% } %>
       <img src="http://i.imgur.com/RcmcLv4.png" class="img-responsive" alt="" />
       <input type="email"  placeholder="Email" required class="form-control input-lg" value="harold@gmail.com" name="email"/>
       <input type="password" class="form-control input-lg" id="password" placeholder="Password" required="" name="password"/>

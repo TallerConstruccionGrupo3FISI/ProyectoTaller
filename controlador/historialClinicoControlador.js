@@ -79,7 +79,9 @@ exports.crear_un_historialClinico = function(req, res) {
                if(err)
                      res.send(err);
                else{
-                     res.json({"historial":historial});
+                    req.flash("Exito","Se registro exitosamente");
+                    res.redirect("/perfilMedicoIngresarHistorialClinico");
+                     //res.json({"historial":historial});
                }
             }
          )};
