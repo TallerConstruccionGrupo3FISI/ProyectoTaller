@@ -7,11 +7,11 @@ const historialClinicoControlador = require("../controlador/historialClinicoCont
 const autentificador = require("../controlador/autentificadorController.js");
 
 router.route("/")
-          .get(historialClinicoControlador.listar_historialClinico)
-          .post(historialClinicoControlador.crear_un_historialClinico);
+          .get(historialClinicoControlador.listar_historialClinico,autentificador.loginRequired)
+          .post(historialClinicoControlador.crear_un_historialClinico,autentificador.loginRequired);
 router.route("/:historialClinicoID")
-          .get(historialClinicoControlador.leer_un_historialClinico)
-          .put(historialClinicoControlador.actualizar_un_historialClinico)
-          .delete(historialClinicoControlador.eliminar_un_historialClinico);
+          .get(historialClinicoControlador.leer_un_historialClinico,autentificador.loginRequired)
+          .put(historialClinicoControlador.actualizar_un_historialClinico,autentificador.loginRequired)
+          .delete(historialClinicoControlador.eliminar_un_historialClinico,autentificador.loginRequired);
 
 module.exports = router;

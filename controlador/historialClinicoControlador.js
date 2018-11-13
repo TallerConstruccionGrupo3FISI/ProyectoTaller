@@ -72,12 +72,16 @@ exports.crear_un_historialClinico = function(req, res) {
            palpitacionAbdominal: req.body.palpitacionAbdominal,
          }
          , { upsert: true, new: true } , function(err, historial){
-           if(err)
-             res.send(err);
+           if(err){
+           req.flash("noExito","No se registro exitosamente");
+           res.redirect("/perfilMedicoIngresarHistorialClinico");
+         }
            else{
              mascotas.findOneAndUpdate({_id: req.body._mascota}, { _historialClinico: historial._id },{new:true}, function(err,mascota){
-               if(err)
-                     res.send(err);
+               if(err){
+                 req.flash("noExito","No se registro exitosamente");
+                 res.redirect("/perfilMedicoIngresarHistorialClinico");
+               }
                else{
                     req.flash("Exito","Se registro exitosamente");
                     res.redirect("/perfilMedicoIngresarHistorialClinico");

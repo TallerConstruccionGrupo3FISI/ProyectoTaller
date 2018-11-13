@@ -19,12 +19,12 @@ router.get('/', (req, res)=>{
 */
 
 router.route("/")
-          .get(mascotaControlador.listar_mascotas)
-          .post(mascotaControlador.crear_una_mascota);
+          .get(mascotaControlador.listar_mascotas,autentificador.loginRequired)
+          .post(mascotaControlador.crear_una_mascota,autentificador.loginRequired);
 router.route("/:mascotaID")
-          .get(mascotaControlador.leer_mascotas)
-          .put(mascotaControlador.actualizar_una_mascota)
-          .delete(mascotaControlador.eliminar_una_mascota);
+          .get(mascotaControlador.leer_mascotas,autentificador.loginRequired)
+          .put(mascotaControlador.actualizar_una_mascota,autentificador.loginRequired)
+          .delete(mascotaControlador.eliminar_una_mascota,autentificador.loginRequired);
 /*
 router.route("/registro")
           .post(autentificador.registrar);

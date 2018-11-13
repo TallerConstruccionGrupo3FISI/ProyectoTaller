@@ -13,6 +13,12 @@
 
               <div class="row">
                   <div class="col-12">
+                    <% if ( exito!='' ) { %>
+                    <%- "<div class='flash validation encontrado'>" %> <%=exito%> <%- "</div>" %>
+                    <% } %>
+                    <% if ( error!='' ) { %>
+                    <%- "<div class='flash validation noEncontrado'>" %> <%=error%> <%- "</div>" %>
+                    <% } %>
                       <h4>HORARIO ATENCION</h4>
                       <hr>
                       <form class="form-inline" action="/horarios" method="post">
@@ -22,15 +28,15 @@
                                 <input class="form-control form-control" name="fecha" id="fecha" placeholder="Ingresar fecha"/>
                         </div>
 
-                        <div class="form-group row">
+                        <div id="timeOnlyExample" class="form-group row">
                                 <div class="form-group col-md-6">
                                         <label for="horaInicio" class="col-4 col-form-label ">Tiempo inicio</label>
-                                        <input class="timepicker form-control mr-sm-2" name="horaInicio" id="horaInicio" placeholder="Ingresar Hora inicio"/>
+                                        <input class="time form-control mr-sm-2" name="horaInicio" id="horaInicio" placeholder="Ingresar Hora inicio"/>
                                 </div>
 
                                 <div class="form-group col-md-6">
                                       <label for="horaSalida" class="col-4 col-form-label">Tiempo Salida</label>
-                                      <input class="timepicker form-control mr-sm-2" name="horaSalida" id="horaSalida" placeholder="Ingresar Hora Salida"/>
+                                      <input class="time form-control mr-sm-2" name="horaSalida" id="horaSalida" placeholder="Ingresar Hora Salida"/>
                                 </div>
                           </div>
 
@@ -51,10 +57,51 @@
 </div>
 
 <% include ./partials/footer-js %>
-  <script>
-         $('#horaInicio').timepicker();
-         $('#horaSalida').timepicker();
-         $('#fecha').datepicker();
+<!--script type="text/javascript" src="/datepair.js/dist/datepair.js"></script-->
+<script>
+  var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+  var $horaInicio = $("#horaInicio");
+  var $horaSalida = $("#horaSalida");
+  var $fecha = $("#fecha");
+  var re = RegExp("[0-9]*:[0-9]*");
+  $horaInicio.attr('disabled','disabled');
+  $horaSalida.attr('disabled','disabled');
+
+  $horaInicio.timepicker();
+  $horaSalida.timepicker();
+  $fecha.datepicker({
+        minDate: today,
+        maxDate: function() {
+          var date = new Date();
+          date.setDate(date.getDate()+1);
+          return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      }
+    });
+  $fecha.change(function(){
+    $horaInicio.removeAttr( "disabled" );
+  })
+  $horaInicio.change(function(){
+    $horaSalida.removeAttr('disabled');
+    console.log($horaInicio.val());
+    if(re.test($horaInicio.val())){
+       console.log("exito");
+    }
+    else{
+      $horaSalida.val("");
+      $horaSalida.attr('disabled','disabled');
+      $horaInicio.val("");
+    }
+  });
+  $horaSalida.change(function(){
+    if(re.test($horaSalida.val())){
+       console.log("exito");
+       //$horaSalida.val("");
+       //$horaSalida.attr('disabled','disabled');
+    }
+    else{
+        $horaSalida.val("");
+    }
+  });
   </script>
 </body>
 </html>

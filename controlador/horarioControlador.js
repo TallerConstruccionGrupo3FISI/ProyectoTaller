@@ -29,10 +29,15 @@ exports.crear_un_horario = function(req, res) {
 
     var newHorarios = new horarios(req.body);
     newHorarios.save(function(err, horario){
-      if(err)
-        res.send(err);
-      res.json(horario);
+      if(err){
+        req.flash("Error","No se ha creado el horario error en campos");
+        res.redirect("/perfilIngresarHorarioAtencion");
+      }else{
+      //res.json(horario);
+      req.flash("Exito","Se ha creado un horario exitosamente");
+      res.redirect("/perfilIngresarHorarioAtencion");
       //return res.redirect('/perfilMascota');
+      }
     });
 };
 

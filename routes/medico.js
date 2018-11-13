@@ -19,12 +19,12 @@ router.get('/', (req, res)=>{
 */
 
 router.route("/")
-          .get(medicoControlador.listar_medicos)
-          .post(medicoControlador.crear_un_medico);
+          .get(medicoControlador.listar_medicos,autentificador.loginRequired)
+          .post(medicoControlador.crear_un_medico,autentificador.loginRequired);
 router.route("/:medicoID")
-          .get(medicoControlador.leer_un_medico)
-          .put(medicoControlador.actualizar_un_medico)
-          .delete(medicoControlador.eliminar_un_medico);
+          .get(medicoControlador.leer_un_medico,autentificador.loginRequired)
+          .put(medicoControlador.actualizar_un_medico,autentificador.loginRequired)
+          .delete(medicoControlador.eliminar_un_medico,autentificador.loginRequired);
 /*
 router.route("/registro")
           .post(autentificador.registrar);

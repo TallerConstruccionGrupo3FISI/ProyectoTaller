@@ -20,6 +20,10 @@
                       <% if ( pagoExito!='' ) { %>
                       <%- "<div class='flash validation encontrado'>" %> <%=pagoExito%> <%- "</div>" %>
                       <% } %>
+                      <% if ( pagoSinExito!='' ) { %>
+                      <%- "<div class='flash validation noEncontrado'>" %> <%=pagoSinExito%> <%- "</div>" %>
+                      <% } %>
+
                         <h4>Tu perfil</h4>
 
 		                    <hr>

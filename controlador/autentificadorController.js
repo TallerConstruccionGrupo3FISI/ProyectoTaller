@@ -249,12 +249,21 @@ exports.cambiarEmailAdmin = function(req,res){
 exports.loginRequired = function(req, res, next) {
   //console.log("req.user: \n" );
   //console.log(req.user + "\n" );
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
   if (req.session.user) {
     next();
   } else {
       req.flash("Desautorizado","Registrarse para ver esta pagina primero");
       res.redirect("/login");
   }
+};
+exports.nocache = function (req, res, next) {
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
+  next();
 };
 //FUNCION PARA DESLOGUEARSE
 exports.log_out = function(req,res){

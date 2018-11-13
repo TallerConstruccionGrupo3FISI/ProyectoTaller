@@ -16,6 +16,9 @@
                       <% if ( exito!='' ) { %>
                       <%- "<div class='flash validation encontrado'>" %> <%=exito%> <%- "</div>" %>
                       <% } %>
+                      <% if ( noExito!='' ) { %>
+                      <%- "<div class='flash validation noEncontrado'>" %> <%=noExito%> <%- "</div>" %>
+                      <% } %>
 		                    <h4>FICHA HISTORIAL CLINICO</h4>
 		                    <hr>
 		                </div>
@@ -284,15 +287,29 @@
                 $mascotaVacunado.val(dataMascotas[i].vacunado);
                 $mascotaUltimaVisita.val(dataMascotas[i].ultimaVisitaVeterinario);
                 $mascotaEnfermedades.val(dataMascotas[i].enfermedadesDiagnosticadas);
-                $historialDH.val(dataMascotas[i]._historialClinico.DH);
-                $historialFC.val(dataMascotas[i]._historialClinico.FC);
-                $historialFR.val(dataMascotas[i]._historialClinico.FR);
-                $historialT.val(dataMascotas[i]._historialClinico.T);
-                $historialTLLC.val(dataMascotas[i]._historialClinico.TLLC);
-                $historialLinfonodos.val(dataMascotas[i]._historialClinico.linfonodos);
-                $historialMucosas.val(dataMascotas[i]._historialClinico.mucosas);
-                $historialPalpitacionAbdominal.val(dataMascotas[i]._historialClinico.palpitacionAbdominal);
-                $historialPulso.val(dataMascotas[i]._historialClinico.pulso);
+
+
+                if(!dataMascotas[i]._historialClinico){
+                  $historialDH.val('');
+                  $historialFC.val('');
+                  $historialFR.val('');
+                  $historialT.val('');
+                  $historialTLLC.val('');
+                  $historialLinfonodos.val('');
+                  $historialMucosas.val('');
+                  $historialPalpitacionAbdominal.val('');
+                  $historialPulso.val('');
+                }else{
+                                  $historialDH.val(dataMascotas[i]._historialClinico.DH);
+                                  $historialFC.val(dataMascotas[i]._historialClinico.FC);
+                                  $historialFR.val(dataMascotas[i]._historialClinico.FR);
+                                  $historialT.val(dataMascotas[i]._historialClinico.T);
+                                  $historialTLLC.val(dataMascotas[i]._historialClinico.TLLC);
+                                  $historialLinfonodos.val(dataMascotas[i]._historialClinico.linfonodos);
+                                  $historialMucosas.val(dataMascotas[i]._historialClinico.mucosas);
+                                  $historialPalpitacionAbdominal.val(dataMascotas[i]._historialClinico.palpitacionAbdominal);
+                                  $historialPulso.val(dataMascotas[i]._historialClinico.pulso);
+                }
             }
             else{
                 console.log("error la mascota no esta en el array");

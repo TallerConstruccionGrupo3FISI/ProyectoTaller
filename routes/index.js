@@ -61,7 +61,8 @@ router.get("/perfilCliente",autentificador.loginRequired,(req,res)=>{
 router.get("/perfilInformacionCliente",autentificador.loginRequired,(req,res)=>{
   res.render("perfilInformacionCliente",{
     bienvenido: req.flash("Bienvenido"),
-    pagoExito: req.flash("PagoExito")
+    pagoExito: req.flash("PagoExito"),
+    pagoSinExito: req.flash("PagoSinExito")
   });
 });
 
@@ -72,7 +73,10 @@ router.get("/perfilInformacionSecretaria",autentificador.loginRequired,(req,res)
   });
 });
 router.get("/perfilIngresarHorarioAtencion",autentificador.loginRequired,(req,res)=>{
-  res.render("perfilIngresarHorarioAtencion");
+  res.render("perfilIngresarHorarioAtencion",{
+    exito: req.flash("Exito"),
+    error: req.flash("Error")
+  });
 });
 
 router.get("/perfilInformacionMedico",autentificador.loginRequired,(req,res)=>{
@@ -85,41 +89,42 @@ router.get("/perfilFormularioMascota",autentificador.loginRequired,(req,res)=>{
   res.render("perfilFormularioMascota");
 });
 
-router.get("/perfilMascota",(req,res)=>{
+router.get("/perfilMascota",autentificador.loginRequired,(req,res)=>{
   res.render("perfilInformacionMascotas");
 });
-router.get("/perfilReservarCita",(req,res)=>{
+router.get("/perfilReservarCita",autentificador.loginRequired,(req,res)=>{
   res.render("perfilReservarCita",{
    stripePublishableKey: keys.stripePublishableKey
  });
 });
-router.get("/perfilHistorialCita",(req,res)=>{
+router.get("/perfilHistorialCita",autentificador.loginRequired,(req,res)=>{
   res.render("perfilHistorialCita");
 });
-router.get("/perfilInformacionCitas",(req,res)=>{
+router.get("/perfilInformacionCitas",autentificador.loginRequired,(req,res)=>{
   res.render("perfilSecretariaInformacionCitas");
 });
 
-router.get("/perfilSecretariaInformacionUsuarios", (req,res)=>{
+router.get("/perfilSecretariaInformacionUsuarios",autentificador.loginRequired, (req,res)=>{
   res.render("perfilSecretariaInformacionUsuarios");
 });
-router.get("/perfilHorarioDia", (req,res)=>{
+router.get("/perfilHorarioDia",autentificador.loginRequired, (req,res)=>{
     res.render("perfilHorarioDia");
 });
-router.get("/perfilMedicoCitaDia",(req,res)=>{
+router.get("/perfilMedicoCitaDia",autentificador.loginRequired,(req,res)=>{
     res.render("perfilMedicoCitaDia");
 });
 
-router.get("/perfilMedicoIngresarHistorialClinico", (req,res)=>{
+router.get("/perfilMedicoIngresarHistorialClinico",autentificador.loginRequired, (req,res)=>{
     res.render("perfilMedicoIngresarHistorialClinico",{
-      exito: req.flash("Exito")
+      exito: req.flash("Exito"),
+      noExito: req.flash("noExito")
     });
 });
-router.get("/perfilMedicoHorarios", (req,res)=>{
+router.get("/perfilMedicoHorarios",autentificador.loginRequired, (req,res)=>{
     res.render("perfilMedicoHorarios");
 });
 
-router.get("/perfilAdmin",(req,res)=>{
+router.get("/perfilAdmin",autentificador.loginRequired,(req,res)=>{
   //req.flash("exito","hola mundo exito")
     res.render("perfilAdmin",{
     message:req.flash('message'),
@@ -129,23 +134,23 @@ router.get("/perfilAdmin",(req,res)=>{
   });
     //res.render("perfilAdmin");
 });
-router.get("/perfilAdminRegistrarMedico", (req,res)=>{
+router.get("/perfilAdminRegistrarMedico",autentificador.loginRequired, (req,res)=>{
     res.render("perfilAdminRegistrarMedico",{
       error: req.flash("Error"),
       exito: req.flash("Exito")
     });
 });
 
-router.get("/perfilAdminRegistrarSecretaria", (req,res)=>{
+router.get("/perfilAdminRegistrarSecretaria",autentificador.loginRequired, (req,res)=>{
     res.render("perfilAdminRegistrarSecretaria",{
       error: req.flash("Error"),
       exito: req.flash("Exito")
     });
 });
-router.get("/perfilAdminCambiarClave",(req,res)=>{
+router.get("/perfilAdminCambiarClave",autentificador.loginRequired,(req,res)=>{
   res.render("perfilAdminCambiarClave");
 })
-router.get("/perfilAdminCambiarEmail",(req,res)=>{
+router.get("/perfilAdminCambiarEmail",autentificador.loginRequired,(req,res)=>{
   res.render("perfilAdminCambiarEmail");
 })
 

@@ -19,12 +19,12 @@ router.get('/', (req, res)=>{
 */
 
 router.route("/")
-          .get(secretariaControlador.listar_secretarias)
-          .post(secretariaControlador.crear_una_secretaria);
+          .get(secretariaControlador.listar_secretarias,autentificador.loginRequired)
+          .post(secretariaControlador.crear_una_secretaria,autentificador.loginRequired);
 router.route("/:secretariaID")
-          .get(secretariaControlador.leer_una_secretaria)
-          .put(secretariaControlador.actualizar_una_secretaria)
-          .delete(secretariaControlador.eliminar_una_secretaria);
+          .get(secretariaControlador.leer_una_secretaria,autentificador.loginRequired)
+          .put(secretariaControlador.actualizar_una_secretaria,autentificador.loginRequired)
+          .delete(secretariaControlador.eliminar_una_secretaria,autentificador.loginRequired);
 /*
 router.route("/registro")
           .post(autentificador.registrar);

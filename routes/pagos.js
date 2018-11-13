@@ -40,15 +40,18 @@ router.post('/', (req, res) => {
       //return res.redirect('/perfilMascota');
           horarios.findOneAndUpdate({_id: newCita._horario},{ $push: { _cita: newCita._id }},{new:true},function(err,horario){
             if(err){
-              return res.status(400).send({
-               message: err
-             });}
+            //  return res.status(400).send({
+            //   message: err
+            // });
+            req.flash("PagoSinExito","Se ha interrumpido el pago");
+            return res.redirect('/perfilInformacionCliente');
+           }
              else{
                newCita.save(function(err, cita){
                  if(err){
-                   return res.status(400).send({
-                    message: err
-                  });}
+                   req.flash("PagoSinExito","Se ha interrumpido el pago");
+                   return res.redirect('/perfilInformacionCliente');
+                  }
                  req.flash("PagoExito","Se ha completado el pago");
                  return res.redirect('/perfilInformacionCliente');
                });
