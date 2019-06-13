@@ -84,7 +84,7 @@ admin.findOne({}, function(err,admines){
   if (!admines){
     var adminNuevo = new admin({
       "email": "admin",
-      "password": "$2y$10$/JYzkYnfWc5/4eUxVEDGke4zQ1PSw8DYHbzn1PY/22EIgO/F8Thha"
+      "password": "$2y$10$1NfCVH3VGkhTF1yzYlR6XOzXsSf8pjYvOe2cIZAZV9bYdwKoCx/FS"
     });
     adminNuevo.save(function(error){
       if(error){
