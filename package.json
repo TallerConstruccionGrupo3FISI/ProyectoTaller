@@ -34,7 +34,7 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "popper": "^1.0.1",
-    "pug": "^2.0.3",
+    "pug": "^3.0.1",
     "stripe": "^6.12.1",
     "timepicker": "^1.11.14"
   }
